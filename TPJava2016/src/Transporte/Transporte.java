@@ -2,9 +2,9 @@ package Transporte;
 
 public abstract class Transporte {
 	
-	String patente;
-	int capacidad;
-	float velocidad;
+	private String patente;
+	private int capacidad;
+	private float velocidad;
 	
 	
 	public Transporte(String patente, int capacidad, float velocidad) {

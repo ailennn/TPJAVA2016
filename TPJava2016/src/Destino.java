@@ -1,8 +1,8 @@
 
 public class Destino {
 	
-	String ciudad;
-	int kilometros;
+	private String ciudad;
+	private int kilometros;
 	
 	
 	public String getCiudad() {

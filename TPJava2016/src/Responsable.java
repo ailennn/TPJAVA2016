@@ -1,9 +1,9 @@
 
 public class Responsable {
 	
-	String nombre;
-	long dni;
-	float sueldoFijo;
+	private String nombre;
+	private long dni;
+	private float sueldoFijo;
 	
 	
 	public String getNombre() {
