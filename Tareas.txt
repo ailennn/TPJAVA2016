@@ -1,16 +1,19 @@
-Alta vehiculo
-Baja vehiculo
-Modificacion vehiculo
+Clase Agencia (linkedlist): ABM vehiculo, ABM responsable, Crear viaje.
+Clase Viaje: calcular el valor del viaje.
 
-Alta responsable
-Baja responsable
-Modificacion responsable
+A:Alta vehiculo
+F:Baja vehiculo
+G:Modificacion vehiculo
 
-Crear viaje
-Calcular el valor del viaje
+A:Alta responsable
+F:Baja responsable
+G:Modificacion responsable
 
-Reporte recaudacion
-Reporte ranking
+G:Crear viaje
+G:Calcular el valor del viaje
+
+A:Reporte recaudacion
+F:Reporte ranking
 
 Atributos de clases
 
