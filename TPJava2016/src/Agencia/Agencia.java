@@ -1,4 +1,4 @@
-package Agencia;
+package agencia;
 
 public class Agencia {
 /**Contiene las listas de transportes, destinos, y resposables
