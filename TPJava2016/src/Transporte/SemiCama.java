@@ -1,4 +1,4 @@
-package Transporte;
+package transporte;
 
 public class SemiCama extends Transporte{
 

@@ -1,4 +1,4 @@
-package Transporte;
+package transporte;
 public class Auto extends Transporte{
 
 	private static final int CANTIDAD_PASAJEROS = 4;
