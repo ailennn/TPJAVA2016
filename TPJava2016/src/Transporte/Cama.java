@@ -2,7 +2,6 @@ package transporte;
 
 public class Cama extends Transporte{
 
-
 	private static final int CAMA = 26;
 	private static final int COMUN = 6;
 	

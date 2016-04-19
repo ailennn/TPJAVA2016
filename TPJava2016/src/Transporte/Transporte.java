@@ -14,6 +14,10 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 	
+	public static float getPrecioKm() {
+		return PRECIO_KM;
+	}
+
 	public String getPatente() {
 		return patente;
 	}
@@ -32,6 +36,5 @@ public abstract class Transporte {
 	public void setVelocidad(float velocidad) {
 		this.velocidad = velocidad;
 	}
-	
 	
 }
