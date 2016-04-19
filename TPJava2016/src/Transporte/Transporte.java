@@ -5,7 +5,10 @@ public abstract class Transporte {
 	private String patente;
 	private int capacidad;
 	private float velocidad;
-	
+	private static final float PRECIO_KM = 10;
+	private enum estadoViaje{
+			PENDIENTE, EN_CURSO, FINALIZADO
+	}
 	
 	public Transporte(String patente, int capacidad, float velocidad) {
 		super();
