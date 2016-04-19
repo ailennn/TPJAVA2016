@@ -35,4 +35,6 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 	
+	public void getPrecioKM(){	
+	}
 }

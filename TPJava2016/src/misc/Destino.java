@@ -5,6 +5,11 @@ public class Destino {
 	private String ciudad;
 	private int kilometros;
 	
+	public Destino(String ciudad, int kilometros) {
+		super();
+		this.ciudad = ciudad;
+		this.kilometros = kilometros;
+	}
 	public String getCiudad() {
 		return ciudad;
 	}
