@@ -9,6 +9,13 @@ public class Viaje {
 	private Responsable responsable;
 	private Destino destino;
 	
+	
+	
+	public Viaje() {
+		transporte=null;
+		responsable=null;
+		destino=null;
+	}
 	public Transporte getTransporte() {
 		return transporte;
 	}
