@@ -1,9 +1,11 @@
 package transporte;
 
-public class Cama extends Transporte{
+public class Cama extends Colectivo{
 
 	private static final int CAMA = 26;
 	private static final int COMUN = 6;
+	//COSTO ADICIONAL POR ELEGIR CAMA
+	private static final float ADICIONAL_CAMA = 100;
 	private int ocupadoCama;
 	private int ocupadoComun;
 	
@@ -38,6 +40,10 @@ public class Cama extends Transporte{
 
 	public static int getComun() {
 		return COMUN;
+	}
+
+	public static float getAdicionalCama() {
+		return ADICIONAL_CAMA;
 	}
 	
 

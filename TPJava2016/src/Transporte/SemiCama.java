@@ -1,6 +1,6 @@
 package transporte;
 
-public class SemiCama extends Transporte{
+public class SemiCama extends Colectivo{
 
 	private static final int CANTIDAD_PASAJEROS = 40;
 	private int ocupado;

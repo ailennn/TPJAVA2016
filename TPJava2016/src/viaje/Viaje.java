@@ -40,10 +40,5 @@ public abstract class Viaje {
 	}
 	
 	/**CALCULAR COSTO VIAJE*/
-	public float Costo(){
-		float suma=0;
-		if (destino.getKilometros()<=100)
-			suma+=transporte.getPrecioKm();
-			
-	}
+	public void Costo(){}
 }

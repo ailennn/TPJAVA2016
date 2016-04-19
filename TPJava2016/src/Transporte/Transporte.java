@@ -5,7 +5,6 @@ public abstract class Transporte {
 	private String patente;
 	private int capacidad;
 	private float velocidad;
-	private static final float PRECIO_KM = 10;
 	private enum estadoViaje{
 			PENDIENTE, EN_CURSO, FINALIZADO
 	}
@@ -15,10 +14,6 @@ public abstract class Transporte {
 		this.patente = patente;
 		this.capacidad = capacidad;
 		this.velocidad = velocidad;
-	}
-	
-	public static float getPrecioKm() {
-		return PRECIO_KM;
 	}
 
 	public String getPatente() {

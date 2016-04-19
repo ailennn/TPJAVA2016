@@ -3,6 +3,7 @@ public class Auto extends Transporte{
 
 	private static final int CANTIDAD_PASAJEROS = 4;
 	private static final float PRECIO_BASE = 800;
+	private static final float PRECIO_KM = 12;
 	private int ocupado;
 
 	public Auto(String patente, int capacidad, float velocidad, int ocupado) {
@@ -26,5 +27,9 @@ public class Auto extends Transporte{
 		return PRECIO_BASE;
 	}
 
+	public static float getPrecioKm() {
+		return PRECIO_KM;
+	}
+	
 
 }

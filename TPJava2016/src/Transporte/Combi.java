@@ -4,6 +4,7 @@ public class Combi extends Transporte{
 
 	private static final int CANTIDAD_PASAJEROS = 16;
 	private static final float PRECIO_BASE = 1000;
+	private static final float PRECIO_KM = 25;
 	private int ocupado;
 	
 	public Combi(String patente, int capacidad, float velocidad, int ocupado) {
@@ -15,6 +16,10 @@ public class Combi extends Transporte{
 	
 	public static int getCantidadPasajeros() {
 		return CANTIDAD_PASAJEROS;
+	}
+	
+	public static float getPrecioKm() {
+		return PRECIO_KM;
 	}
 
 	public int getOcupado() {
