@@ -11,6 +11,7 @@ G:Modificacion responsable
 
 G:Crear viaje
 G:Calcular el valor del viaje
+F: Finalizar viaje
 set nombre viaje ("DestinoNro")
 Mostrar datos viaje: se muestra por pantalla, hay que llamar a los metodos:
 -get nombre viaje
