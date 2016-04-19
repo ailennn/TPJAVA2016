@@ -5,8 +5,17 @@ public class Responsable {
 	private String nombre;
 	private long dni;
 	private float sueldoFijo;
+	private enum estadoResponsable{
+		DISPONIBLE, OCUPADO}
 	
 	
+	public Responsable(String nombre, long dni, float sueldoFijo) {
+		super();
+		this.nombre = nombre;
+		this.dni = dni;
+		this.sueldoFijo = sueldoFijo;
+	}
+	//GETTERS & SETTERS
 	public String getNombre() {
 		return nombre;
 	}

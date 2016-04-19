@@ -22,5 +22,8 @@ public class SemiCama extends Colectivo{
 	public void setOcupado(int ocupado) {
 		this.ocupado = ocupado;
 	}
-		
+	
+	public float getCosto(){
+		return ocupado*getPrecioKm();
+	}
 }

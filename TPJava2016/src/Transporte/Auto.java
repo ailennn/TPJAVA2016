@@ -31,5 +31,8 @@ public class Auto extends Transporte{
 		return PRECIO_KM;
 	}
 	
+	public float getCosto(){
+		return PRECIO_KM*ocupado+PRECIO_BASE;
+	}
 
 }

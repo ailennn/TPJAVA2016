@@ -45,6 +45,8 @@ public class Cama extends Colectivo{
 	public static float getAdicionalCama() {
 		return ADICIONAL_CAMA;
 	}
-	
+	public float getCosto(){
+		return ocupadoCama*CAMA*ADICIONAL_CAMA+ocupadoComun*COMUN;
+	}
 
 }

@@ -35,6 +35,7 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 	
-	public void getPrecioKM(){	
+	public float getPrecioKM(){ return 0;	
 	}
+	public float getCosto(){return 0;}
 }

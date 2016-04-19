@@ -16,9 +16,10 @@ public class CortaDistancia extends Viaje{
 		return COSTO_BASE;
 	}
 	/**OBTIENE EL COSTO DEL VIAJE= COSTO BASE + PRECIO X KM*/
+	/*CREAR EXCEPCION EN CASO DE QUE EL DESTINO SEA MAYOR A 100 KM*/
 	public float Costo(){
 		float sum=0;
-		sum+=COSTO_BASE+getTransporte().getPrecioKM();
+		sum+=COSTO_BASE+getTransporte().getCosto()*getDestino().getKilometros();
 		return sum;
 	}
 }

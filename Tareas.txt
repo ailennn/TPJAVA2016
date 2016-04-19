@@ -11,20 +11,15 @@ G:Modificacion responsable
 
 G:Crear viaje
 G:Calcular el valor del viaje
-F: Finalizar viaje
-set nombre viaje ("DestinoNro")
-Mostrar datos viaje: se muestra por pantalla, hay que llamar a los metodos:
--get nombre viaje
--get kilometros (de destino)HECHO
--get cant pasajeros(ocupado, no capacidad)(de transporte)HECHO
--get transporte(de viaje)HECHO
--Calcular el valor del viaje
--Mostrar kms recorridos, %cumplido y estado
+Poner nombre viaje ("DestinoNro")
+F:Mostrar datos viaje
 
 A:Reporte recaudacion
 F:Reporte ranking
 
 Atributos de clases
+
+Listas de ocupados y disponibles?
 
 Excepciones
 

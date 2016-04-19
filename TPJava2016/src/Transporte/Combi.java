@@ -33,5 +33,8 @@ public class Combi extends Transporte{
 	public static float getPrecioBase() {
 		return PRECIO_BASE;
 	}
-
+	
+	public float getCosto(){
+		return PRECIO_BASE+PRECIO_KM*ocupado;
+	}
 }
