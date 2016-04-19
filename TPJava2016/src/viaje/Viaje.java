@@ -1,5 +1,6 @@
 package viaje;
 
+import misc.*;
 import transporte.Transporte;
 
 public class Viaje {
@@ -37,7 +38,7 @@ public class Viaje {
 	public float Costo(){
 		float suma=0;
 		if (destino.getKilometros()<=100)
-			suma+=transporte.getPrecioKm()
+			suma+=transporte.getPrecioKm();
 		
 	}
 }

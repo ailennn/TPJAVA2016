@@ -29,7 +29,7 @@ public class test {
 		Calendar fecha = new GregorianCalendar(2015,01,03);
 		
 		System.out.println("Armado de la estructura de arbol. Contenido de obG");
-		
+		ewrwer
 		
 		obG.crearAudio("RockNacional3958",35.6,fecha2,fecha3,32,"ubicacion", "#Abuelos Opera",0,1515,192);
 		obG.crearImagen("FotoViaje2014-05",2.5,fecha,fecha1,15,"ubicacion","#Rafting en #Mendoza", 1,5,320,110,5);
