@@ -3,13 +3,11 @@ package viaje;
 import misc.*;
 import transporte.Transporte;
 
-public class Viaje {
+public abstract class Viaje {
 
 	private Transporte transporte;
 	private Responsable responsable;
 	private Destino destino;
-	
-	
 	
 	public Viaje() {
 		transporte=null;
