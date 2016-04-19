@@ -11,6 +11,8 @@ G:Modificacion responsable
 
 G:Crear viaje
 G:Calcular el valor del viaje
+Poner nombre viaje ("DestinoNro")
+F:Mostrar datos viaje
 
 A:Reporte recaudacion
 F:Reporte ranking
