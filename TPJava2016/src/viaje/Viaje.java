@@ -46,6 +46,6 @@ public class Viaje {
 		float suma=0;
 		if (destino.getKilometros()<=100)
 			suma+=transporte.getPrecioKm();
-		
+			
 	}
 }
