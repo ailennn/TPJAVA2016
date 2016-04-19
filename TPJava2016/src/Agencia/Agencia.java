@@ -35,7 +35,7 @@ public class Agencia {
 	
 	public void bajaVehiculo(String patente){
 		boolean esta=false;
-		Viaje nodoViaje=new Viaje();
+		Viaje nodoViaje=null;
 		/**
 		 * Verifica que el transporte no este en la lista de viajes terminados
 		 */
@@ -91,7 +91,7 @@ public class Agencia {
 	
 	public void bajaResponsable(long dni){
 		boolean esta=false;
-		Viaje nodoViaje=new Viaje();
+		Viaje nodoViaje=null;
 		/**
 		 * Verifica que el responsable no este en la lista de viajes terminados
 		 */
@@ -141,5 +141,25 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Ranking de responsables a bordo ordenado de mayor a menor por 
+	 * cantidad de kilómetros recorridos en los viajes terminados.
+	 * Genera archivo de texto
+	 */
+	
+	public void ranking(){
+		
+	}
+	
+	/**
+	 * Recaudación de los viajes realizados por la empresa, 
+	 * permitiendo ver la información total o bien 
+	 * visualizarla por cada transporte y/o cada destino.
+	 * Genera archivo de texto
+	 */
+	
+	public void recaudacion(){
+		
+	}
 	
 }
