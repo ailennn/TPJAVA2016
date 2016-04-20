@@ -4,13 +4,13 @@ public class Destino {
 	
 	private String ciudad;
 	private int kilometros;
-	private int contador=0;// cada vez que se cree un viaje con un destino, incrementar en 1 el contador (es para ponerlenombre al viaje)
+	private int contador;// cada vez que se cree un viaje con un destino, incrementar en 1 el contador (es para ponerle nombre al viaje)
 	
-	public Destino(String ciudad, int kilometros, int contador) {
+	public Destino(String ciudad, int kilometros) {
 		super();
 		this.ciudad = ciudad;
 		this.kilometros = kilometros;
-		this.contador = contador;
+		this.contador = 0;
 	}
 	public int getContador() {
 		return contador;
