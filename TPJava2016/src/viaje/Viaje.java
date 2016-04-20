@@ -8,6 +8,7 @@ public abstract class Viaje {
 	private enum estadoViaje{
 		PENDIENTE, EN_CURSO, FINALIZADO
 	}
+	private estadoViaje estado;
 	private int kmsRecorridos;
 	private Transporte transporte;
 	private Responsable responsable;
@@ -19,6 +20,30 @@ public abstract class Viaje {
 		responsable=null;
 		destino=null;
 		kmsRecorridos=0;
+	}
+	
+	public estadoViaje getEnCurso(){
+		return estadoViaje.EN_CURSO;
+	}
+	
+	public void setEnCurso(estadoViaje estado){
+		this.estado=estado.EN_CURSO;
+	}
+	
+	public void setPendiente(estadoViaje estado){
+		this.estado=estado.PENDIENTE;
+	}
+	
+	public void setFinalizado(estadoViaje estado){
+		this.estado=estado.FINALIZADO;
+	}
+	
+	public estadoViaje getPendiente(){
+		return estadoViaje.PENDIENTE;
+	}
+	
+	public estadoViaje getFinalizado(){
+		return estadoViaje.FINALIZADO;
 	}
 	
 	public String getNombre() {
