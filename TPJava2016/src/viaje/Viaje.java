@@ -22,28 +22,12 @@ public abstract class Viaje {
 		kmsRecorridos=0;
 	}
 	
-	public estadoViaje getEnCurso(){
-		return estadoViaje.EN_CURSO;
+	public estadoViaje getEstado(){
+		return estado;
 	}
 	
-	public void setEnCurso(estadoViaje estado){
-		this.estado=estado.EN_CURSO;
-	}
-	
-	public void setPendiente(estadoViaje estado){
-		this.estado=estado.PENDIENTE;
-	}
-	
-	public void setFinalizado(estadoViaje estado){
-		this.estado=estado.FINALIZADO;
-	}
-	
-	public estadoViaje getPendiente(){
-		return estadoViaje.PENDIENTE;
-	}
-	
-	public estadoViaje getFinalizado(){
-		return estadoViaje.FINALIZADO;
+	public void setEstado(estadoViaje estado){
+		this.estado=estado;
 	}
 	
 	public String getNombre() {
