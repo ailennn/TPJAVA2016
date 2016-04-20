@@ -153,6 +153,18 @@ public class Agencia {
 		
 	}
 	
+	public void finalizarViaje(){
+		
+	}
+	
+	public void iniciarViajePendiente(){
+		
+	}
+	
+	public void detenerViaje(){
+		
+	}
+	
 	/**
 	 * Ranking de responsables a bordo ordenado de mayor a menor por 
 	 * cantidad de kilómetros recorridos en los viajes terminados.
