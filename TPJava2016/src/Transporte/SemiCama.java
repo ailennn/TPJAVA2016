@@ -24,6 +24,10 @@ public class SemiCama extends Colectivo{
 	}
 	
 	public float getCosto(){
-		return ocupado*getPrecioKm();
+		return 0;
+	}
+	
+	public float getPrecioKm() {
+		return ocupado*getPrecio();
 	}
 }

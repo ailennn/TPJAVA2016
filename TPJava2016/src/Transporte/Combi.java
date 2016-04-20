@@ -18,8 +18,8 @@ public class Combi extends Transporte{
 		return CANTIDAD_PASAJEROS;
 	}
 	
-	public static float getPrecioKm() {
-		return PRECIO_KM;
+	public float getPrecioKm() {
+		return PRECIO_KM*ocupado;
 	}
 
 	public int getOcupado() {
@@ -35,6 +35,6 @@ public class Combi extends Transporte{
 	}
 	
 	public float getCosto(){
-		return PRECIO_BASE+PRECIO_KM*ocupado;
+		return PRECIO_BASE;
 	}
 }

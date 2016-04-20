@@ -28,12 +28,12 @@ public class Auto extends Transporte{
 		return PRECIO_BASE;
 	}
 
-	public static float getPrecioKm() {
+	public float getPrecioKm() {
 		return PRECIO_KM;
 	}
 	
 	public float getCosto(){
-		return PRECIO_KM*ocupado+PRECIO_BASE;
+		return PRECIO_BASE;
 	}
 
 }

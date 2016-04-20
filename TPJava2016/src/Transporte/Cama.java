@@ -46,7 +46,10 @@ public class Cama extends Colectivo{
 		return ADICIONAL_CAMA;
 	}
 	public float getCosto(){
-		return ocupadoCama*CAMA*ADICIONAL_CAMA+ocupadoComun*COMUN;
+		return 0;
 	}
 
+	public float getPrecioKM(){
+		return (ocupadoCama+ocupadoComun)*getPrecio()+ocupadoCama*ADICIONAL_CAMA*getPrecio();
+	}
 }

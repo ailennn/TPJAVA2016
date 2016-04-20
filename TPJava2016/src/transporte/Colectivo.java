@@ -10,7 +10,7 @@ public abstract class Colectivo extends Transporte{
 		// TODO Auto-generated constructor stub
 	}
 
-	public static float getPrecioKm() {
+	public float getPrecio() {
 		return PRECIO_KM;
 	}
 	

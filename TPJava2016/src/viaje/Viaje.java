@@ -13,30 +13,38 @@ public abstract class Viaje {
 	private estadoViaje estado;
 	private int kmsRecorridos;
 	private Transporte transporte;
-	private Responsable responsable;
 	private Destino destino;
+	private int cantPasajeros;
 	
 	
-	public Viaje(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte, Responsable responsable,
-			Destino destino) {
+	public Viaje(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
+			Destino destino,int cantPasajeros) {
 		super();
 		this.nombre = nombre;
 		this.estado = estado;
 		this.kmsRecorridos = kmsRecorridos;
 		this.transporte = transporte;
-		this.responsable = responsable;
 		this.destino = destino;
+		this.cantPasajeros = cantPasajeros;
 	}
 
 	public Viaje() {
 		nombre=null;
 		estado=null;
 		transporte=null;
-		responsable=null;
 		destino=null;
 		kmsRecorridos=0;
+		cantPasajeros=0;
 	}
 	
+	public int getCantPasajeros() {
+		return cantPasajeros;
+	}
+
+	public void setCantPasajeros(int cantPasajeros) {
+		this.cantPasajeros = cantPasajeros;
+	}
+
 	public estadoViaje getEstado(){
 		return estado;
 	}
@@ -64,18 +72,15 @@ public abstract class Viaje {
 	public Transporte getTransporte() {
 		return transporte;
 	}
+	
 	public void setTransporte(Transporte transporte) {
 		this.transporte = transporte;
 	}
-	public Responsable getResponsable() {
-		return responsable;
-	}
-	public void setResponsable(Responsable responsable) {
-		this.responsable = responsable;
-	}
+	
 	public Destino getDestino() {
 		return destino;
 	}
+	
 	public void setDestino(Destino destino) {
 		this.destino = destino;
 	}

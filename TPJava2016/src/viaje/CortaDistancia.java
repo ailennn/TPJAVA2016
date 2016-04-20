@@ -8,8 +8,8 @@ public class CortaDistancia extends Viaje{
 	private static final float COSTO_BASE = 300;
 	
 
-	public CortaDistancia(String nombre, estadoViaje estado, int kmsRecorridos,Transporte transporte, Responsable responsable, Destino destino) {
-		super(nombre, estado, kmsRecorridos,transporte, responsable, destino);
+	public CortaDistancia(String nombre, estadoViaje estado, int kmsRecorridos,Transporte transporte, Destino destino, int cantPasajeros) {
+		super(nombre, estado, kmsRecorridos,transporte, destino,cantPasajeros);
 	}
 
 
@@ -21,7 +21,7 @@ public class CortaDistancia extends Viaje{
 	/*CHEQUEAR QUE TRANSPORTE SEA SOLO AUTO O COMBI O COLECTIVO SEMI CAMA*/
 	public float Costo(){
 		float sum=0;
-		sum+=COSTO_BASE+getTransporte().getCosto()*getDestino().getKilometros();
+		sum+=COSTO_BASE+getTransporte().getCosto()+getTransporte().getPrecioKM()*getDestino().getKilometros();
 		return sum;
 	}
 }

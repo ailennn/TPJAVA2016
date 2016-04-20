@@ -32,7 +32,14 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 	
-	public float getPrecioKM(){ return 0;	
-	}
+	public float getPrecioKM(){ return 0;}
+	/**
+	 * getPrecioKM() devuelve el precio x km, en los casos que corresponda, lo
+	 * multiplica por la cantidad de pasakeros (todos menos auto)
+	 */
+	
 	public float getCosto(){return 0;}
+	/**
+	 * getCosto() devuelve el precio base, en caso de que no lo haya devuelve 0 (en colectivos)
+	 */
 }
