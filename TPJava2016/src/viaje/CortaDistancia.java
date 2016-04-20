@@ -8,9 +8,10 @@ public class CortaDistancia extends Viaje{
 	private static final float COSTO_BASE = 300;
 	
 
-	public CortaDistancia(Transporte transporte, Responsable responsable, Destino destino) {
-		super(transporte, responsable, destino);
+	public CortaDistancia(String nombre, estadoViaje estado, int kmsRecorridos,Transporte transporte, Responsable responsable, Destino destino) {
+		super(nombre, estado, kmsRecorridos,transporte, responsable, destino);
 	}
+
 
 	public static float getCostoBase() {
 		return COSTO_BASE;

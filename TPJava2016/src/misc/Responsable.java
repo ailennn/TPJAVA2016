@@ -5,9 +5,6 @@ public class Responsable {
 	private String nombre;
 	private long dni;
 	private float sueldoFijo;
-	private enum estadoResponsable{
-		DISPONIBLE, OCUPADO}
-	
 	
 	public Responsable(String nombre, long dni, float sueldoFijo) {
 		super();

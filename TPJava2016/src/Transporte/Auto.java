@@ -6,6 +6,7 @@ public class Auto extends Transporte{
 	private static final float PRECIO_KM = 12;
 	private int ocupado;
 
+	//La capacidad, no deberia heredarla de transporte, deberia ser la cantidad_pasajeros
 	public Auto(String patente, int capacidad, float velocidad, int ocupado) {
 		super(patente, capacidad, velocidad);
 		this.ocupado = ocupado;

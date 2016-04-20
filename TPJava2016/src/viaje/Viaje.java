@@ -5,7 +5,9 @@ import transporte.Transporte;
 
 public abstract class Viaje {
 	private String nombre;
-	private enum estadoViaje{
+	//En internet los enum estan public, y asi pude hacer bien el constructor de corta distancia
+	//pero no entiendo mucho como usar los estados (ponerlo en curso, pendiente, etc), hay que investigar
+	public enum estadoViaje{
 		PENDIENTE, EN_CURSO, FINALIZADO
 	}
 	private estadoViaje estado;
@@ -14,8 +16,21 @@ public abstract class Viaje {
 	private Responsable responsable;
 	private Destino destino;
 	
+	
+	public Viaje(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte, Responsable responsable,
+			Destino destino) {
+		super();
+		this.nombre = nombre;
+		this.estado = estado;
+		this.kmsRecorridos = kmsRecorridos;
+		this.transporte = transporte;
+		this.responsable = responsable;
+		this.destino = destino;
+	}
+
 	public Viaje() {
 		nombre=null;
+		estado=null;
 		transporte=null;
 		responsable=null;
 		destino=null;
@@ -62,12 +77,6 @@ public abstract class Viaje {
 		return destino;
 	}
 	public void setDestino(Destino destino) {
-		this.destino = destino;
-	}
-	public Viaje(Transporte transporte, Responsable responsable, Destino destino) {
-		super();
-		this.transporte = transporte;
-		this.responsable = responsable;
 		this.destino = destino;
 	}
 	
