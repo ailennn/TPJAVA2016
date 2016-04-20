@@ -10,16 +10,16 @@ F:Baja responsable
 G:Modificacion responsable
 
 G:Crear viaje
-G:Calcular el valor del viaje
+G:Calcular el valor del viaje, Donde se multiplica por la cantidad de pasajeros??
 Poner nombre viaje ("DestinoNro")
-F:Mostrar datos viaje
+F:Mostrar datos viaje (ver como se hace la simulación, donde cada segundo de ejecución será 1 hora de la vida real)
 
 A:Reporte recaudacion
 F:Reporte ranking
 
 Atributos de clases
 
-Listas de ocupados y disponibles?
+Listas de ocupados y disponibles? -> para responsables y para transporte (los estados eran de viajes, no de transporte)
 
 Excepciones
 

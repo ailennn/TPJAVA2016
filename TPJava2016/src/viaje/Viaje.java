@@ -4,17 +4,39 @@ import misc.*;
 import transporte.Transporte;
 
 public abstract class Viaje {
-
+	private String nombre;
+	private enum estadoViaje{
+		PENDIENTE, EN_CURSO, FINALIZADO
+	}
+	private int kmsRecorridos;
 	private Transporte transporte;
 	private Responsable responsable;
 	private Destino destino;
 	
 	public Viaje() {
+		nombre=null;
 		transporte=null;
 		responsable=null;
 		destino=null;
+		kmsRecorridos=0;
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre() {
+		this.nombre = destino.toString()+Integer.toString(destino.getContador());
+	}
+
+	public int getKmsRecorridos() {
+		return kmsRecorridos;
+	}
+
+	public void setKmsRecorridos(int kmsRecorridos) {
+		this.kmsRecorridos = kmsRecorridos;
+	}
+
 	public Transporte getTransporte() {
 		return transporte;
 	}

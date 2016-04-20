@@ -29,11 +29,15 @@ public class Agencia {
 		listaViajesPendientes = null;
 	}
 	
-/*	public void eliminaVehiculo(Transporte t){
-		this.listaTrasporte.remove(t);
-	}*/
+	public void altaTransporte(){
+		
+	}
 	
-	public void bajaVehiculo(String patente){
+	public void modificaTransporte(){
+		
+	}
+	
+	public void bajaTransporte(String patente){
 		boolean esta=false;
 		Viaje nodoViaje=null;
 		/**
@@ -85,9 +89,13 @@ public class Agencia {
 		}
 	}
 	
-/*	public void eliminaResponsable(Responsable r){
-		this.listaResponsable.remove(r);
-	}*/
+	public void altaResponsable(){
+		
+	}
+	
+	public void modificaResponsable(){
+		
+	}
 	
 	public void bajaResponsable(long dni){
 		boolean esta=false;
@@ -139,6 +147,10 @@ public class Agencia {
 				}
 			}
 		}
+	}
+	
+	public void crearViaje(){
+		
 	}
 	
 	/**

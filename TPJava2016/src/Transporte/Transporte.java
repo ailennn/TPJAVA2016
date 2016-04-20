@@ -5,9 +5,6 @@ public abstract class Transporte {
 	private String patente;
 	private int capacidad;
 	private float velocidad;
-	private enum estadoViaje{
-			PENDIENTE, EN_CURSO, FINALIZADO
-	}
 	
 	public Transporte(String patente, int capacidad, float velocidad) {
 		super();
