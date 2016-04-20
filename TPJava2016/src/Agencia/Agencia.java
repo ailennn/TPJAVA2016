@@ -1,10 +1,13 @@
 package agencia;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.lang.Exception;
 import java.util.*;
 
 import misc.*;
 import transporte.*;
-import viaje.Viaje;
+import viaje.*;
 
 public class Agencia {
 /**Contiene las listas de transportes, destinos, y resposables
@@ -165,6 +168,45 @@ public class Agencia {
 		
 	}
 	
+	public void OrdenarPorResponsables(LinkedList<Viaje> listaTerminados){
+		Collections.sort(listaTerminados, new Comparator<Viaje>()
+        {
+            public int compare(Viaje v1, Viaje v2){   
+         	   
+         	   if(v1.getResponsable().getDni()>(v2.getResponsable().getDni()))
+         		   return 1;
+         	   else
+         		   if(v1.getResponsable().getDni()<(v2.getResponsable().getDni()))
+         			   return -1;
+                else
+             	   return 0;
+            }
+        }
+ 	);
+	}
+	
+	/**
+	 * En la listaAux, se reusó la clase responsable, en donde se almacena los 
+	 * kilometros totales recorridos por ese responsable en el atributo sueldoFijo
+	 * @param listaAux
+	 */
+	public void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
+		Collections.sort(listaAux, new Comparator<Responsable>()
+        {
+            public int compare(Responsable r1, Responsable r2){   
+         	   
+         	   if(r1.getSueldoFijo()>(r2.getSueldoFijo()))
+         		   return 1;
+         	   else
+         		   if(r1.getSueldoFijo()<(r2.getSueldoFijo()))
+         			   return -1;
+                else
+             	   return 0;
+            }
+        }
+ 	);
+	}
+	
 	/**
 	 * Ranking de responsables a bordo ordenado de mayor a menor por 
 	 * cantidad de kilómetros recorridos en los viajes terminados.
@@ -172,6 +214,69 @@ public class Agencia {
 	 */
 	
 	public void ranking(){
+		OrdenarPorResponsables(listaViajesTerminados);
+		Viaje v=null;
+		int suma=0;
+		/**
+		 * La lista auxiliar se usa para almacenar cada responsable(sin que esten repetidos)
+		 * con la cantidad total de kms recorridos, que se suman en la variable suma
+		 */
+		LinkedList<Responsable> listaAux=null;
+		ListIterator<Viaje>iterador=listaViajesTerminados.listIterator();
+		if(iterador.hasNext()){
+			v=iterador.next();
+			long dni=v.getResponsable().getDni();
+			suma+=v.getDestino().getKilometros();
+			while(iterador.hasNext()){
+				v=iterador.next();
+				if(v.getResponsable().getDni()==dni){
+					suma+=v.getDestino().getKilometros();
+				}
+				else{
+					dni=v.getResponsable().getDni();
+					v=iterador.previous();
+					if(listaAux==null)
+						listaAux=new LinkedList<Responsable>();
+					v.getResponsable().setSueldoFijo(suma);
+					listaAux.add(v.getResponsable());
+					suma=0;
+				}
+			}
+			if(listaAux==null)
+				listaAux=new LinkedList<Responsable>();
+			/**
+			 * En el atributo sueldoFijo de Responsable se almacena la cantidad
+			 * total de kilometros recorridos por ese Responsable
+			 */
+			v.getResponsable().setSueldoFijo(suma);
+			listaAux.add(v.getResponsable());
+			
+			OrdenarPorKilometrosRecorridos(listaAux);
+			
+			File arctxt=new File("src//archivos//ranking.txt"); 
+			PrintWriter escribir;
+			if(!arctxt.exists()){
+				try {
+					arctxt.createNewFile();
+				} catch (Exception e) {
+					
+				}
+			}	
+			
+			try {
+
+				escribir = new PrintWriter(arctxt,"utf-8");	
+				Responsable r=null;
+				ListIterator <Responsable> itr= listaAux.listIterator();
+				while(itr.hasNext()) {
+					r=itr.next();
+					escribir.format("%20s\t%d\t%d\n",v.getResponsable().getNombre(),v.getResponsable().getDni(),v.getResponsable().getSueldoFijo());
+				}
+			 
+				escribir.close();
+				} catch (Exception e) {}
+		}
+			
 		
 	}
 	
