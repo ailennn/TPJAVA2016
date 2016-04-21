@@ -8,7 +8,7 @@ public class Combi extends Transporte{
 	private int ocupado;
 	
 	public Combi(String patente, int capacidad, float velocidad, int ocupado) {
-		super(patente, capacidad, velocidad);
+		super(patente,velocidad);
 		this.ocupado = ocupado;
 	}
 

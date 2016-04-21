@@ -6,7 +6,7 @@ public abstract class Colectivo extends Transporte{
 
 	
 	public Colectivo(String patente, int capacidad, float velocidad) {
-		super(patente, capacidad, velocidad);
+		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}
 

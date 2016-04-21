@@ -14,7 +14,7 @@ public class Agencia {
  * 	para poder armar los viajes, hacer los ABM de destino, viajes terminados, responsables
  */
 
-	private LinkedList<Transporte> listaTrasporte;
+	private LinkedList<Transporte> listaTransporte;
 	private LinkedList<Destino> listaDestino;
 	private LinkedList<Responsable> listaResponsable;
 	private LinkedList<Viaje> listaViajesTerminados;
@@ -24,7 +24,7 @@ public class Agencia {
 	
 	
 	public Agencia() {
-		listaTrasporte = null;
+		listaTransporte = null;
 		listaDestino = null;
 		listaResponsable = null;
 		listaViajesTerminados = null;
@@ -36,8 +36,59 @@ public class Agencia {
 		
 	}
 	
-	public void modificaTransporte(){
-		
+	public void modificaTransporte(String patente, String patModif, float velModif){
+		boolean esta=false;
+		Viaje nodoViaje=null;
+		/**
+		 * Verifica que el transporte no este en la lista de viajes terminados
+		 */
+		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+		while(iterador.hasNext()&&!esta){
+			nodoViaje=iterador.next();
+			if(nodoViaje.getTransporte().getPatente().equals(patente))
+				esta=true;
+		}
+		/**
+		 * Verifica que el transporte no este en la lista de viajes en curso si no estaba
+		 * en la lista anterior
+		 */
+		if(!esta){
+			ListIterator <Viaje>iterador2=listaViajesEnCurso.listIterator();
+			while(iterador2.hasNext()&&!esta){
+				nodoViaje=iterador2.next();
+				if(nodoViaje.getTransporte().getPatente().equals(patente))
+					esta=true;
+			}
+			/**
+			 * Verifica que el transporte no este en la lista de viajes pendientes si no
+			 * estaba en las listas anteriores
+			 */
+			if(!esta){
+				ListIterator <Viaje>iterador3=listaViajesPendientes.listIterator();
+				while(iterador3.hasNext()&&!esta){
+					nodoViaje=iterador3.next();
+					if(nodoViaje.getTransporte().getPatente().equals(patente))
+						esta=true;
+				}
+				/**
+				 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
+				 * se puede modificar de la lista de transportes
+				 */
+				if(!esta){
+					boolean encontro=false;
+					Transporte nodoTransporte=null;
+					ListIterator<Transporte> iterador4=listaTransporte.listIterator();
+					while(iterador4.hasNext() && !encontro){
+						nodoTransporte=iterador4.next();
+						if(nodoTransporte.getPatente().equals(patente)){
+							nodoTransporte.setPatente(patModif);
+							nodoTransporte.setVelocidad(velModif);
+							encontro=true;
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void bajaTransporte(String patente){
@@ -78,7 +129,7 @@ public class Agencia {
 				if(!esta){
 					boolean encontro=false;
 					Transporte nodoTransporte=null;
-					ListIterator<Transporte> iterador4=listaTrasporte.listIterator();
+					ListIterator<Transporte> iterador4=listaTransporte.listIterator();
 					while(iterador4.hasNext() && !encontro){
 						nodoTransporte=iterador4.next();
 						if(nodoTransporte.getPatente().equals(patente)){
