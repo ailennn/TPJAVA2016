@@ -257,7 +257,8 @@ public class Agencia {
 	 */
 	
 	public void ranking(){
-		OrdenarPorResponsables(listaViajesTerminados);
+		LinkedList<Viaje> listaTerminados=listaViajesTerminados;
+		OrdenarPorResponsables(listaTerminados);
 		Viaje v=null;
 		int suma=0;
 		/**
@@ -265,7 +266,7 @@ public class Agencia {
 		 * con la cantidad total de kms recorridos, que se suman en la variable suma
 		 */
 		LinkedList<Responsable> listaAux=null;
-		ListIterator<Viaje>iterador=listaViajesTerminados.listIterator();
+		ListIterator<Viaje>iterador=listaTerminados.listIterator();
 		if(iterador.hasNext()){
 			v=iterador.next();
 			long dni=v.getResponsable().getDni();
