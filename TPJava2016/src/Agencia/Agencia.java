@@ -147,13 +147,13 @@ public class Agencia {
 	public void altaTransporte(){
 		
 	}
-	
+	/**
+	 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
+	 * se puede modificar de la lista de transportes
+	 */
 	public void modificaTransporte(String patente, String patModif, float velModif){
 		if(!estaOcupadoTransporte(patente)){
-			/**
-			 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
-			 * se puede modificar de la lista de transportes
-			 */
+
 			boolean encontro=false;
 			Transporte nodoTransporte=null;
 			ListIterator<Transporte> iterador4=listaTransporte.listIterator();
@@ -162,18 +162,19 @@ public class Agencia {
 				if(nodoTransporte.getPatente().equals(patente)){
 					nodoTransporte.setPatente(patModif);
 					nodoTransporte.setVelocidad(velModif);
+					iterador4.set(nodoTransporte);
 					encontro=true;
 				}
 			}
 		}
 	}
-	
+	/**
+	 * Si el transporte que se quiere eliminar no estaba en ninguna lista de viajes, 
+	 * se puede eliminar de la lista de transportes
+	 */
 	public void bajaTransporte(String patente){
 		if(!estaOcupadoTransporte(patente)){
-			/**
-			 * Si el transporte que se quiere eliminar no estaba en ninguna lista de viajes, 
-			 * se puede eliminar de la lista de transportes
-			 */
+
 			boolean encontro=false;
 			Transporte nodoTransporte=null;
 			ListIterator<Transporte> iterador4=listaTransporte.listIterator();
@@ -192,16 +193,35 @@ public class Agencia {
 		
 	}
 	
-	public void modificaResponsable(){
-		
+	/**
+	 * Si el responsable que se quiere modificar no estaba en ninguna lista de viajes,
+	 * se puede modificar de la lista de responsables
+	 */
+	public void modificaResponsable(long dni, long dniModif, float sueldoModif,string nombreModif){
+		if(!estaOcupadoResponsable(dni)){
+
+			boolean encontro=false;
+			Responsable nodoResponsable=null;
+			ListIterator<Responsable> iterador4=listaResponsable.listIterator();
+			while(iterador4.hasNext() && !encontro){
+				nodoResponsable=iterador4.next();
+				if(nodoResponsable.getDni()== dni){
+					nodoResponsable.setDni(dniModif);
+					nodoResponsable.setSueldoFijo(sueldoModif);
+					nodoResponsable.setNombre(nombreModif);
+					iterador4.set(nodoResponsable);
+					encontro=true;
+				}
+			}
+		}
 	}
-	
+	/**
+	 * Si el responsable que se quiere eliminar no estaba en ninguna lista de viajes, 
+	 * se puede eliminar de la lista de responsables
+	 */
 	public void bajaResponsable(long dni){
 		if(!estaOcupadoResponsable(dni)){
-			/**
-			 * Si el responsable que se quiere eliminar no estaba en ninguna lista de viajes, 
-			 * se puede eliminar de la lista de responsables
-			 */
+
 			boolean encontro=false;
 			Responsable nodoResponsable=null;
 			ListIterator<Responsable> iterador4=listaResponsable.listIterator();
