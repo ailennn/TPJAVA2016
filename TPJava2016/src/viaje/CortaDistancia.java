@@ -9,7 +9,7 @@ public class CortaDistancia extends Viaje{
 	
 
 	public CortaDistancia(String nombre, estadoViaje estado, int kmsRecorridos,Transporte transporte, Destino destino, int cantPasajeros) {
-		super(nombre, estado, kmsRecorridos,transporte, destino,cantPasajeros);
+		super(nombre, estado, kmsRecorridos,transporte, destino,cantPasajeros,null);
 	}
 
 

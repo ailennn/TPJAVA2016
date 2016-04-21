@@ -7,17 +7,11 @@ import java.util.*;
 
 public class LargaDistancia extends Viaje{
 
-	private LinkedList<Responsable> listaResponsable;
-	
 	public LargaDistancia(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
 			 Destino destino, int cantPasajeros, LinkedList<Responsable> listaResponsable) {
-		super(nombre, estado, kmsRecorridos, transporte, destino, cantPasajeros);
+		super(nombre, estado, kmsRecorridos, transporte, destino, cantPasajeros,listaResponsable);
 		this.listaResponsable = listaResponsable;
 
-	}
-	
-	public LinkedList<Responsable> getListaResponsable() {
-		return listaResponsable;
 	}
 
 	public void setListaResponsable(LinkedList<Responsable> listaResponsable) {

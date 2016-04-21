@@ -18,7 +18,7 @@ Iniciar viaje pendiente
 detener viaje
 
 A:Reporte recaudacion
-F:Reporte ranking
+F:Reporte ranking->usar instanceOf()
 
 Cargar los destinos posibles para los viajes, como una lista fija, a partir de un archivo de texto
 o XML.

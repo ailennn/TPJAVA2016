@@ -95,8 +95,15 @@ public class Agencia {
 		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
 		while(iterador.hasNext()&&!esta){
 			nodoViaje=iterador.next();
-			if(nodoViaje.getResponsable().getDni()==dni)
-				esta=true;
+			if(nodoViaje instanceof LargaDistancia){
+				Responsable r=null;
+				ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
+				while(itr.hasNext()&&!esta){
+					r=itr.next();
+					if(r.getDni()==dni)
+						esta=true;
+				}
+			}
 		}
 		/**
 		 * Verifica que el responsable no este en la lista de viajes en curso si no estaba en la lista anterior
@@ -105,8 +112,15 @@ public class Agencia {
 			ListIterator <Viaje>iterador2=listaViajesEnCurso.listIterator();
 			while(iterador2.hasNext()&&!esta){
 				nodoViaje=iterador2.next();
-				if(nodoViaje.getResponsable().getDni()==dni)
-					esta=true;
+				if(nodoViaje instanceof LargaDistancia){
+					Responsable r=null;
+					ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
+					while(itr2.hasNext()&&!esta){
+						r=itr2.next();
+						if(r.getDni()==dni)
+							esta=true;
+					}
+				}
 			}
 			/**
 			 * Verifica que el responsable no este en la lista de viajes pendientes si no estaba en las listas anteriores
@@ -115,8 +129,15 @@ public class Agencia {
 				ListIterator <Viaje>iterador3=listaViajesPendientes.listIterator();
 				while(iterador3.hasNext()&&!esta){
 					nodoViaje=iterador3.next();
-					if(nodoViaje.getResponsable().getDni()==dni)
-						esta=true;
+					if(nodoViaje instanceof LargaDistancia){
+						Responsable r=null;
+						ListIterator<Responsable> itr3=nodoViaje.getListaResponsable().listIterator();
+						while(itr3.hasNext()&&!esta){
+							r=itr3.next();
+							if(r.getDni()==dni)
+								esta=true;
+						}
+					}
 				}
 			}
 		}
@@ -211,15 +232,15 @@ public class Agencia {
 		
 	}
 	
-	public void OrdenarPorResponsables(LinkedList<Viaje> listaTerminados){
-		Collections.sort(listaTerminados, new Comparator<Viaje>()
+	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
+		Collections.sort(listaAux, new Comparator<Responsable>()
         {
-            public int compare(Viaje v1, Viaje v2){   
+            public int compare(Responsable r1, Responsable r2){   
          	   
-         	   if(v1.getResponsable().getDni()>(v2.getResponsable().getDni()))
+         	   if(r1.getDni()>(r2.getDni()))
          		   return 1;
          	   else
-         		   if(v1.getResponsable().getDni()<(v2.getResponsable().getDni()))
+         		   if(r1.getDni()<(r2.getDni()))
          			   return -1;
                 else
              	   return 0;
@@ -257,8 +278,6 @@ public class Agencia {
 	 */
 	
 	public void ranking(){
-		LinkedList<Viaje> listaTerminados=listaViajesTerminados;
-		OrdenarPorResponsables(listaTerminados);
 		Viaje v=null;
 		int suma=0;
 		/**
@@ -266,36 +285,55 @@ public class Agencia {
 		 * con la cantidad total de kms recorridos, que se suman en la variable suma
 		 */
 		LinkedList<Responsable> listaAux=null;
+		LinkedList<Responsable>listaAux2=null;
+		LinkedList<Viaje>listaTerminados=listaViajesTerminados;
 		ListIterator<Viaje>iterador=listaTerminados.listIterator();
-		if(iterador.hasNext()){
+		while(iterador.hasNext()){
 			v=iterador.next();
-			long dni=v.getResponsable().getDni();
-			suma+=v.getDestino().getKilometros();
-			while(iterador.hasNext()){
-				v=iterador.next();
-				if(v.getResponsable().getDni()==dni){
-					suma+=v.getDestino().getKilometros();
-				}
-				else{
-					dni=v.getResponsable().getDni();
-					v=iterador.previous();
+			if(v instanceof LargaDistancia){
+				ListIterator<Responsable>itr=v.getListaResponsable().listIterator();
+				Responsable r=null;
+				while(itr.hasNext()){
+					r=itr.next();
 					if(listaAux==null)
 						listaAux=new LinkedList<Responsable>();
-					v.getResponsable().setSueldoFijo(suma);
-					listaAux.add(v.getResponsable());
+					r.setSueldoFijo(v.getDestino().getKilometros());
+					listaAux.add(r);
+				}
+			}	
+		}
+		OrdenarPorResponsables(listaAux);
+		ListIterator<Responsable>itr=listaAux.listIterator();
+		Responsable r=null;
+		if(itr.hasNext()){
+			r=itr.next();
+			long dni=r.getDni();
+			suma+=r.getSueldoFijo();
+			while(itr.hasNext()){
+				r=itr.next();
+				if(r.getDni()==dni){
+					suma+=r.getSueldoFijo();
+				}
+				else{
+					dni=r.getDni();
+					r=itr.previous();
+					if(listaAux2==null)
+						listaAux2=new LinkedList<Responsable>();
+					r.setSueldoFijo(suma);
+					listaAux2.add(r);
 					suma=0;
 				}
 			}
-			if(listaAux==null)
-				listaAux=new LinkedList<Responsable>();
+			if(listaAux2==null)
+				listaAux2=new LinkedList<Responsable>();
 			/**
 			 * En el atributo sueldoFijo de Responsable se almacena la cantidad
 			 * total de kilometros recorridos por ese Responsable
 			 */
-			v.getResponsable().setSueldoFijo(suma);
-			listaAux.add(v.getResponsable());
+			r.setSueldoFijo(suma);
+			listaAux2.add(r);
 			
-			OrdenarPorKilometrosRecorridos(listaAux);
+			OrdenarPorKilometrosRecorridos(listaAux2);
 			
 			File arctxt=new File("src//archivos//ranking.txt"); 
 			PrintWriter escribir;
@@ -310,18 +348,16 @@ public class Agencia {
 			try {
 
 				escribir = new PrintWriter(arctxt,"utf-8");	
-				Responsable r=null;
-				ListIterator <Responsable> itr= listaAux.listIterator();
-				while(itr.hasNext()) {
-					r=itr.next();
-					escribir.format("%20s\t%d\t%d\n",v.getResponsable().getNombre(),v.getResponsable().getDni(),v.getResponsable().getSueldoFijo());
+				Responsable resp=null;
+				ListIterator <Responsable> itera= listaAux2.listIterator();
+				while(itera.hasNext()) {
+					resp=itera.next();
+					escribir.format("%20s\t%d\t%d\n",r.getNombre(),r.getDni(),r.getSueldoFijo());
 				}
 			 
 				escribir.close();
 				} catch (Exception e) {}
 		}
-			
-		
 	}
 	
 	/**

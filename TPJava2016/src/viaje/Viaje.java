@@ -1,5 +1,7 @@
 package viaje;
 
+import java.util.LinkedList;
+
 import misc.*;
 import transporte.Transporte;
 
@@ -15,10 +17,10 @@ public abstract class Viaje {
 	private Transporte transporte;
 	private Destino destino;
 	private int cantPasajeros;
-	
+	protected LinkedList<Responsable> listaResponsable=null;
 	
 	public Viaje(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
-			Destino destino,int cantPasajeros) {
+			Destino destino,int cantPasajeros,LinkedList<Responsable> listaResponsable) {
 		super();
 		this.nombre = nombre;
 		this.estado = estado;
@@ -26,6 +28,7 @@ public abstract class Viaje {
 		this.transporte = transporte;
 		this.destino = destino;
 		this.cantPasajeros = cantPasajeros;
+		this.listaResponsable = null;
 	}
 
 	public Viaje() {
@@ -35,6 +38,15 @@ public abstract class Viaje {
 		destino=null;
 		kmsRecorridos=0;
 		cantPasajeros=0;
+		listaResponsable = null;
+	}
+	
+	public LinkedList<Responsable> getListaResponsable() {
+		return listaResponsable;
+	}
+
+	public void setListaResponsable(LinkedList<Responsable> listaResponsable) {
+		this.listaResponsable = null;
 	}
 	
 	public int getCantPasajeros() {
