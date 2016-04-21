@@ -10,7 +10,7 @@ public class LargaDistancia extends Viaje{
 	private LinkedList<Responsable> listaResponsable;
 	
 	public LargaDistancia(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
-			 Destino destino, int cantPasajeros, LinkedList<Responsable> listaResponsable, float precioPorResponsable) {
+			 Destino destino, int cantPasajeros, LinkedList<Responsable> listaResponsable) {
 		super(nombre, estado, kmsRecorridos, transporte, destino, cantPasajeros);
 		this.listaResponsable = listaResponsable;
 
