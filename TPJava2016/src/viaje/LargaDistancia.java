@@ -35,7 +35,7 @@ public class LargaDistancia extends Viaje{
 		ListIterator <Responsable> iterador= listaResponsable.listIterator();
 		while (iterador.hasNext()){
 			nodo=iterador.next();
-			sumaSueldo=nodo.getSueldoFijo();
+			sumaSueldo+=nodo.getSueldoFijo();
 		}
 		sum+=getTransporte().getCosto()+getTransporte().getPrecioKM()*getDestino().getKilometros()+sumaSueldo;
 		return sum;
