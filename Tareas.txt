@@ -1,6 +1,3 @@
-Clase Agencia (linkedlist): ABM vehiculo, ABM responsable, Crear viaje.
-Clase Viaje: calcular el valor del viaje.
-
 A:Alta vehiculo
 F:Baja vehiculo
 G:Modificacion vehiculo
@@ -10,7 +7,10 @@ F:Baja responsable
 G:Modificacion responsable
 
 G:Crear viaje
-G:Calcular el valor del viaje, Donde se multiplica por la cantidad de pasajeros??
+Asignar transporte a viaje (cuando creas viaje) (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese transporte)(->si no se hace lista transporte disponibles y lista ocupados)
+Asignar responsable/s a bordo si vaje es larga distancia (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese responsable)(->si no se hace lista responsable disponibles y lista ocupados)
+Asignar cantidad de camas si es coche cama
+G:Calcular el valor del viaje
 Poner nombre viaje ("DestinoNro")
 F:Mostrar datos viaje (ver como se hace la simulación, donde cada segundo de ejecución será 1 hora de la vida real)
 Finalizar Viaje
@@ -20,9 +20,11 @@ detener viaje
 A:Reporte recaudacion
 F:Reporte ranking
 
-Atributos de clases
+Cargar los destinos posibles para los viajes, como una lista fija, a partir de un archivo de texto
+o XML.
 
-Listas de ocupados y disponibles? -> para responsables y para transporte (los estados eran de viajes, no de transporte)
+Listas de ocupados y disponibles? -> para responsables y para transporte (los estados eran de viajes, no de transporte) no, si recorremos las listas de viajes y si
+					lo encontramos ahi no se puede modificar/eliminar, si no esta en las listas si se puede.
 
 Excepciones
 
