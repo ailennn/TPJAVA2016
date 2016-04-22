@@ -7,12 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import transporte.*;
-import agencia.Agencia;
-import viaje.*;
-import misc.*;
-
-import org.junit.Test; 
+import org.junit.Test; //GIU Y AILEN: IMPORTANTE! HAY QUE AGREGAR EL JUNIT.JAR QUE AGREGO EN GITHUB. EN EL PROYECTO PONEN PROPERTIES,JAVA BUILD PATH, LIBRARIES, ADD EXTERNAL JAR, Y AHI BUSCAN EL JUNIT
 
 /**
  * Clase utilizada para probar el funcionamiento de todos los metodos por consola (sin interfaz grafica)  
@@ -21,50 +16,95 @@ import org.junit.Test;
 public class test {
 	@Test
 	public void test() throws FileNotFoundException{
+		
+	//GIU Y AILEN: ESTA COMENTADO PARA TENERLO POR LAS DUDAS DE EJEMPLO
+		
 				
-		//******************  Armado de las listas **********************
+	// ******************  Armado de la estructura para prueba com albumes, subalbumes y Archivos para EJEMPLO **********************/
 		
-		LinkedList<Transporte> listaTransporte= new LinkedList<Transporte>();
-		LinkedList<Responsable> listaResponsable= new LinkedList<Responsable>();
-		LinkedList<Viaje> listaViajesTerminados= new LinkedList<Viaje>();
-		LinkedList<Viaje> listaViajesPendientes= new LinkedList<Viaje>();
+		/*LinkedList<Album> Lgestor= new LinkedList<Album>();
+
+	
+		GestorDeArchivo obG = new GestorDeArchivo(); 
+		Calendar fecha = new GregorianCalendar(2015,01,03);
+		
+		System.out.println("Armado de la estructura de arbol. Contenido de obG");
+		ewrwer
+		
+		obG.crearAudio("RockNacional3958",35.6,fecha2,fecha3,32,"ubicacion", "#Abuelos Opera",0,1515,192);
+		obG.crearImagen("FotoViaje2014-05",2.5,fecha,fecha1,15,"ubicacion","#Rafting en #Mendoza", 1,5,320,110,5);
+		obG.crearVideo("Noti20130910",153,fecha4,fecha5,5,"ubicacion", "Entrevista a #TomasCoca",2,480,720,30); //duracion va en segundos
+		obG.agregarAlbum("Futbol");
+		obG.agregarAlbum("Viajes");
+		obG.agregarAlbum("Musica");
+		obG.agregarAlbum("Fotos 2014");
+		obG.agregarAlbum("NuevoAlbum");
+		obG.agregarAlbum("Infantiles");
+		
+		ArchivoMultimedia Arc1= new Audio("RockNacional3958",35.6,fecha2,fecha3,32,"0", "0",0,1515,192);
+		ArchivoMultimedia Arc2= new Imagen("FotoViaje2014-05",2.5,fecha,fecha1,15,"5","0", 1,5,320,110,5);
+		ArchivoMultimedia Arc3= new Video("Noti20130910",153,fecha4,fecha5,5,"50", "10",2,480,720,30);
+		
+		LinkedList<ArchivoMultimedia> LArchivo=new LinkedList<ArchivoMultimedia>();
+		LArchivo.add(Arc1);
+		LArchivo.add(Arc2);
+		LArchivo.add(Arc3);
+		
+		if(obG.getLAlbum().isEmpty()) System.out.println("Arbol está vacio") ;*/
 		
 		
-		Agencia obA = new Agencia(); 
+			/* **** arma la estructura de arbol *** */
 		
-		System.out.println("Armado de las listas de la agencia obA");
-		
-		/*obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();*/
-		
-		Transporte t1= new Auto("AAA000", 100.1, 2);
-		Transporte t2= new Combi("AAA001", 90.5, 8);
-		Transporte t3= new SemiCama("AAA002", 95.6, 30);
-		Transporte t4= new Cama("AAA003",88.3,20,2);
-		Responsable r1= new Responsable("Flor", 35797200, 500.5);
-		Responsable r2= new Responsable("Giu", 33333333, 555.2);
-		Responsable r3= new Responsable("Ailen", 34444444, 599.7);
-		Responsable r4= new Responsable("Jeje", 22222222, 450.5);
-		Responsable r5= new Responsable("Jaja", 30303030, 4100.4);
-		
-		listaTransporte.add(t1);
-		listaTransporte.add(t2);
-		listaTransporte.add(t3);
-		listaTransporte.add(t4);
-		
-		listaResponsable.add(r1);
-		listaResponsable.add(r2);
-		listaResponsable.add(r3);
-		listaResponsable.add(r4);
-		listaResponsable.add(r5);
-			
+/*			Album nodoAux= new Album(); 
+			Iterator <Album> itr= obG.getLAlbum().iterator();
+			while(itr.hasNext()){
+				nodoAux=itr.next();*/
+				/* ** inserto dento del album raiz viajes**/ 
+				/*if(nodoAux.equals(obG.getLAlbum().get(1))){ 
+					
+						System.out.println(nodoAux.getNombre()+" "+ obG.getLAlbum().get(1).getNombre());
+						
+						nodoAux.agregarAlbum("SubALbViajes",nodoAux);
+						nodoAux.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(2), nodoAux);
+						nodoAux.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(0), nodoAux);
+
+				}*/
+				
+				/* ** inserto dento del album raiz musica**/
+				/*if(nodoAux.equals(obG.getLAlbum().get(2))){ //System.out.println("Obj2" );
+					System.out.println(nodoAux.getNombre()+" "+ obG.getLAlbum().get(2).getNombre());*/
+					
+					/*nodoAux.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(0), nodoAux);
+					nodoAux.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(1), nodoAux);
+					
+				}
+				*/
+				/* ** inserto dento del album raiz Fotos2014**/
+				/*if(nodoAux.equals(obG.getLAlbum().get(3))){ //System.out.println("Obj4" );
+					System.out.println(nodoAux.getNombre()+" "+ obG.getLAlbum().get(4).getNombre());
+					
+					nodoAux.agregarAlbum("SubALbFotos1",nodoAux);
+					nodoAux.agregarAlbum("SubALbFotos2",nodoAux);
+					nodoAux.agregarAlbum("SubALbFotos3",nodoAux);
+
+					Album nodoAux1= new Album(); 
+					Iterator <Album> itr1= nodoAux.getLAlbum().iterator();
+					while(itr1.hasNext()){
+						nodoAux1=itr1.next();
+						System.out.println("SubObjetos de: "+nodoAux1.getNombre());
+						if(nodoAux1.getNombre() == "SubALbFotos2"){ 
+							nodoAux1.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(0), nodoAux1);
+							nodoAux1.agregarAlbum("SubSubAlbFotos2", nodoAux1);
+							
+						}	
+						if(nodoAux1.getNombre() == "SubALbFotos1") {
+								nodoAux1.agregarAlbum("SubSubALbFotos1", nodoAux1);
+								nodoAux1.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(1), nodoAux1);
+								nodoAux1.agregarArchivoAAlbum(obG.getLArchivoMultimedia().get(2), nodoAux1);
+						}
+					}
+				}
+			}*/
 			
 /* ******************************************************************************************************************************************/ 
 		//RecorreLista(obG.getLAlbum());

@@ -5,8 +5,8 @@ public class SemiCama extends Colectivo{
 	private static final int CANTIDAD_PASAJEROS = 40;
 	private int ocupado;
 
-	public SemiCama(String patente, double velocidad, int ocupado) {
-		super(patente, velocidad);
+	public SemiCama(String patente, int capacidad, float velocidad, int ocupado) {
+		super(patente, capacidad, velocidad);
 		this.ocupado = ocupado;
 	}
 
@@ -23,11 +23,11 @@ public class SemiCama extends Colectivo{
 		this.ocupado = ocupado;
 	}
 	
-	public double getCosto(){
+	public float getCosto(){
 		return 0;
 	}
 	
-	public double getPrecioKm() {
+	public float getPrecioKm() {
 		return ocupado*getPrecio();
 	}
 }

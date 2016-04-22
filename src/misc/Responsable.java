@@ -4,9 +4,9 @@ public class Responsable {
 	
 	private String nombre;
 	private long dni;
-	private double sueldoFijo;
+	private float sueldoFijo;
 	
-	public Responsable(String nombre, long dni, double sueldoFijo) {
+	public Responsable(String nombre, long dni, float sueldoFijo) {
 		super();
 		this.nombre = nombre;
 		this.dni = dni;
@@ -25,10 +25,10 @@ public class Responsable {
 	public void setDni(long dni) {
 		this.dni = dni;
 	}
-	public double getSueldoFijo() {
+	public float getSueldoFijo() {
 		return sueldoFijo;
 	}
-	public void setSueldoFijo(double sueldoFijo) {
+	public void setSueldoFijo(float sueldoFijo) {
 		this.sueldoFijo = sueldoFijo;
 	}
 	

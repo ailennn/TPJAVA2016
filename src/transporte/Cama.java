@@ -5,13 +5,13 @@ public class Cama extends Colectivo{
 	private static final int CAMA = 26;
 	private static final int COMUN = 6;
 	//COSTO ADICIONAL POR ELEGIR CAMA
-	private static final double ADICIONAL_CAMA = 100;
+	private static final float ADICIONAL_CAMA = 100;
 	private int ocupadoCama;
 	private int ocupadoComun;
 	
 
-	public Cama(String patente, double velocidad, int ocupadoCama, int ocupadoComun) {
-		super(patente, velocidad);
+	public Cama(String patente, int capacidad, float velocidad, int ocupadoCama, int ocupadoComun) {
+		super(patente, capacidad, velocidad);
 		this.ocupadoCama = ocupadoCama;
 		this.ocupadoComun = ocupadoComun;
 	}
@@ -42,14 +42,14 @@ public class Cama extends Colectivo{
 		return COMUN;
 	}
 
-	public static double getAdicionalCama() {
+	public static float getAdicionalCama() {
 		return ADICIONAL_CAMA;
 	}
-	public double getCosto(){
+	public float getCosto(){
 		return 0;
 	}
 
-	public double getPrecioKM(){
+	public float getPrecioKM(){
 		return (ocupadoCama+ocupadoComun)*getPrecio()+ocupadoCama*ADICIONAL_CAMA*getPrecio();
 	}
 }

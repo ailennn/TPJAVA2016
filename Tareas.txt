@@ -7,8 +7,8 @@ F:Baja responsable
 G:Modificacion responsable
 
 G:Crear viaje
-Asignar transporte a viaje (cuando creas viaje) (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese transporte)(->si no se hace lista transporte disponibles y lista ocupados)
-Asignar responsable/s a bordo si vaje es larga distancia (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese responsable)(->si no se hace lista responsable disponibles y lista ocupados)
+Asignar transporte a viaje (cuando creas viaje) (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese transporte)
+Asignar responsable/s a bordo si vaje es larga distancia (recorrer listas de viajes y si esta en algun viaje no se puede asignar ese responsable)
 Asignar cantidad de camas si es coche cama
 G:Calcular el valor del viaje
 Poner nombre viaje ("DestinoNro")

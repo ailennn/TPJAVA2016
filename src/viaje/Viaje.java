@@ -98,5 +98,5 @@ public abstract class Viaje {
 	}
 	
 	/**CALCULAR COSTO VIAJE*/
-	public double Costo(){return 0;}
+	public float Costo(){return 0;}
 }

@@ -3,11 +3,11 @@ package transporte;
 public class Combi extends Transporte{
 
 	private static final int CANTIDAD_PASAJEROS = 16;
-	private static final double PRECIO_BASE = 1000;
-	private static final double PRECIO_KM = 25;
+	private static final float PRECIO_BASE = 1000;
+	private static final float PRECIO_KM = 25;
 	private int ocupado;
 	
-	public Combi(String patente, double velocidad, int ocupado) {
+	public Combi(String patente, int capacidad, float velocidad, int ocupado) {
 		super(patente,velocidad);
 		this.ocupado = ocupado;
 	}
@@ -18,7 +18,7 @@ public class Combi extends Transporte{
 		return CANTIDAD_PASAJEROS;
 	}
 	
-	public double getPrecioKm() {
+	public float getPrecioKm() {
 		return PRECIO_KM*ocupado;
 	}
 
@@ -30,11 +30,11 @@ public class Combi extends Transporte{
 		this.ocupado = ocupado;
 	}
 
-	public static double getPrecioBase() {
+	public static float getPrecioBase() {
 		return PRECIO_BASE;
 	}
 	
-	public double getCosto(){
+	public float getCosto(){
 		return PRECIO_BASE;
 	}
 }

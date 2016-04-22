@@ -204,7 +204,6 @@ public class Agencia {
 		}
 	}
 	
-	//NO ME GUSTA PARA NADA COMO ESTA HECHO, VER!!!!
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
 		/**
 		 * Si los kilometros del destino es <=100, tengo que crear un viaje de corta distancia
@@ -238,8 +237,7 @@ public class Agencia {
 					 * Crea el viaje y lo agrega a la lista de viajes pendientes
 					 */
 					//ver como usar el enum para el estado viaje
-					Viaje v=null;
-					//Viaje v= new CortaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
+					Viaje v= new CortaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
 					if(this.listaViajesPendientes==null) // si no tiene elementos
 					{
 						this.listaViajesPendientes= new LinkedList<Viaje>(); 
@@ -281,8 +279,7 @@ public class Agencia {
 					 * Crea el viaje y lo agrega a la lista de viajes pendientes
 					 */
 					//ver como usar el enum para el estado viaje
-					Viaje v=null;
-					//Viaje v= new LargaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
+					Viaje v= new LargaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
 					if(this.listaViajesPendientes==null) // si no tiene elementos
 					{
 						this.listaViajesPendientes= new LinkedList<Viaje>(); 
@@ -298,8 +295,7 @@ public class Agencia {
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
 							//ver como usar el enum para el estado viaje
-							Viaje v=null;
-							//Viaje v= new LargaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
+							Viaje v= new LargaDistancia(v.setNombre(),"PENDIENTE",0,t,d,cantPasajeros,lista);
 							if(this.listaViajesPendientes==null) // si no tiene elementos
 							{
 								this.listaViajesPendientes= new LinkedList<Viaje>(); 
@@ -466,35 +462,6 @@ public class Agencia {
 	
 	public void recaudacion(){
 		
-	}
-
-	
-	/**
-	 * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
-	 * @param listaTransporte
-	 */
-	public void recorreListaTransporte(LinkedList<Transporte> listaTransporte) {
- 		
-		Transporte nodoTransporte= null;
-		ListIterator <Transporte> iterador= listaTransporte.listIterator();
-		while(iterador.hasNext()){
-			nodoTransporte=iterador.next();
-			System.out.println(nodoTransporte.getPatente());
-		}					 
-	}
-	
-	/**
-	 * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
-	 * @param listaResponsable
-	 */
-public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
- 		
-		Responsable nodoResponsable= null;
-		ListIterator <Responsable> iterador= listaResponsable.listIterator();
-		while(iterador.hasNext()){
-			nodoResponsable=iterador.next();
-			System.out.println(nodoResponsable.getDni());
-		}					 
 	}
 	
 }
