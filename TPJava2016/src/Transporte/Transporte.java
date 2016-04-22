@@ -40,7 +40,7 @@ public abstract class Transporte {
 	public double getPrecioKM(){ return 0;}
 	/**
 	 * getPrecioKM() devuelve el precio x km, en los casos que corresponda, lo
-	 * multiplica por la cantidad de pasakeros (todos menos auto)
+	 * multiplica por la cantidad de pasajeros (todos menos auto)
 	 */
 	
 	public double getCosto(){return 0;}
