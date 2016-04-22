@@ -33,7 +33,7 @@ public class test {
 		
 		System.out.println("Armado de las listas de la agencia obA");
 		
-		/*obA.altaAuto("AAA000", 100.1);
+		obA.altaAuto("AAA000", 100.1);
 		obA.altaCombi("AAA001", 90.5);
 		obA.altaSemiCama("AAA002", 95.6);
 		obA.altaCama("AAA003", 88.3);
@@ -41,7 +41,7 @@ public class test {
 		obA.altaResponsable("Giu", 33333333, 555.2);
 		obA.altaResponsable("Ailen", 34444444, 599.7);
 		obA.altaResponsable("Jeje", 22222222, 450.5);
-		obA.altaResponsable("Jaja", 30303030, 4100.4);*/
+		obA.altaResponsable("Jaja", 30303030, 4100.4);
 		
 		Transporte t1= new Auto("AAA000", 100.1, 2);
 		Transporte t2= new Combi("AAA001", 90.5, 8);
@@ -70,6 +70,9 @@ public class test {
 			
 			
 /* ******************************************************************************************************************************************/ 
+		obA.recorreListaTransporte(listaTransporte);
+		obA.recorreListaResponsable(listaResponsable);
+		
 		System.out.println("Lista de transportes");
 		recorreListaTransporte(listaTransporte);
 		bajaTransporte("AAA001",listaTransporte,listaViajesTerminados,listaViajesPendientes);

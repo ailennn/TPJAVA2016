@@ -114,21 +114,29 @@ public class Agencia {
 	
 	public void altaAuto(String pat, double veloc){
 		Auto nuevo = new Auto (pat,veloc,0);
+		if(this.listaTransporte==null) // si no tiene elementos
+			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 	
 	public void altaCombi(String pat, double veloc){
 		Combi nuevo = new Combi (pat, veloc, 0);
+		if(this.listaTransporte==null) // si no tiene elementos
+			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 	
 	public void altaSemiCama (String pat, double veloc){
 		SemiCama nuevo = new SemiCama (pat, veloc, 0);
+		if(this.listaTransporte==null) // si no tiene elementos
+			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 	
 	public void altaCama (String pat, double veloc){
 		Cama nuevo = new Cama (pat, veloc, 0,0);
+		if(this.listaTransporte==null) // si no tiene elementos
+			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 
@@ -176,6 +184,8 @@ public class Agencia {
 	
 	public void altaResponsable (String nomb, long DNI, double sueldo){
 		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
+		if(this.listaResponsable==null) // si no tiene elementos
+			this.listaResponsable= new LinkedList<Responsable>(); 
 		listaResponsable.add(nuevo);
 	}
 	
