@@ -123,14 +123,14 @@ public class UIPrincipal {
 		frmAgenciaDeViajes.getContentPane().add(lblListadoDeViajes_2);
 		
 		JToggleButton tglbtnNewToggleButton = new JToggleButton("Iniciar");
-		tglbtnNewToggleButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.gif")));
+		tglbtnNewToggleButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		tglbtnNewToggleButton.setActionCommand("");
 		tglbtnNewToggleButton.setBounds(33, 497, 121, 30);
 		frmAgenciaDeViajes.getContentPane().add(tglbtnNewToggleButton);
 		
 		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/cruz.png")));
+		btnNewButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton.setBounds(164, 497, 121, 30);
 		frmAgenciaDeViajes.getContentPane().add(btnNewButton);
