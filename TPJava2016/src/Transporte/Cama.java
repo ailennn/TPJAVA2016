@@ -10,14 +10,17 @@ public class Cama extends Colectivo{
 	private int ocupadoComun;
 	
 
-	public Cama(String patente, int capacidad, float velocidad, int ocupadoCama, int ocupadoComun) {
-		super(patente, capacidad, velocidad);
+
+	
+	public Cama(String patente, float velocidad, int ocupadoCama, int ocupadoComun) {
+		super(patente, velocidad);
 		this.ocupadoCama = ocupadoCama;
 		this.ocupadoComun = ocupadoComun;
 	}
-	
+
 	/*GETTERS & SETTERS*/
 	
+
 	public int getOcupadoCama() {
 		return ocupadoCama;
 	}

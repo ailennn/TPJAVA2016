@@ -5,8 +5,10 @@ public class SemiCama extends Colectivo{
 	private static final int CANTIDAD_PASAJEROS = 40;
 	private int ocupado;
 
-	public SemiCama(String patente, int capacidad, float velocidad, int ocupado) {
-		super(patente, capacidad, velocidad);
+	
+
+	public SemiCama(String patente,  float velocidad, int ocupado) {
+		super(patente, velocidad);
 		this.ocupado = ocupado;
 	}
 

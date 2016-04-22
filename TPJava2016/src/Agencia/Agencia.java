@@ -112,9 +112,26 @@ public class Agencia {
 		return esta;
 	}
 	
-	public void altaTransporte(){
-		
+	public void altaAuto(String pat, float veloc){
+		Auto nuevo = new Auto (pat,veloc,0);
+		listaTransporte.add(nuevo);
 	}
+	
+	public void altaCombi(String pat, float veloc){
+		Combi nuevo = new Combi (pat, veloc, 0);
+		listaTransporte.add(nuevo);
+	}
+	
+	public void altaSemiCama (String pat, float veloc){
+		SemiCama nuevo = new SemiCama (pat, veloc, 0);
+		listaTransporte.add(nuevo);
+	}
+	
+	public void altaCama (String pat, float veloc){
+		Cama nuevo = new Cama (pat, veloc, 0,0);
+		listaTransporte.add(nuevo);
+	}
+
 	/**
 	 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
 	 * se puede modificar de la lista de transportes
@@ -157,15 +174,16 @@ public class Agencia {
 		}
 	}
 	
-	public void altaResponsable(){
-		
+	public void altaResponsable (String nomb, long DNI, float sueldo){
+		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
+		listaResponsable.add(nuevo);
 	}
 	
 	/**
 	 * Si el responsable que se quiere modificar no estaba en ninguna lista de viajes,
 	 * se puede modificar de la lista de responsables
 	 */
-	public void modificaResponsable(long dni, long dniModif, float sueldoModif,string nombreModif){
+	public void modificaResponsable(long dni, long dniModif, float sueldoModif,String nombreModif){
 		if(!estaOcupadoResponsable(dni)){
 
 			boolean encontro=false;

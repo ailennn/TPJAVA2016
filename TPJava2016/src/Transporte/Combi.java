@@ -7,7 +7,7 @@ public class Combi extends Transporte{
 	private static final float PRECIO_KM = 25;
 	private int ocupado;
 	
-	public Combi(String patente, int capacidad, float velocidad, int ocupado) {
+	public Combi(String patente, float velocidad, int ocupado) {
 		super(patente,velocidad);
 		this.ocupado = ocupado;
 	}

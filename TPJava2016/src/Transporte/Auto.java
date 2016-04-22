@@ -7,7 +7,7 @@ public class Auto extends Transporte{
 	private int ocupado;
 
 	//La capacidad, no deberia heredarla de transporte, deberia ser la cantidad_pasajeros
-	public Auto(String patente, int capacidad, float velocidad, int ocupado) {
+	public Auto(String patente, float velocidad, int ocupado) {
 		super(patente, velocidad);
 		this.ocupado = ocupado;
 	}
