@@ -14,17 +14,16 @@ G:Calcular el valor del viaje
 Poner nombre viaje ("DestinoNro")
 F:Mostrar datos viaje (ver como se hace la simulación, donde cada segundo de ejecución será 1 hora de la vida real)
 Finalizar Viaje
-Iniciar viaje pendiente
-detener viaje
+Iniciar viaje pendiente (se inician todos los viajes de la lista pendientes)
+detener viaje pendiente (se detienen todos los viajes de la lista pendientes)
+
+Tenemos 2 listas, una de viajes terminados, con los viajes en estado terminado, y otra lista de viajes pendientes, con viajes en estado pendiente y en estdo en curso
 
 A:Reporte recaudacion
 F:Reporte ranking->usar instanceOf()
 
 Cargar los destinos posibles para los viajes, como una lista fija, a partir de un archivo de texto
 o XML.
-
-Listas de ocupados y disponibles? -> para responsables y para transporte (los estados eran de viajes, no de transporte) no, si recorremos las listas de viajes y si
-					lo encontramos ahi no se puede modificar/eliminar, si no esta en las listas si se puede.
 
 Excepciones
 
