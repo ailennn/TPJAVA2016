@@ -81,14 +81,15 @@ public class test {
 		System.out.println("Se modifica");
 		modificaTransporte("AAA003", "AAB003", 50.2,listaTransporte, listaViajesTerminados,listaViajesPendientes);
 		recorreListaTransporte(listaTransporte);
-		recorreListaResponsable(listaResponsable);
 		System.out.println("Lista de responsables");
-		bajaResponsable(35797200,listaResponsable);
-		System.out.println("Se modifica");
-		modificaResponsable(33333333, 33444444, 20.2,"Nombre",listaResponsable);
 		recorreListaResponsable(listaResponsable);
 		System.out.println("Se da de baja");
+		bajaResponsable(35797200,listaResponsable,listaViajesTerminados,listaViajesPendientes);
 		recorreListaResponsable(listaResponsable);
+		System.out.println("Se modifica");
+		modificaResponsable(33333333, 33444444, 20.2,"Nombre",listaResponsable,listaViajesTerminados,listaViajesPendientes);
+		recorreListaResponsable(listaResponsable);
+		
 }
 	
 
@@ -106,7 +107,7 @@ public class test {
 	}
 	
 	public void modificaTransporte(String patente, String patModif, double velModif,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
-		//if(!estaOcupadoTransporte(patente)){
+		if(!estaOcupadoTransporte(patente,listaViajesTerminados,listaViajesPendientes)){
 
 			boolean encontro=false;
 			Transporte nodoTransporte=null;
@@ -120,11 +121,11 @@ public class test {
 					encontro=true;
 				}
 			}
-		//}
+		}
 	}
 	
 	public void bajaTransporte(String patente,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
-		//if(!estaOcupadoTransporte(patente,listaViajesTerminados,listaViajesPendientes)){
+		if(!estaOcupadoTransporte(patente,listaViajesTerminados,listaViajesPendientes)){
 
 			boolean encontro=false;
 			Transporte nodoTransporte=null;
@@ -137,7 +138,7 @@ public class test {
 					encontro=true;
 				}
 			}
-		//}
+		}
 	}
 	
 	public boolean estaOcupadoTransporte(String patente,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
@@ -146,29 +147,79 @@ public class test {
 		/**
 		 * Verifica que el transporte no este en la lista de viajes terminados
 		 */
-		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-		while(iterador.hasNext()&&!esta){
-			nodoViaje=iterador.next();
-			if(nodoViaje.getTransporte().getPatente().equals(patente))
-				esta=true;
+		if(listaViajesTerminados!=null){
+			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+			while(iterador.hasNext()&&!esta){
+				nodoViaje=iterador.next();
+				if(nodoViaje.getTransporte().getPatente().equals(patente))
+					esta=true;
+			}
 		}
+		
 		/**
 		 * Verifica que el transporte no este en la lista de viajes pendiente si no estaba
 		 * en la lista anterior
 		 */
 		if(!esta){
-			ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-			while(iterador2.hasNext()&&!esta){
-				nodoViaje=iterador2.next();
-				if(nodoViaje.getTransporte().getPatente().equals(patente))
-					esta=true;
+			if(listaViajesPendientes!=null){
+				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+				while(iterador2.hasNext()&&!esta){
+					nodoViaje=iterador2.next();
+					if(nodoViaje.getTransporte().getPatente().equals(patente))
+						esta=true;
+				}
 			}
 		}
 		return esta;
 	}
 
-	public void modificaResponsable(long dni, long dniModif, double sueldoModif,String nombreModif,LinkedList<Responsable> listaResponsable){
-		//if(!estaOcupadoResponsable(dni)){
+	
+	public boolean estaOcupadoResponsable(long dni,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		boolean esta=false;
+		Viaje nodoViaje=null;
+		/**
+		 * Verifica que el responsable no este en la lista de viajes terminados
+		 */
+		if(listaViajesTerminados!=null){
+			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+			while(iterador.hasNext()&&!esta){
+				nodoViaje=iterador.next();
+				if(nodoViaje instanceof LargaDistancia){
+					Responsable r=null;
+					ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
+					while(itr.hasNext()&&!esta){
+						r=itr.next();
+						if(r.getDni()==dni)
+							esta=true;
+					}
+				}
+			}
+		}
+		/**
+		 * Verifica que el responsable no este en la lista de viajes pendiente si no estaba en la lista anterior
+		 */
+		if(!esta){
+			if(listaViajesPendientes!=null){
+				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+				while(iterador2.hasNext()&&!esta){
+					nodoViaje=iterador2.next();
+					if(nodoViaje instanceof LargaDistancia){
+						Responsable r=null;
+						ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
+						while(itr2.hasNext()&&!esta){
+							r=itr2.next();
+							if(r.getDni()==dni)
+								esta=true;
+						}
+					}
+				}
+			}
+		}
+		return esta;
+	}
+	
+	public void modificaResponsable(long dni, long dniModif, double sueldoModif,String nombreModif,LinkedList<Responsable> listaResponsable,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		if(!estaOcupadoResponsable(dni,listaViajesTerminados, listaViajesPendientes)){
 
 			boolean encontro=false;
 			Responsable nodoResponsable=null;
@@ -183,11 +234,11 @@ public class test {
 					encontro=true;
 				}
 			}
-		//}
+		}
 	}
 	
-	public void bajaResponsable(long dni,LinkedList<Responsable> listaResponsable){
-		//if(!estaOcupadoResponsable(dni)){
+	public void bajaResponsable(long dni,LinkedList<Responsable> listaResponsable,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		if(!estaOcupadoResponsable(dni,listaViajesTerminados, listaViajesPendientes)){
 
 			boolean encontro=false;
 			Responsable nodoResponsable=null;
@@ -200,7 +251,7 @@ public class test {
 					encontro=true;
 				}
 			}
-		//}
+		}
 	}
 	
 public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {

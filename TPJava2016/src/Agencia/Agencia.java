@@ -44,22 +44,26 @@ public class Agencia {
 		/**
 		 * Verifica que el transporte no este en la lista de viajes terminados
 		 */
-		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-		while(iterador.hasNext()&&!esta){
-			nodoViaje=iterador.next();
-			if(nodoViaje.getTransporte().getPatente().equals(patente))
-				esta=true;
+		if(listaViajesTerminados!=null){
+			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+			while(iterador.hasNext()&&!esta){
+				nodoViaje=iterador.next();
+				if(nodoViaje.getTransporte().getPatente().equals(patente))
+					esta=true;
+			}
 		}
 		/**
 		 * Verifica que el transporte no este en la lista de viajes pendiente si no estaba
 		 * en la lista anterior
 		 */
 		if(!esta){
-			ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-			while(iterador2.hasNext()&&!esta){
-				nodoViaje=iterador2.next();
-				if(nodoViaje.getTransporte().getPatente().equals(patente))
-					esta=true;
+			if(listaViajesPendientes!=null){
+				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+				while(iterador2.hasNext()&&!esta){
+					nodoViaje=iterador2.next();
+					if(nodoViaje.getTransporte().getPatente().equals(patente))
+						esta=true;
+				}
 			}
 		}
 		return esta;
@@ -78,16 +82,18 @@ public class Agencia {
 		/**
 		 * Verifica que el responsable no este en la lista de viajes terminados
 		 */
-		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-		while(iterador.hasNext()&&!esta){
-			nodoViaje=iterador.next();
-			if(nodoViaje instanceof LargaDistancia){
-				Responsable r=null;
-				ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
-				while(itr.hasNext()&&!esta){
-					r=itr.next();
-					if(r.getDni()==dni)
-						esta=true;
+		if(listaViajesTerminados!=null){
+			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+			while(iterador.hasNext()&&!esta){
+				nodoViaje=iterador.next();
+				if(nodoViaje instanceof LargaDistancia){
+					Responsable r=null;
+					ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
+					while(itr.hasNext()&&!esta){
+						r=itr.next();
+						if(r.getDni()==dni)
+							esta=true;
+					}
 				}
 			}
 		}
@@ -95,16 +101,18 @@ public class Agencia {
 		 * Verifica que el responsable no este en la lista de viajes pendiente si no estaba en la lista anterior
 		 */
 		if(!esta){
-			ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-			while(iterador2.hasNext()&&!esta){
-				nodoViaje=iterador2.next();
-				if(nodoViaje instanceof LargaDistancia){
-					Responsable r=null;
-					ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
-					while(itr2.hasNext()&&!esta){
-						r=itr2.next();
-						if(r.getDni()==dni)
-							esta=true;
+			if(listaViajesPendientes!=null){
+				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+				while(iterador2.hasNext()&&!esta){
+					nodoViaje=iterador2.next();
+					if(nodoViaje instanceof LargaDistancia){
+						Responsable r=null;
+						ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
+						while(itr2.hasNext()&&!esta){
+							r=itr2.next();
+							if(r.getDni()==dni)
+								esta=true;
+						}
 					}
 				}
 			}
