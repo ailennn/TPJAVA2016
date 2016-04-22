@@ -29,20 +29,19 @@ public class test {
 		LinkedList<Viaje> listaViajesTerminados= new LinkedList<Viaje>();
 		LinkedList<Viaje> listaViajesPendientes= new LinkedList<Viaje>();
 		
-		
 		Agencia obA = new Agencia(); 
 		
 		System.out.println("Armado de las listas de la agencia obA");
 		
-		/*obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaTransporte();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();
-		obA.altaResponsable();*/
+		/*obA.altaAuto("AAA000", 100.1);
+		obA.altaCombi("AAA001", 90.5);
+		obA.altaSemiCama("AAA002", 95.6);
+		obA.altaCama("AAA003", 88.3);
+		obA.altaResponsable("Flor", 35797200, 500.5);
+		obA.altaResponsable("Giu", 33333333, 555.2);
+		obA.altaResponsable("Ailen", 34444444, 599.7);
+		obA.altaResponsable("Jeje", 22222222, 450.5);
+		obA.altaResponsable("Jaja", 30303030, 4100.4);*/
 		
 		Transporte t1= new Auto("AAA000", 100.1, 2);
 		Transporte t2= new Combi("AAA001", 90.5, 8);
@@ -64,162 +63,153 @@ public class test {
 		listaResponsable.add(r3);
 		listaResponsable.add(r4);
 		listaResponsable.add(r5);
+		
+		listaViajesTerminados=null;
+		listaViajesPendientes=null;
+		
 			
 			
 /* ******************************************************************************************************************************************/ 
-		//RecorreLista(obG.getLAlbum());
-		//obG.listado();
-		//reproducir(LArchivo,obG.getLArchivoMultimedia() );
-		
+		System.out.println("Lista de transportes");
+		recorreListaTransporte(listaTransporte);
+		bajaTransporte("AAA001",listaTransporte,listaViajesTerminados,listaViajesPendientes);
+		System.out.println("Se da de baja");
+		recorreListaTransporte(listaTransporte);
+		System.out.println("Se modifica");
+		modificaTransporte("AAA003", "AAB003", 50.2,listaTransporte, listaViajesTerminados,listaViajesPendientes);
+		recorreListaTransporte(listaTransporte);
+		recorreListaResponsable(listaResponsable);
+		System.out.println("Lista de responsables");
+		bajaResponsable(35797200,listaResponsable);
+		System.out.println("Se modifica");
+		modificaResponsable(33333333, 33444444, 20.2,"Nombre",listaResponsable);
+		recorreListaResponsable(listaResponsable);
+		System.out.println("Se da de baja");
+		recorreListaResponsable(listaResponsable);
 }
 	
 
 	
  // ********************************************************************************************************************************************/
 	
-/*public void RecorreLista(LinkedList<Album> Lgestor) {
-		 
-		
-		Album nodoAlbAux= new Album();
-		ListIterator <Album> iterador= Lgestor.listIterator();
+	public void recorreListaTransporte(LinkedList<Transporte> listaTransporte) {
+ 		
+		Transporte nodoTransporte= null;
+		ListIterator <Transporte> iterador= listaTransporte.listIterator();
 		while(iterador.hasNext()){
-			nodoAlbAux=iterador.next();
-			
-			System.out.println(nodoAlbAux.getNombre());	// Primero muestra los archivos sueltos de este album
-		
-			if(nodoAlbAux.getLArchivoMultimedia()!=null) 
-			{
-				ArchivoMultimedia nodoArcAux = null; 
-				ListIterator <ArchivoMultimedia> itrArchivo= nodoAlbAux.getLArchivoMultimedia().listIterator();
-				while(itrArchivo.hasNext()){
-					nodoArcAux=itrArchivo.next();
-					System.out.println(nodoArcAux.getNombre()); 	// Muestra los Subalbumes 
-				}				
-			}
-			// Luego continua recorriendo los subnodos si los tuviera			
-			if(nodoAlbAux.getLAlbum()!=null) {
-					RecorreLista(nodoAlbAux.getLAlbum());
-			}
-		}				
-			 
-}
-
-public void RecorreListaArch(LinkedList<ArchivoMultimedia> LArchi) {
-	ArchivoMultimedia nodoAux= null;
-	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-	ListIterator <ArchivoMultimedia> iteradorA= LArchi.listIterator();
-	while(iteradorA.hasNext()){
-		nodoAux=iteradorA.next();
-		System.out.println(nodoAux.getTipo()+" "+nodoAux.getNombre()+" 	"+formato.format(nodoAux.getUltimaReproduccion().getTime()));
-		System.out.printf("\n Tamaño: %f",nodoAux.getTamaño());
-		// Primero muestra los archivos sueltos de este album
-	}				
-		 
-}*/
-
-
-/* ********************************************** */
-//Reproduccion de archivos, mostrando duracion total y atributos
-/*public void reproducir(LinkedList <ArchivoMultimedia> ListaReproduccion,LinkedList <ArchivoMultimedia> listaCompleta ){
-
-
-	System.out.printf("\n NOMBRE \t     DURACIÓN  \t INICIO \t FIN  \t ANCHO \t ALTO \t RESOLUCION \t CANT. DE CUADROS");
+			nodoTransporte=iterador.next();
+			System.out.println(nodoTransporte.getPatente());
+		}					 
+	}
 	
-	
-	ArchivoMultimedia nodoAux=null;
-	ArchivoMultimedia nodoAux2=null;
-	ListIterator<ArchivoMultimedia> it= ListaReproduccion.listIterator();
-	ListIterator<ArchivoMultimedia> it2= listaCompleta.listIterator();
-	boolean encontro=false;
-	//INICIO=etiquetas, FIN=ubicacion, DURACION=ubicacion-etiquetas, ZOOM=reproduccion
-	while(it.hasNext()){
-		nodoAux=it.next();
-		int inicio=Integer.parseInt(nodoAux.getEtiquetas());
-		int fin=Integer.parseInt(nodoAux.getUbicacion());
-		if(nodoAux.getTipo()==0){//Si es audio
-			String alto="No";
-			String ancho="No";
-			String resolucion="No";
-			String cuadros="No";
-			nodoAux.setReproducciones(nodoAux.getReproducciones()+1);
-			Calendar fechaHoy = new GregorianCalendar();
-	        int año = fechaHoy.get(Calendar.YEAR);
-	        int mes = fechaHoy.get(Calendar.MONTH);
-	        int dia = fechaHoy.get(Calendar.DAY_OF_MONTH);
-			nodoAux.setUltimaReproduccion(fechaHoy);
-			if(fin==0){
-				while(it2.hasNext() && !encontro){
-					nodoAux2=it2.next();
-					if(nodoAux2.getTipo()==nodoAux.getTipo() && nodoAux2.getNombre()==nodoAux.getNombre()){
-						encontro=true;
-						fin=nodoAux2.getDuracion();
-					}
+	public void modificaTransporte(String patente, String patModif, double velModif,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		//if(!estaOcupadoTransporte(patente)){
+
+			boolean encontro=false;
+			Transporte nodoTransporte=null;
+			ListIterator<Transporte> iterador4=listaTransporte.listIterator();
+			while(iterador4.hasNext() && !encontro){
+				nodoTransporte=iterador4.next();
+				if(nodoTransporte.getPatente().equals(patente)){
+					nodoTransporte.setPatente(patModif);
+					nodoTransporte.setVelocidad(velModif);
+					iterador4.set(nodoTransporte);
+					encontro=true;
 				}
 			}
-			System.out.printf("\n %s \t %d \t %d \t \t %d \t %s \t %s \t %s \t \t %s",nodoAux.getNombre(), fin-inicio, inicio, fin, alto, ancho, resolucion, cuadros);
+		//}
+	}
+	
+	public void bajaTransporte(String patente,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		//if(!estaOcupadoTransporte(patente,listaViajesTerminados,listaViajesPendientes)){
+
+			boolean encontro=false;
+			Transporte nodoTransporte=null;
+			ListIterator<Transporte> iterador4=listaTransporte.listIterator();
+			while(iterador4.hasNext() && !encontro){
+				nodoTransporte=iterador4.next();
+				if(nodoTransporte.getPatente().equals(patente)){
+					iterador4.remove();
+					//listaTrasporte.remove(nodoTransporte);
+					encontro=true;
+				}
+			}
+		//}
+	}
+	
+	public boolean estaOcupadoTransporte(String patente,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+		boolean esta=false;
+		Viaje nodoViaje=null;
+		/**
+		 * Verifica que el transporte no este en la lista de viajes terminados
+		 */
+		ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+		while(iterador.hasNext()&&!esta){
+			nodoViaje=iterador.next();
+			if(nodoViaje.getTransporte().getPatente().equals(patente))
+				esta=true;
 		}
-		else{
-			if(nodoAux.getTipo()==1){ //Si es imagen 
-			int alto=0;
-			int ancho=0;
-			String cuadros="No";
-			encontro=false;
-			nodoAux.setReproducciones(nodoAux.getReproducciones()+1);
-			Calendar fechaHoy = new GregorianCalendar();
-	        int año = fechaHoy.get(Calendar.YEAR);
-	        int mes = fechaHoy.get(Calendar.MONTH);
-	        int dia = fechaHoy.get(Calendar.DAY_OF_MONTH);
-			nodoAux.setUltimaReproduccion(fechaHoy);
-				while(it2.hasNext() && !encontro){
-						nodoAux2=it2.next();
-						if(nodoAux2.getTipo()==nodoAux.getTipo() && nodoAux2.getNombre()==nodoAux.getNombre()){
-							encontro=true;
-							if(nodoAux.getReproducciones()!=0){
-								ancho=nodoAux2.getAncho()*nodoAux.getReproducciones();
-								alto=nodoAux2.getAlto()*nodoAux.getReproducciones();
-							}
-							else{
-								ancho=nodoAux2.getAncho();
-								alto=nodoAux2.getAlto();
-						}
-						if (fin==0){
-							fin=nodoAux2.getDuracion();
-						}
-					}
+		/**
+		 * Verifica que el transporte no este en la lista de viajes pendiente si no estaba
+		 * en la lista anterior
+		 */
+		if(!esta){
+			ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+			while(iterador2.hasNext()&&!esta){
+				nodoViaje=iterador2.next();
+				if(nodoViaje.getTransporte().getPatente().equals(patente))
+					esta=true;
+			}
+		}
+		return esta;
+	}
+
+	public void modificaResponsable(long dni, long dniModif, double sueldoModif,String nombreModif,LinkedList<Responsable> listaResponsable){
+		//if(!estaOcupadoResponsable(dni)){
+
+			boolean encontro=false;
+			Responsable nodoResponsable=null;
+			ListIterator<Responsable> iterador4=listaResponsable.listIterator();
+			while(iterador4.hasNext() && !encontro){
+				nodoResponsable=iterador4.next();
+				if(nodoResponsable.getDni()== dni){
+					nodoResponsable.setDni(dniModif);
+					nodoResponsable.setSueldoFijo(sueldoModif);
+					nodoResponsable.setNombre(nombreModif);
+					iterador4.set(nodoResponsable);
+					encontro=true;
 				}
-						String resolucion="No";
-						System.out.printf("\n %s \t %d \t %d \t \t %d \t %d \t %d \t %s \t \t %s",nodoAux.getNombre(), fin-inicio, inicio, fin, ancho, alto, resolucion, cuadros);
+			}
+		//}
+	}
+	
+	public void bajaResponsable(long dni,LinkedList<Responsable> listaResponsable){
+		//if(!estaOcupadoResponsable(dni)){
+
+			boolean encontro=false;
+			Responsable nodoResponsable=null;
+			ListIterator<Responsable> iterador4=listaResponsable.listIterator();
+			while(iterador4.hasNext() && !encontro){
+				nodoResponsable=iterador4.next();
+				if(nodoResponsable.getDni()==dni){
+					iterador4.remove();
+					//listaResponsable.remove(nodoResponsable);
+					encontro=true;
 				}
-			if(nodoAux.getTipo()==2){ //Si es video
-				int resolucion=0;
-				String alto="No";
-				String ancho="No";
-				encontro=false;
-				nodoAux.setReproducciones(nodoAux.getReproducciones()+1);
-				Calendar fechaHoy = new GregorianCalendar();
-		        int año = fechaHoy.get(Calendar.YEAR);
-		        int mes = fechaHoy.get(Calendar.MONTH);
-		        int dia = fechaHoy.get(Calendar.DAY_OF_MONTH);
-				nodoAux.setUltimaReproduccion(fechaHoy);
-					while(it2.hasNext() && !encontro){
-							nodoAux2=it2.next();
-							if(nodoAux2.getTipo()==nodoAux.getTipo() && nodoAux2.getNombre()==nodoAux.getNombre()){
-								encontro=true;
-								if(nodoAux.getReproducciones()!=0){
-									resolucion=nodoAux2.getResolucion()*nodoAux.getReproducciones();
-								}
-								else{
-									resolucion=nodoAux2.getResolucion();
-							}
-							if (fin==0){
-								fin=nodoAux2.getDuracion();
-							}
-						}
-					}
-							
-							System.out.printf("\n %s \t \t %d \t %d \t \t %d \t %s \t %s \t %d \t \t %d",nodoAux.getNombre(), fin-inicio, inicio, fin, ancho, alto, resolucion, nodoAux.getCuadros());
 			}
-			}
-			}
-	}*/
+		//}
+	}
+	
+public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
+ 		
+		Responsable nodoResponsable= null;
+		ListIterator <Responsable> iterador= listaResponsable.listIterator();
+		while(iterador.hasNext()){
+			nodoResponsable=iterador.next();
+			System.out.println(nodoResponsable.getDni());
+			System.out.println(nodoResponsable.getNombre());
+			System.out.println(nodoResponsable.getSueldoFijo());
+		}					 
+	}
+	
 }

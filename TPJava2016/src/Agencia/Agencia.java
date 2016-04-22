@@ -112,22 +112,22 @@ public class Agencia {
 		return esta;
 	}
 	
-	public void altaAuto(String pat, float veloc){
+	public void altaAuto(String pat, double veloc){
 		Auto nuevo = new Auto (pat,veloc,0);
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaCombi(String pat, float veloc){
+	public void altaCombi(String pat, double veloc){
 		Combi nuevo = new Combi (pat, veloc, 0);
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaSemiCama (String pat, float veloc){
+	public void altaSemiCama (String pat, double veloc){
 		SemiCama nuevo = new SemiCama (pat, veloc, 0);
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaCama (String pat, float veloc){
+	public void altaCama (String pat, double veloc){
 		Cama nuevo = new Cama (pat, veloc, 0,0);
 		listaTransporte.add(nuevo);
 	}
@@ -136,7 +136,7 @@ public class Agencia {
 	 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
 	 * se puede modificar de la lista de transportes
 	 */
-	public void modificaTransporte(String patente, String patModif, float velModif){
+	public void modificaTransporte(String patente, String patModif, double velModif){
 		if(!estaOcupadoTransporte(patente)){
 
 			boolean encontro=false;
@@ -174,7 +174,7 @@ public class Agencia {
 		}
 	}
 	
-	public void altaResponsable (String nomb, long DNI, float sueldo){
+	public void altaResponsable (String nomb, long DNI, double sueldo){
 		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
 		listaResponsable.add(nuevo);
 	}
@@ -183,7 +183,7 @@ public class Agencia {
 	 * Si el responsable que se quiere modificar no estaba en ninguna lista de viajes,
 	 * se puede modificar de la lista de responsables
 	 */
-	public void modificaResponsable(long dni, long dniModif, float sueldoModif,String nombreModif){
+	public void modificaResponsable(long dni, long dniModif, double sueldoModif,String nombreModif){
 		if(!estaOcupadoResponsable(dni)){
 
 			boolean encontro=false;
