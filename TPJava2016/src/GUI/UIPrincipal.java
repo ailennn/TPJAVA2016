@@ -145,6 +145,10 @@ public class UIPrincipal {
 		lblInformacin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblInformacin.setBounds(457, 55, 73, 14);
 		frmAgenciaDeViajes.getContentPane().add(lblInformacin);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 894, 550);
+		frmAgenciaDeViajes.getContentPane().add(panel);
 		frmAgenciaDeViajes.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAgenciaDeViajes.getContentPane(), list, list_1, list_2, menuBar, mnAdministrar, mntmTransporte, mntmResponsable, mnReportes, mntmNewMenuItem, mntmRecaudacin}));
 	}
 }
