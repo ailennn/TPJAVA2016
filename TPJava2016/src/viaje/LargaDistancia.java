@@ -1,18 +1,27 @@
 package viaje;
 
 import misc.*;
-import misc.Responsable;
 import transporte.Transporte;
 import java.util.*;
 
 public class LargaDistancia extends Viaje{
 
-	public LargaDistancia(String nombre, String estado, int kmsRecorridos, Transporte transporte,
-			 Destino destino, int cantPasajeros, LinkedList<Responsable> listaResponsable) {
-		super(nombre, estado, kmsRecorridos, transporte, destino, cantPasajeros,listaResponsable);
-		this.listaResponsable = listaResponsable;
 
+
+	public LargaDistancia() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+
+
+
+	public LargaDistancia(String nombre,  int kmsRecorridos, Transporte transporte,
+			 Destino destino, int cantPasajeros, estadoViaje estado,LinkedList<Responsable> listaResponsable) {
+		super(nombre,  kmsRecorridos, transporte, destino, cantPasajeros,estado,listaResponsable);
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public void setListaResponsable(LinkedList<Responsable> listaResponsable) {
 		this.listaResponsable = listaResponsable;

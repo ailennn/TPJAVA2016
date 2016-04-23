@@ -7,12 +7,15 @@ public class Auto extends Transporte{
 	
 
 	//La capacidad, no deberia heredarla de transporte, deberia ser la cantidad_pasajeros
-	public Auto(String patente, double velocidad) {
-		super(patente, velocidad);
-	}
 
+	
 	public static int getCantidadPasajeros() {
 		return CANTIDAD_PASAJEROS;
+	}
+
+	public Auto(String patente, double velocidad, int ocupado) {
+		super(patente, velocidad, ocupado);
+		// TODO Auto-generated constructor stub
 	}
 
 	public double getPrecioKm() {

@@ -1,17 +1,24 @@
 package viaje;
 
 import misc.*;
-import misc.Responsable;
 import transporte.Transporte;
 
 public class CortaDistancia extends Viaje{
 	private static final double COSTO_BASE = 300;
 	
 
-	public CortaDistancia(String nombre, String estado, int kmsRecorridos,Transporte transporte, Destino destino, int cantPasajeros) {
-		super(nombre, estado, kmsRecorridos,transporte, destino,cantPasajeros,null);
+
+	public CortaDistancia() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	public CortaDistancia(String nombre, int kmsRecorridos, Transporte transporte, Destino destino, int cantPasajeros,
+			estadoViaje estado) {
+		super(nombre, kmsRecorridos,transporte, destino,cantPasajeros,estado,null);
+
+		// TODO Auto-generated constructor stub
+	}
 
 	public static double getCostoBase() {
 		return COSTO_BASE;

@@ -8,6 +8,7 @@ import java.util.*;
 import misc.*;
 import transporte.*;
 import viaje.*;
+import viaje.Viaje.estadoViaje;
 
 public class Agencia {
 /**Contiene las listas de transportes, destinos, y resposables
@@ -121,21 +122,21 @@ public class Agencia {
 	}
 	
 	public void altaAuto(String pat, double veloc){
-		Auto nuevo = new Auto (pat,veloc);
+		Auto nuevo = new Auto (pat,veloc,0);
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 	
 	public void altaCombi(String pat, double veloc){
-		Combi nuevo = new Combi (pat, veloc);
+		Combi nuevo = new Combi (pat, veloc,0);
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
 	}
 	
 	public void altaSemiCama (String pat, double veloc){
-		SemiCama nuevo = new SemiCama (pat, veloc);
+		SemiCama nuevo = new SemiCama (pat, veloc,0);
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
@@ -277,7 +278,7 @@ public class Agencia {
 				//ver como usar el enum para el estado viaje
 				t.setOcupado(cantPasajeros);
 				Viaje v=null;
-				v= new CortaDistancia("","pendiente",0,t,d,cantPasajeros);
+				v= new CortaDistancia("",0,t,d,cantPasajeros,estadoViaje.PENDIENTE);
 				v.setNombre();
 				if(this.listaViajesPendientes==null) // si no tiene elementos
 				{
@@ -319,7 +320,7 @@ public class Agencia {
 				//ver como usar el enum para el estado viaje
 				t.setOcupado(cantPasajeros);
 				Viaje v=null;
-				v= new LargaDistancia("","pendiente",0,t,d,cantPasajeros,lista);
+				v= new LargaDistancia("",0,t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
 				v.setNombre();
 				if(this.listaViajesPendientes==null) // si no tiene elementos
 				{
@@ -364,7 +365,7 @@ public class Agencia {
 							 */
 							//ver como usar el enum para el estado viaje
 							Viaje v=null;
-							v= new LargaDistancia("","pendiente",0,t,d,cantPasajeros,lista);
+							v= new LargaDistancia("",0,t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
 							v.setNombre();
 							if(this.listaViajesPendientes==null) // si no tiene elementos
 							{

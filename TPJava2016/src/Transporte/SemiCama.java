@@ -4,9 +4,13 @@ public class SemiCama extends Colectivo{
 
 	private static final int CANTIDAD_PASAJEROS = 40;
 
-	public SemiCama(String patente, double velocidad) {
-		super(patente, velocidad);
+
+
+	public SemiCama(String patente, double velocidad, int ocupado) {
+		super(patente, velocidad, ocupado);
+		// TODO Auto-generated constructor stub
 	}
+
 
 	/*GETTERS & SETTERS*/
 	public static int getCantidadPasajeros() {

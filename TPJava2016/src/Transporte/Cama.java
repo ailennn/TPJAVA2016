@@ -8,13 +8,14 @@ public class Cama extends Colectivo{
 	private static final double ADICIONAL_CAMA = 100;
 	private int ocupadoComun;
 	
-
-	public Cama(String patente, double velocidad, int ocupadoComun) {
-		super(patente, velocidad);
-		this.ocupadoComun = ocupadoComun;
+	public Cama(String patente, double velocidad, int ocupado) {
+		super(patente, velocidad, ocupado);
+		// TODO Auto-generated constructor stub
 	}
 	
 	/*GETTERS & SETTERS*/
+
+
 
 	public int getOcupadoComun() {
 		return ocupadoComun;

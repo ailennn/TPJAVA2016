@@ -6,12 +6,15 @@ public class Combi extends Transporte{
 	private static final double PRECIO_BASE = 1000;
 	private static final double PRECIO_KM = 25;
 	
-	public Combi(String patente, double velocidad) {
-		super(patente,velocidad);
-	}
+
 
 	/*GETTERS & SETTERS*/
 	
+	public Combi(String patente, double velocidad, int ocupado) {
+		super(patente, velocidad, ocupado);
+		// TODO Auto-generated constructor stub
+	}
+
 	public static int getCantidadPasajeros() {
 		return CANTIDAD_PASAJEROS;
 	}
