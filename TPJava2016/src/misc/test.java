@@ -552,13 +552,16 @@ public void ranking(LinkedList<Viaje>listaViajesTerminados){
 
 			escribir = new PrintWriter(arctxt,"utf-8");	
 			Responsable resp=null;
+			boolean finArch=false;
 			ListIterator <Responsable> itera= listaAux2.listIterator();
-			while(itera.hasNext()) {
-				resp=itera.next();
-				escribir.format("%20s\t%d\t%d\n",re.getNombre(),re.getDni(),re.getSueldoFijo());
+			resp=itera.next();
+			while(!finArch) {System.out.println("HOla");
+				escribir.format("%s \t %d \t %d \n",resp.getNombre(),resp.getDni(),resp.getSueldoFijo());
+				if(!itera.hasNext()) // permite que evalue el ultimo nodo cuando hasNext() es falso;
+					finArch=true;
 			}
-		 
-			escribir.close();
+			System.out.println("HOla2");
+			escribir.close();System.out.println("chau");
 			} catch (Exception e) {}
 	}
 }

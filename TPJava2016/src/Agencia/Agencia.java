@@ -472,7 +472,7 @@ public class Agencia {
 				ListIterator <Responsable> itera= listaAux2.listIterator();
 				while(itera.hasNext()) {
 					resp=itera.next();
-					escribir.format("%20s\t%d\t%d\n",re.getNombre(),re.getDni(),re.getSueldoFijo());
+					escribir.format("%20s\t%d\t%d\n",resp.getNombre(),resp.getDni(),resp.getSueldoFijo());
 				}
 			 
 				escribir.close();
