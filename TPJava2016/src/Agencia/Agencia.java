@@ -1,7 +1,11 @@
 package agencia;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.lang.Exception;
 import java.util.*;
 
@@ -453,10 +457,8 @@ public class Agencia {
 			
 			OrdenarPorKilometrosRecorridos(listaAux2);
 			
-			recorreListaResponsable(listaAux2);
-			
 			File arctxt=new File("src//archivos//ranking.txt"); 
-			PrintWriter escribir;
+			Writer escribir;
 			if(!arctxt.exists()){
 				try {
 					arctxt.createNewFile();
@@ -466,15 +468,19 @@ public class Agencia {
 			}	
 			
 			try {
-
-				escribir = new PrintWriter(arctxt,"utf-8");	
+				escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arctxt), "UTF-8"));
+	
+				escribir.write("DNI \t \t");
+				escribir.write("Nombre \t \t");
+				escribir.write("Kilometros recorridos\n");
 				Responsable resp=null;
 				ListIterator <Responsable> itera= listaAux2.listIterator();
 				while(itera.hasNext()) {
 					resp=itera.next();
-					escribir.format("%20s\t%d\t%d\n",resp.getNombre(),resp.getDni(),resp.getSueldoFijo());
+					escribir.write(resp.getNombre()+"\t \t");
+					escribir.write(resp.getDni()+"\t \t");
+					escribir.write(resp.getSueldoFijo()+"\n");
 				}
-			 
 				escribir.close();
 				} catch (Exception e) {}
 		}

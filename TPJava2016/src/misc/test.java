@@ -1,7 +1,5 @@
 package misc;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.lang.Exception;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -539,7 +537,7 @@ public void ranking(LinkedList<Viaje>listaViajesTerminados){
 		recorreListaResponsable(listaAux2);
 		
 		File arctxt=new File("src//archivos//ranking.txt"); 
-		PrintWriter escribir;
+		Writer escribir;
 		if(!arctxt.exists()){
 			try {
 				arctxt.createNewFile();
@@ -549,19 +547,24 @@ public void ranking(LinkedList<Viaje>listaViajesTerminados){
 		}	
 		
 		try {
+			escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arctxt), "UTF-8"));
 
-			escribir = new PrintWriter(arctxt,"utf-8");	
+			//escribir = new PrintWriter(arctxt,"utf-8");
+			escribir.write("DNI \t \t");
+			escribir.write("Nombre \t \t");
+			escribir.write("Kilometros recorridos\n");
 			Responsable resp=null;
-			boolean finArch=false;
 			ListIterator <Responsable> itera= listaAux2.listIterator();
-			resp=itera.next();
-			while(!finArch) {System.out.println("HOla");
-				escribir.format("%s \t %d \t %d \n",resp.getNombre(),resp.getDni(),resp.getSueldoFijo());
-				if(!itera.hasNext()) // permite que evalue el ultimo nodo cuando hasNext() es falso;
-					finArch=true;
+			while(itera.hasNext()) {
+				resp=itera.next();
+				System.out.print("DNI a escribir");
+				System.out.println(resp.getDni());
+				escribir.write(resp.getNombre()+"\t \t");
+				escribir.write(resp.getDni()+"\t \t");
+				escribir.write(resp.getSueldoFijo()+"\n");
+				//escribir.format("%s \t %d \t %d \n",resp.getNombre(),resp.getDni(),resp.getSueldoFijo());
 			}
-			System.out.println("HOla2");
-			escribir.close();System.out.println("chau");
+			escribir.close();
 			} catch (Exception e) {}
 	}
 }
