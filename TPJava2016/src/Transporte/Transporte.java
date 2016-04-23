@@ -8,11 +8,10 @@ public abstract class Transporte {
 	
 
 
-	public Transporte(String patente, double velocidad, int ocupado) {
+	public Transporte(String patente, double velocidad) {
 		super();
 		this.patente = patente;
 		this.velocidad = velocidad;
-		this.ocupado = ocupado;
 	}
 	public int getOcupado() {
 		return ocupado;

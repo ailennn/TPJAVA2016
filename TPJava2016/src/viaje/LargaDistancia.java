@@ -15,10 +15,10 @@ public class LargaDistancia extends Viaje{
 
 
 
-	public LargaDistancia(String nombre,  int kmsRecorridos, Transporte transporte,
+	public LargaDistancia(String nombre,   Transporte transporte,
 			 Destino destino, int cantPasajeros, estadoViaje estado,LinkedList<Responsable> listaResponsable) {
-		super(nombre,  kmsRecorridos, transporte, destino, cantPasajeros,estado,listaResponsable);
-		// TODO Auto-generated constructor stub
+		super(nombre, transporte, destino, cantPasajeros,estado);
+		this.listaResponsable=listaResponsable;
 	}
 
 

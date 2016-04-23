@@ -6,8 +6,8 @@ public class SemiCama extends Colectivo{
 
 
 
-	public SemiCama(String patente, double velocidad, int ocupado) {
-		super(patente, velocidad, ocupado);
+	public SemiCama(String patente, double velocidad) {
+		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}
 

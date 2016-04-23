@@ -10,6 +10,7 @@ import java.util.ListIterator;
 import transporte.*;
 import agencia.Agencia;
 import viaje.*;
+import viaje.Viaje.estadoViaje;
 import misc.*;
 
 import org.junit.Test; 
@@ -46,8 +47,8 @@ public class test {
 		
 		Transporte t1= new Auto("AAA000", 100.1);
 		Transporte t2= new Combi("AAA001", 90.5);
-		Transporte t3= new SemiCama("AAA002", 95.6);
-		Transporte t4= new Cama("AAA003",88.3,20);
+		Transporte t3= new SemiCama("AAA002",88.3);
+		Transporte t4= new Cama("AAA003",88.3);
 		Responsable r1= new Responsable("Flor", 35797200, 500.5);
 		Responsable r2= new Responsable("Giu", 33333333, 555.2);
 		Responsable r3= new Responsable("Ailen", 34444444, 599.7);
@@ -98,6 +99,7 @@ public class test {
 		recorreListaDestino(listaDestino);*/
 		crearViaje(d2, 2, t1,listaViajesPendientes, listaViajesTerminados, listaDestino);
 		crearViaje(d1, 5, t2, listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
+		
 		crearViaje(d2, 22,20, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados, listaDestino);
 		
 		crearViaje(d1, 3,0, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
@@ -288,7 +290,7 @@ public void recorreListaViajesPendientes(LinkedList<Viaje> listaViajesPendientes
 			System.out.println(nodoViaje.getNombre());
 			System.out.println(nodoViaje.getCantPasajeros());
 			System.out.println(nodoViaje.getEstado());
-			System.out.println(nodoViaje.getDestino());
+			System.out.println(nodoViaje.getDestino().getCiudad());
 			System.out.println(nodoViaje.getTransporte().getOcupado());
 			System.out.println(nodoViaje.getTransporte().getOcupadoComun());
 		}	
@@ -315,138 +317,90 @@ public void recorreListaDestino(LinkedList<Destino> listaDestino) {
 }
 
 
-public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Viaje>listaViajesPendientes,LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
+public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Viaje> listaViajesPendientes, LinkedList<Viaje> listaViajesTerminados, LinkedList<Destino> listaDestino){
+	/**
+	 * Si el tranporte no esta ocupado, lo puedo usar
+	 */
+	if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados, listaViajesPendientes)){
+		/**
+		 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
+		 */
+		//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases auto, combi y semiCama
+		if((t instanceof Auto && cantPasajeros<=4) || (t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
 			/**
-			 * Si el tranporte no esta ocupado, lo puedo usar
+			 * Crea el viaje y lo agrega a la lista de viajes pendientes
 			 */
-			if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados,listaViajesPendientes)){
-				Destino nodoDestino=null;
-				ListIterator <Destino> iterador=listaDestino.listIterator();
-				boolean encontro=false;
-				/**
-				 * Recorre la lista de destinos, para aumentar el contador
-				 */
-				while(iterador.hasNext() && !encontro){
-					nodoDestino=iterador.next();
-					if(nodoDestino.getCiudad()==(d.getCiudad())){
-						nodoDestino.setContador();
-						d=nodoDestino;
-						encontro=true;
-					}
-				}
-				/**
-				 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
-				 */
-				//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases auto, combi y semiCama
-				if((t instanceof Auto && cantPasajeros<=4) || (t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
-					/**
-					 * Crea el viaje y lo agrega a la lista de viajes pendientes
-					 */
-					//ver como usar el enum para el estado viaje
-					t.setOcupado(cantPasajeros);
-					Viaje v=null;
-					v= new CortaDistancia("","pendiente",0,t,d,cantPasajeros);
-					v.setNombre();
-					if(listaViajesPendientes==null) // si no tiene elementos
-					{
-						listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v); 
-				}
+			d.setContador();
+			t.setOcupado(cantPasajeros);
+			Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
+			v.setNombre();
+			if(listaViajesPendientes==null) // si no tiene elementos
+			{
+				listaViajesPendientes= new LinkedList<Viaje>(); 
 			}
-			recorreListaViajesPendientes(listaViajesPendientes);
+			listaViajesPendientes.add(v); 
 		}
-		
-		public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje>listaViajesPendientes,LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
-			/**
-			 * Si el tranporte no esta ocupado, lo puedo usar
-			 */
-			if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados,listaViajesPendientes)){
-				t.setOcupado(cantPasajeros);
-				Destino nodoDestino=null;
-				ListIterator <Destino> iterador=listaDestino.listIterator();
-				boolean encontro=false;
-				/**
-				 * Recorre la lista de destinos, para aumentar el contador
-				 */
-				while(iterador.hasNext() && !encontro){
-					nodoDestino=iterador.next();
-					if(nodoDestino.getCiudad()==(d.getCiudad())){
-						nodoDestino.setContador();
-						d=nodoDestino;
-						encontro=true;
-					}
-				}
-				
-				/**
-				 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
-				 */
-				//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases combi y semiCama
-				if((t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
-					/**
-					 * Crea el viaje y lo agrega a la lista de viajes pendientes
-					 */
-					//ver como usar el enum para el estado viaje
-					Viaje v=null;
-					v= new LargaDistancia("","pendiente",0,t,d,cantPasajeros,lista);
-					v.setNombre();
-					if(listaViajesPendientes==null) // si no tiene elementos
-					{
-						listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v); 
-				}
-			}
-			recorreListaViajesPendientes(listaViajesPendientes);
-		}
-		
-		public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje>listaViajesPendientes,LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
-			
-				/**
-				 * Si el tranporte no esta ocupado, lo puedo usar
-				 */
-				if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados,listaViajesPendientes)){
-					Destino nodoDestino=null;
-					ListIterator <Destino> iterador=listaDestino.listIterator();
-					boolean encontro=false;
-					/**
-					 * Recorre la lista de destinos, para aumentar el contador
-					 */
-					while(iterador.hasNext() && !encontro){
-						nodoDestino=iterador.next();
-						if(nodoDestino.getCiudad()==(d.getCiudad())){
-							nodoDestino.setContador();
-							d=nodoDestino;
-							encontro=true;
-						}
-					}
-					
-					/**
-					 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
-					 */
-					//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de la clase cocheCama
-						if(t instanceof Cama && cantPasajeros<=32){
-							if(ocupadoCama<=26){
-								t.setOcupado(ocupadoCama);
-								t.setOcupadoComun(cantPasajeros-ocupadoCama);
-								/**
-								 * Crea el viaje y lo agrega a la lista de viajes pendientes
-								 */
-								//ver como usar el enum para el estado viaje
-								Viaje v=null;
-								v= new LargaDistancia("","pendiente",0,t,d,cantPasajeros,lista);
-								v.setNombre();
-								if(listaViajesPendientes==null) // si no tiene elementos
-								{
-									listaViajesPendientes= new LinkedList<Viaje>(); 
-								}
-								listaViajesPendientes.add(v);
-							}
-						}
-				}
-				recorreListaViajesPendientes(listaViajesPendientes);
-		}
+	}
+}
 
+public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje> listaViajesPendientes, LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
+	/**
+	 * Si el tranporte no esta ocupado, lo puedo usar
+	 */
+	if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados, listaViajesPendientes)){
+		/**
+		 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
+		 */
+		//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases combi y semiCama
+		if((t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
+			/**
+			 * Crea el viaje y lo agrega a la lista de viajes pendientes
+			 */
+			d.setContador();
+			t.setOcupado(cantPasajeros);
+			Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+			v.setNombre();
+			if(listaViajesPendientes==null) // si no tiene elementos
+			{
+				listaViajesPendientes= new LinkedList<Viaje>(); 
+			}
+			listaViajesPendientes.add(v); 
+		}
+	}
+}
+
+public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje> listaViajesPendientes, LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
+	
+		/**
+		 * Si el tranporte no esta ocupado, lo puedo usar
+		 */
+		if(!estaOcupadoTransporte(t.getPatente(),listaViajesTerminados, listaViajesPendientes)){
+			/**
+			 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
+			 */
+			//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de la clase cocheCama
+				if(t instanceof Cama && cantPasajeros<=32){
+					if(ocupadoCama<=26){
+						d.setContador();
+						t.setOcupado(ocupadoCama);
+						t.setOcupadoComun(cantPasajeros-ocupadoCama);
+						/**
+						 * Crea el viaje y lo agrega a la lista de viajes pendientes
+						 */
+						Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+						v.setNombre();
+						if(listaViajesPendientes==null) // si no tiene elementos
+						{
+							listaViajesPendientes= new LinkedList<Viaje>(); 
+						}
+						listaViajesPendientes.add(v);
+					}
+				}
+		}
+	
+}
+		
+		
 
 
 }

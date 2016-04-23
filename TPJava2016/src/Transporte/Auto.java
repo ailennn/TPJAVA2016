@@ -13,8 +13,8 @@ public class Auto extends Transporte{
 		return CANTIDAD_PASAJEROS;
 	}
 
-	public Auto(String patente, double velocidad, int ocupado) {
-		super(patente, velocidad, ocupado);
+	public Auto(String patente, double velocidad) {
+		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}
 

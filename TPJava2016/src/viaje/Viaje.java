@@ -21,16 +21,14 @@ public abstract class Viaje {
 	protected LinkedList<Responsable> listaResponsable=null;
 	
 	
-	public Viaje(String nombre, int kmsRecorridos, Transporte transporte, Destino destino, int cantPasajeros,
-			estadoViaje estado,LinkedList<Responsable> listaResponsable){
+	public Viaje(String nombre, Transporte transporte, Destino destino, int cantPasajeros,
+			estadoViaje estado){
 		super();
 		this.nombre = nombre;
-		this.kmsRecorridos = kmsRecorridos;
 		this.transporte = transporte;
 		this.destino = destino;
 		this.cantPasajeros = cantPasajeros;
 		this.estado = estado;
-		this.listaResponsable = listaResponsable;
 	}
 
 	public Viaje() {
@@ -40,10 +38,9 @@ public abstract class Viaje {
 		destino=null;
 		kmsRecorridos=0;
 		cantPasajeros=0;
-		listaResponsable = null;
 	}
 	
-	public estadoViaje getEstadp() {
+	public estadoViaje getEstado() {
 		return estado;
 	}
 
