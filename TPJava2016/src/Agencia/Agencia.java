@@ -127,6 +127,7 @@ public class Agencia {
 	
 	public void altaAuto(String pat, double veloc){
 		Auto nuevo = new Auto (pat,veloc);
+		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
@@ -134,6 +135,7 @@ public class Agencia {
 	
 	public void altaCombi(String pat, double veloc){
 		Combi nuevo = new Combi (pat, veloc);
+		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
@@ -141,6 +143,7 @@ public class Agencia {
 	
 	public void altaSemiCama (String pat, double veloc){
 		SemiCama nuevo = new SemiCama (pat, veloc);
+		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
@@ -148,6 +151,7 @@ public class Agencia {
 	
 	public void altaCama (String pat, double veloc){
 		Cama nuevo = new Cama (pat, veloc);
+		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
 		listaTransporte.add(nuevo);
@@ -260,20 +264,21 @@ public class Agencia {
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
-			//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases auto, combi y semiCama
-			if((t instanceof Auto && cantPasajeros<=4) || (t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
-				/**
-				 * Crea el viaje y lo agrega a la lista de viajes pendientes
-				 */
-				d.setContador();
-				t.setOcupado(cantPasajeros);
-				Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
-				v.setNombre();
-				if(this.listaViajesPendientes==null) // si no tiene elementos
-				{
-					this.listaViajesPendientes= new LinkedList<Viaje>(); 
+			if((t instanceof Auto) || (t instanceof Combi) || (t instanceof SemiCama)){
+				if(cantPasajeros<=t.getCapacidad()){
+					/**
+					 * Crea el viaje y lo agrega a la lista de viajes pendientes
+					 */
+					d.setContador();
+					t.setOcupado(cantPasajeros);
+					Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
+					v.setNombre();
+					if(this.listaViajesPendientes==null) // si no tiene elementos
+					{
+						this.listaViajesPendientes= new LinkedList<Viaje>(); 
+					}
+					listaViajesPendientes.add(v); 
 				}
-				listaViajesPendientes.add(v); 
 			}
 		}
 	}
@@ -286,20 +291,21 @@ public class Agencia {
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
-			//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de las clases combi y semiCama
-			if((t instanceof Combi && cantPasajeros<=16) || (t instanceof SemiCama && cantPasajeros<=40)){
-				/**
-				 * Crea el viaje y lo agrega a la lista de viajes pendientes
-				 */
-				d.setContador();
-				t.setOcupado(cantPasajeros);
-				Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
-				v.setNombre();
-				if(this.listaViajesPendientes==null) // si no tiene elementos
-				{
-					this.listaViajesPendientes= new LinkedList<Viaje>(); 
+			if((t instanceof Combi) || (t instanceof SemiCama)){
+				if(cantPasajeros<=t.getCapacidad()){
+					/**
+					 * Crea el viaje y lo agrega a la lista de viajes pendientes
+					 */
+					d.setContador();
+					t.setOcupado(cantPasajeros);
+					Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+					v.setNombre();
+					if(this.listaViajesPendientes==null) // si no tiene elementos
+					{
+						this.listaViajesPendientes= new LinkedList<Viaje>(); 
+					}
+					listaViajesPendientes.add(v);
 				}
-				listaViajesPendientes.add(v); 
 			}
 		}
 	}
@@ -313,8 +319,7 @@ public class Agencia {
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
-				//Ver si se puede usar el atributo CANTIDAD_PASAJEROS de la clase cocheCama
-					if(t instanceof Cama && cantPasajeros<=32){
+					if(t instanceof Cama && cantPasajeros<=t.getCapacidad()){
 						if(ocupadoCama<=26){
 							d.setContador();
 							t.setOcupado(ocupadoCama);

@@ -23,7 +23,7 @@ public class CortaDistancia extends Viaje{
 	public static double getCostoBase() {
 		return COSTO_BASE;
 	}
-	/**OBTIENE EL COSTO DEL VIAJE= COSTO BASE + PRECIO X KM*/
+	
 	/*CREAR EXCEPCION EN CASO DE QUE EL DESTINO SEA MAYOR A 100 KM*/
 	/*CHEQUEAR QUE TRANSPORTE SEA SOLO AUTO O COMBI O COLECTIVO SEMI CAMA*/
 	public double Costo(){

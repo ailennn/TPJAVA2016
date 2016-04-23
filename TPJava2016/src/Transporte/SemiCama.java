@@ -2,10 +2,6 @@ package transporte;
 
 public class SemiCama extends Colectivo{
 
-	private static final int CANTIDAD_PASAJEROS = 40;
-
-
-
 	public SemiCama(String patente, double velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
@@ -13,8 +9,8 @@ public class SemiCama extends Colectivo{
 
 
 	/*GETTERS & SETTERS*/
-	public static int getCantidadPasajeros() {
-		return CANTIDAD_PASAJEROS;
+	public void setCapacidad() {
+		this.capacidad = 40;
 	}
 
 	

@@ -5,14 +5,27 @@ public abstract class Transporte {
 	private String patente;
 	private double velocidad;
 	private int ocupado;
+	protected int capacidad;
 	
-
+	
 
 	public Transporte(String patente, double velocidad) {
 		super();
 		this.patente = patente;
 		this.velocidad = velocidad;
 	}
+	
+	public int getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad() {
+		this.capacidad = 0;
+	}
+
+
+
+
 	public int getOcupado() {
 		return ocupado;
 	}
