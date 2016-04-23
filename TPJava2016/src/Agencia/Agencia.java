@@ -376,10 +376,10 @@ public class Agencia {
         {
             public int compare(Responsable r1, Responsable r2){   
          	   
-         	   if(r1.getSueldoFijo()>(r2.getSueldoFijo()))
+         	   if(r1.getSueldoFijo()<(r2.getSueldoFijo()))
          		   return 1;
          	   else
-         		   if(r1.getSueldoFijo()<(r2.getSueldoFijo()))
+         		   if(r1.getSueldoFijo()>(r2.getSueldoFijo()))
          			   return -1;
                 else
              	   return 0;
@@ -420,37 +420,40 @@ public class Agencia {
 			}	
 		}
 		OrdenarPorResponsables(listaAux);
-		ListIterator<Responsable>itr=listaAux.listIterator();
-		Responsable r=null;
-		if(itr.hasNext()){
-			r=itr.next();
-			long dni=r.getDni();
-			suma+=r.getSueldoFijo();
-			while(itr.hasNext()){
-				r=itr.next();
-				if(r.getDni()==dni){
-					suma+=r.getSueldoFijo();
+
+		ListIterator<Responsable>itr2=listaAux.listIterator();
+		Responsable re=null;
+		if(itr2.hasNext()){
+			re=itr2.next();
+			long dni=re.getDni();
+			while(itr2.hasNext()){
+				if(re.getDni()==dni){
+					suma+=re.getSueldoFijo();
+					if(!itr2.hasNext() || itr2.next().getDni()!=dni){
+						if(listaAux2==null)
+							listaAux2=new LinkedList<Responsable>();
+						/**
+						 * En el atributo sueldoFijo de Responsable se almacena la cantidad
+						 * total de kilometros recorridos por ese Responsable
+						 */
+						re.setSueldoFijo(suma);
+						listaAux2.add(re);
+					}
+					re=itr2.next();
 				}
 				else{
-					dni=r.getDni();
-					r=itr.previous();
-					if(listaAux2==null)
-						listaAux2=new LinkedList<Responsable>();
-					r.setSueldoFijo(suma);
-					listaAux2.add(r);
+					dni=re.getDni();
 					suma=0;
 				}
 			}
 			if(listaAux2==null)
 				listaAux2=new LinkedList<Responsable>();
-			/**
-			 * En el atributo sueldoFijo de Responsable se almacena la cantidad
-			 * total de kilometros recorridos por ese Responsable
-			 */
-			r.setSueldoFijo(suma);
-			listaAux2.add(r);
+			re.setSueldoFijo(suma+re.getSueldoFijo());
+			listaAux2.add(re);
 			
 			OrdenarPorKilometrosRecorridos(listaAux2);
+			
+			recorreListaResponsable(listaAux2);
 			
 			File arctxt=new File("src//archivos//ranking.txt"); 
 			PrintWriter escribir;
@@ -469,7 +472,7 @@ public class Agencia {
 				ListIterator <Responsable> itera= listaAux2.listIterator();
 				while(itera.hasNext()) {
 					resp=itera.next();
-					escribir.format("%20s\t%d\t%d\n",r.getNombre(),r.getDni(),r.getSueldoFijo());
+					escribir.format("%20s\t%d\t%d\n",re.getNombre(),re.getDni(),re.getSueldoFijo());
 				}
 			 
 				escribir.close();

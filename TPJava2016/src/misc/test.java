@@ -1,7 +1,12 @@
 package misc;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.lang.Exception;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -33,15 +38,13 @@ public class test {
 		
 		Agencia obA = new Agencia(); 
 		
-		System.out.println("Armado de las listas de la agencia obA");
-		
 		obA.altaAuto("AAA000", 100.1);
 		obA.altaCombi("AAA001", 90.5);
 		obA.altaSemiCama("AAA002", 95.6);
 		obA.altaCama("AAA003", 88.3);
 		obA.altaResponsable("Flor", 35797200, 500.5);
 		obA.altaResponsable("Giu", 33333333, 555.2);
-		obA.altaResponsable("Ailen", 34444444, 599.7);
+		obA.altaResponsable("Ailen", 34444444, 580.7);
 		obA.altaResponsable("Jeje", 22222222, 450.5);
 		obA.altaResponsable("Jaja", 30303030, 4100.4);
 		
@@ -51,7 +54,7 @@ public class test {
 		Transporte t4= new Cama("AAA003",88.3);
 		Responsable r1= new Responsable("Flor", 35797200, 500.5);
 		Responsable r2= new Responsable("Giu", 33333333, 555.2);
-		Responsable r3= new Responsable("Ailen", 34444444, 599.7);
+		Responsable r3= new Responsable("Ailen", 34444444, 580.7);
 		Responsable r4= new Responsable("Jeje", 22222222, 450.5);
 		Responsable r5= new Responsable("Jaja", 30303030, 4100.4);
 		
@@ -66,12 +69,25 @@ public class test {
 		listaResponsable.add(r4);
 		listaResponsable.add(r5);
 		
-		listaViajesTerminados=null;
-		listaViajesPendientes=null;
-		
 		Destino d1= new Destino("Los Toldos",600);
 		Destino d2= new Destino("Balcarce",60);
-			
+		
+		LinkedList<Responsable>listaResponsable2=new LinkedList<Responsable>();
+		listaResponsable2.add(r1);
+		LinkedList<Responsable>listaResponsable3=new LinkedList<Responsable>();
+		listaResponsable3.add(r3);
+		listaResponsable3.add(r1);
+		
+		
+		Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.FINALIZADO);
+		Viaje v2=new LargaDistancia("hola",t2,d1, 2,estadoViaje.FINALIZADO,listaResponsable2);
+		Viaje v3=new LargaDistancia("hola",t4,d1, 2,estadoViaje.FINALIZADO,listaResponsable3);
+		
+		listaViajesTerminados.add(v1);
+		listaViajesTerminados.add(v2);
+		listaViajesTerminados.add(v3);
+		listaViajesPendientes=null;
+		
 		listaDestino.add(d1);
 		listaDestino.add(d2);
 			
@@ -96,14 +112,14 @@ public class test {
 		modificaResponsable(33333333, 33444444, 20.2,"Nombre",listaResponsable,listaViajesTerminados,listaViajesPendientes);
 		recorreListaResponsable(listaResponsable);
 		
-		recorreListaDestino(listaDestino);*/
+		recorreListaDestino(listaDestino);
 		crearViaje(d2, 2, t1,listaViajesPendientes, listaViajesTerminados, listaDestino);
 		crearViaje(d1, 5, t2, listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
-		
 		crearViaje(d2, 22,20, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados, listaDestino);
+		crearViaje(d1, 3,0, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);*/
 		
-		crearViaje(d1, 3,0, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
-		crearViaje(d1, 3,0, t2,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
+		
+		ranking(listaViajesTerminados);
 }
 	
 
@@ -274,8 +290,11 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 		ListIterator <Responsable> iterador= listaResponsable.listIterator();
 		while(iterador.hasNext()){
 			nodoResponsable=iterador.next();
+			System.out.println("DNI");
 			System.out.println(nodoResponsable.getDni());
+			System.out.println("Nombre");
 			System.out.println(nodoResponsable.getNombre());
+			System.out.println("KMs recorridos");
 			System.out.println(nodoResponsable.getSueldoFijo());
 		}					 
 	}
@@ -287,11 +306,17 @@ public void recorreListaViajesPendientes(LinkedList<Viaje> listaViajesPendientes
 		ListIterator <Viaje> iterador= listaViajesPendientes.listIterator();
 		while(iterador.hasNext()){
 			nodoViaje=iterador.next();
+			System.out.println("Nobre viaje");
 			System.out.println(nodoViaje.getNombre());
+			System.out.println("cant pasajeros");
 			System.out.println(nodoViaje.getCantPasajeros());
+			System.out.println("estado");
 			System.out.println(nodoViaje.getEstado());
+			System.out.println("destino");
 			System.out.println(nodoViaje.getDestino().getCiudad());
+			System.out.println("ocupado");
 			System.out.println(nodoViaje.getTransporte().getOcupado());
+			System.out.println("ocupado comun");
 			System.out.println(nodoViaje.getTransporte().getOcupadoComun());
 		}	
 	}
@@ -341,6 +366,8 @@ public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Via
 			listaViajesPendientes.add(v); 
 		}
 	}
+	System.out.println("recorro lista");
+	recorreListaViajesPendientes(listaViajesPendientes);
 }
 
 public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje> listaViajesPendientes, LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
@@ -367,6 +394,8 @@ public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Res
 			listaViajesPendientes.add(v); 
 		}
 	}
+	System.out.println("recorro lista");
+	recorreListaViajesPendientes(listaViajesPendientes);
 }
 
 public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista,LinkedList<Viaje> listaViajesPendientes, LinkedList<Viaje> listaViajesTerminados,LinkedList<Destino> listaDestino){
@@ -397,10 +426,144 @@ public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte 
 					}
 				}
 		}
+		System.out.println("recorro lista");
+		recorreListaViajesPendientes(listaViajesPendientes);
 	
 }
 		
+
+public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
+	Collections.sort(listaAux, new Comparator<Responsable>()
+    {
+        public int compare(Responsable r1, Responsable r2){   
+     	   
+     	   if(r1.getDni()>(r2.getDni()))
+     		   return 1;
+     	   else
+     		   if(r1.getDni()<(r2.getDni()))
+     			   return -1;
+            else
+         	   return 0;
+        }
+    }
+	);
+}
+
+/**
+ * En la listaAux, se reusó la clase responsable, en donde se almacena los 
+ * kilometros totales recorridos por ese responsable en el atributo sueldoFijo
+ * @param listaAux
+ */
+public void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
+	Collections.sort(listaAux, new Comparator<Responsable>()
+    {
+        public int compare(Responsable r1, Responsable r2){   
+     	   
+     	   if(r1.getSueldoFijo()<(r2.getSueldoFijo()))
+     		   return 1;
+     	   else
+     		   if(r1.getSueldoFijo()>(r2.getSueldoFijo()))
+     			   return -1;
+            else
+         	   return 0;
+        }
+    }
+	);
+}
+
+/**
+ * Ranking de responsables a bordo ordenado de mayor a menor por 
+ * cantidad de kilómetros recorridos en los viajes terminados.
+ * Genera archivo de texto
+ */
+
+public void ranking(LinkedList<Viaje>listaViajesTerminados){
+	Viaje v=null;
+	int suma=0;
+	/**
+	 * La lista auxiliar se usa para almacenar cada responsable(sin que esten repetidos)
+	 * con la cantidad total de kms recorridos, que se suman en la variable suma
+	 */
+	LinkedList<Responsable> listaAux=null;
+	LinkedList<Responsable>listaAux2=null;
+	LinkedList<Viaje>listaTerminados=listaViajesTerminados;
+	ListIterator<Viaje>iterador=listaTerminados.listIterator();
+	while(iterador.hasNext()){
+		v=iterador.next();
+		if(v instanceof LargaDistancia){
+			ListIterator<Responsable>itr=v.getListaResponsable().listIterator();
+			Responsable r=null;
+			while(itr.hasNext()){
+				r=itr.next();
+				if(listaAux==null)
+					listaAux=new LinkedList<Responsable>();
+				r.setSueldoFijo(v.getDestino().getKilometros());
+				listaAux.add(r);
+			}
+		}	
+	}
+	OrdenarPorResponsables(listaAux);
+
+	ListIterator<Responsable>itr2=listaAux.listIterator();
+	Responsable re=null;
+	if(itr2.hasNext()){
+		re=itr2.next();
+		long dni=re.getDni();
+		while(itr2.hasNext()){
+			if(re.getDni()==dni){
+				suma+=re.getSueldoFijo();
+				if(!itr2.hasNext() || itr2.next().getDni()!=dni){
+					if(listaAux2==null)
+						listaAux2=new LinkedList<Responsable>();
+					/**
+					 * En el atributo sueldoFijo de Responsable se almacena la cantidad
+					 * total de kilometros recorridos por ese Responsable
+					 */
+					re.setSueldoFijo(suma);
+					listaAux2.add(re);
+				}
+				re=itr2.next();
+			}
+			else{
+				dni=re.getDni();
+				suma=0;
+			}
+		}
+		if(listaAux2==null)
+			listaAux2=new LinkedList<Responsable>();
+		re.setSueldoFijo(suma+re.getSueldoFijo());
+		listaAux2.add(re);
 		
+		OrdenarPorKilometrosRecorridos(listaAux2);
+		
+		recorreListaResponsable(listaAux2);
+		
+		File arctxt=new File("src//archivos//ranking.txt"); 
+		PrintWriter escribir;
+		if(!arctxt.exists()){
+			try {
+				arctxt.createNewFile();
+			} catch (Exception e) {
+				
+			}
+		}	
+		
+		try {
+
+			escribir = new PrintWriter(arctxt,"utf-8");	
+			Responsable resp=null;
+			ListIterator <Responsable> itera= listaAux2.listIterator();
+			while(itera.hasNext()) {
+				resp=itera.next();
+				escribir.format("%20s\t%d\t%d\n",re.getNombre(),re.getDni(),re.getSueldoFijo());
+			}
+		 
+			escribir.close();
+			} catch (Exception e) {}
+	}
+}
+
+
 
 
 }
