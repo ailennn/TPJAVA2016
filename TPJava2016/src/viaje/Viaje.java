@@ -9,17 +9,24 @@ public abstract class Viaje {
 	private String nombre;
 	//En internet los enum estan public, y asi pude hacer bien el constructor de corta distancia
 	//pero no entiendo mucho como usar los estados (ponerlo en curso, pendiente, etc), hay que investigar
-	public enum estadoViaje{
+	/*public enum estadoViaje{
 		PENDIENTE, EN_CURSO, FINALIZADO
-	}
-	private estadoViaje estado;
+	}*/
+	private String estado;
 	private int kmsRecorridos;
 	private Transporte transporte;
 	private Destino destino;
 	private int cantPasajeros;
 	protected LinkedList<Responsable> listaResponsable=null;
 	
-	public Viaje(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
+	public enum EstadoViaje {
+		PENDIENTE("pendiente"), EN_CURSO("enCurso"), FINALIZADO ("finalizado");
+
+		private EstadoViaje(String name) {
+		}
+	}
+	
+	public Viaje(String nombre, String estado, int kmsRecorridos, Transporte transporte,
 			Destino destino,int cantPasajeros,LinkedList<Responsable> listaResponsable) {
 		super();
 		this.nombre = nombre;
@@ -57,11 +64,11 @@ public abstract class Viaje {
 		this.cantPasajeros = cantPasajeros;
 	}
 
-	public estadoViaje getEstado(){
+	public String getEstado(){
 		return estado;
 	}
 	
-	public void setEstado(estadoViaje estado){
+	public void setEstado(String estado){
 		this.estado=estado;
 	}
 	

@@ -4,6 +4,7 @@ public abstract class Transporte {
 	
 	private String patente;
 	private double velocidad;
+	private int ocupado;
 	
 	public Transporte(String patente, double velocidad) {
 		super();
@@ -11,6 +12,17 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 
+	public int getOcupado() {
+		return ocupado;
+	}
+	/**
+	 * Para el caso de Cama, ocuapdo es la cantidad de camas ocupadas
+	 * @param ocupado
+	 */
+	public void setOcupado(int ocupado) {
+		this.ocupado = ocupado;
+	}
+	
 	public String getPatente() {
 		return patente;
 	}
@@ -24,12 +36,6 @@ public abstract class Transporte {
 	public void setVelocidad(double velocidad) {
 		this.velocidad = velocidad;
 	}
-	
-	public int getOcupadoCama() {
-		return 0;
-	}
-
-	public void setOcupadoCama(int ocupadoCama) {}
 
 	public int getOcupadoComun() {
 		return 0;

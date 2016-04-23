@@ -5,11 +5,9 @@ public class Combi extends Transporte{
 	private static final int CANTIDAD_PASAJEROS = 16;
 	private static final double PRECIO_BASE = 1000;
 	private static final double PRECIO_KM = 25;
-	private int ocupado;
 	
-	public Combi(String patente, double velocidad, int ocupado) {
+	public Combi(String patente, double velocidad) {
 		super(patente,velocidad);
-		this.ocupado = ocupado;
 	}
 
 	/*GETTERS & SETTERS*/
@@ -19,15 +17,7 @@ public class Combi extends Transporte{
 	}
 	
 	public double getPrecioKm() {
-		return PRECIO_KM*ocupado;
-	}
-
-	public int getOcupado() {
-		return ocupado;
-	}
-
-	public void setOcupado(int ocupado) {
-		this.ocupado = ocupado;
+		return PRECIO_KM*getOcupado();
 	}
 
 	public static double getPrecioBase() {
