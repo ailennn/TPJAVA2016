@@ -524,6 +524,5 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 			nodoResponsable=iterador.next();
 			System.out.println(nodoResponsable.getDni());
 		}					 
-	}
-	
+	}	
 }

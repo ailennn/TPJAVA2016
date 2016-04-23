@@ -1,33 +1,30 @@
 package GUI;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JToolBar;
-import java.awt.BorderLayout;
-import javax.swing.JTextPane;
-import javax.swing.BoxLayout;
-import javax.swing.JList;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.JToggleButton;
-import javax.swing.JButton;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 public class UIPrincipal {
 
 	private JFrame frmAgenciaDeViajes;
@@ -43,7 +40,7 @@ public class UIPrincipal {
 					window.frmAgenciaDeViajes.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}	
 			}
 		});
 	}
@@ -58,8 +55,11 @@ public class UIPrincipal {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() {		
+		
 		frmAgenciaDeViajes = new JFrame();
+		
+		frmAgenciaDeViajes.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		frmAgenciaDeViajes.setMinimumSize(new Dimension(900, 600));
 		frmAgenciaDeViajes.setIconImage(Toolkit.getDefaultToolkit().getImage(UIPrincipal.class.getResource("/ico/365-200.png")));
 		frmAgenciaDeViajes.setMaximumSize(new Dimension(900, 600));
@@ -80,6 +80,10 @@ public class UIPrincipal {
 		JMenuItem mntmResponsable = new JMenuItem("Responsable");
 		mnAdministrar.add(mntmResponsable);
 		
+		JMenuItem mntmCrearViaje = new JMenuItem("Crear Viaje");
+		mntmCrearViaje.setSelectedIcon(null);
+		mnAdministrar.add(mntmCrearViaje);
+		
 		JMenu mnReportes = new JMenu("Reportes");
 		menuBar.add(mnReportes);
 		
@@ -90,17 +94,16 @@ public class UIPrincipal {
 		mnReportes.add(mntmRecaudacin);
 		frmAgenciaDeViajes.getContentPane().setLayout(null);
 		
+		JLabel lblInformacin = new JLabel("Informaci\u00F3n");
+		lblInformacin.setBounds(401, 54, 68, 16);
+		frmAgenciaDeViajes.getContentPane().add(lblInformacin);
+		lblInformacin.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		
 		JList list = new JList();
 		list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list.setToolTipText("");
 		list.setBounds(684, 53, 160, 400);
 		frmAgenciaDeViajes.getContentPane().add(list);
-		
-		JList list_1 = new JList();
-		list_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		list_1.setToolTipText("");
-		list_1.setBounds(247, 53, 160, 400);
-		frmAgenciaDeViajes.getContentPane().add(list_1);
 		
 		JList list_2 = new JList();
 		list_2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -111,11 +114,6 @@ public class UIPrincipal {
 		lblListadoDeViajes.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblListadoDeViajes.setBounds(33, 29, 175, 14);
 		frmAgenciaDeViajes.getContentPane().add(lblListadoDeViajes);
-		
-		JLabel lblListadoDeViajes_1 = new JLabel("Listado de Viajes en Curso");
-		lblListadoDeViajes_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblListadoDeViajes_1.setBounds(247, 29, 160, 14);
-		frmAgenciaDeViajes.getContentPane().add(lblListadoDeViajes_1);
 		
 		JLabel lblListadoDeViajes_2 = new JLabel("Listado de Viajes Finalizados");
 		lblListadoDeViajes_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -138,17 +136,8 @@ public class UIPrincipal {
 		JTextPane textPane = new JTextPane();
 		textPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		textPane.setBackground(SystemColor.info);
-		textPane.setBounds(453, 77, 189, 281);
+		textPane.setBounds(232, 77, 410, 281);
 		frmAgenciaDeViajes.getContentPane().add(textPane);
-		
-		JLabel lblInformacin = new JLabel("Informaci\u00F3n");
-		lblInformacin.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblInformacin.setBounds(457, 55, 73, 14);
-		frmAgenciaDeViajes.getContentPane().add(lblInformacin);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 894, 550);
-		frmAgenciaDeViajes.getContentPane().add(panel);
-		frmAgenciaDeViajes.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAgenciaDeViajes.getContentPane(), list, list_1, list_2, menuBar, mnAdministrar, mntmTransporte, mntmResponsable, mnReportes, mntmNewMenuItem, mntmRecaudacin}));
+		frmAgenciaDeViajes.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAgenciaDeViajes.getContentPane(), list, list_2, menuBar, mnAdministrar, mntmTransporte, mntmResponsable, mnReportes, mntmNewMenuItem, mntmRecaudacin}));
 	}
 }
