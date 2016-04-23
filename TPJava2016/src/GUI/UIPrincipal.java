@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,6 +26,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+import javax.swing.border.SoftBevelBorder;
+import java.awt.event.ActionListener;
 public class UIPrincipal {
 
 	private JFrame frmAgenciaDeViajes;
@@ -59,7 +62,7 @@ public class UIPrincipal {
 		
 		frmAgenciaDeViajes = new JFrame();
 		
-		frmAgenciaDeViajes.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		frmAgenciaDeViajes.getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		frmAgenciaDeViajes.setMinimumSize(new Dimension(900, 600));
 		frmAgenciaDeViajes.setIconImage(Toolkit.getDefaultToolkit().getImage(UIPrincipal.class.getResource("/ico/365-200.png")));
 		frmAgenciaDeViajes.setMaximumSize(new Dimension(900, 600));
@@ -72,25 +75,34 @@ public class UIPrincipal {
 		frmAgenciaDeViajes.setJMenuBar(menuBar);
 		
 		JMenu mnAdministrar = new JMenu("Administrar");
+		mnAdministrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuBar.add(mnAdministrar);
 		
 		JMenuItem mntmTransporte = new JMenuItem("Transporte");
+		mntmTransporte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnAdministrar.add(mntmTransporte);
 		
 		JMenuItem mntmResponsable = new JMenuItem("Responsable");
+		mntmResponsable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnAdministrar.add(mntmResponsable);
 		
 		JMenuItem mntmCrearViaje = new JMenuItem("Crear Viaje");
+		mntmCrearViaje.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mntmCrearViaje.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+
 		mntmCrearViaje.setSelectedIcon(null);
 		mnAdministrar.add(mntmCrearViaje);
 		
 		JMenu mnReportes = new JMenu("Reportes");
+		mnReportes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		menuBar.add(mnReportes);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Ranking");
+		mntmNewMenuItem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnReportes.add(mntmNewMenuItem);
 		
 		JMenuItem mntmRecaudacin = new JMenuItem("Recaudaci\u00F3n");
+		mntmRecaudacin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mnReportes.add(mntmRecaudacin);
 		frmAgenciaDeViajes.getContentPane().setLayout(null);
 		
@@ -124,13 +136,17 @@ public class UIPrincipal {
 		tglbtnNewToggleButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		tglbtnNewToggleButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		tglbtnNewToggleButton.setActionCommand("");
-		tglbtnNewToggleButton.setBounds(33, 497, 121, 30);
+		tglbtnNewToggleButton.setBounds(301, 496, 121, 30);
 		frmAgenciaDeViajes.getContentPane().add(tglbtnNewToggleButton);
 		
-		JButton btnNewButton = new JButton("Cancelar");
+		JButton btnNewButton = new JButton("Detener");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(164, 497, 121, 30);
+		btnNewButton.setBounds(447, 496, 121, 30);
 		frmAgenciaDeViajes.getContentPane().add(btnNewButton);
 		
 		JTextPane textPane = new JTextPane();
@@ -139,5 +155,11 @@ public class UIPrincipal {
 		textPane.setBounds(232, 77, 410, 281);
 		frmAgenciaDeViajes.getContentPane().add(textPane);
 		frmAgenciaDeViajes.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAgenciaDeViajes.getContentPane(), list, list_2, menuBar, mnAdministrar, mntmTransporte, mntmResponsable, mnReportes, mntmNewMenuItem, mntmRecaudacin}));
+	}
+	
+	public void actionPerformed(ActionEvent e){
+		if ("Crear Viaje".equals(e.getActionCommand())){
+			new SeleccionaDestino().setVisible(true);
+		}
 	}
 }

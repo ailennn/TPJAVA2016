@@ -35,6 +35,12 @@ public class Agencia {
 		listaViajesPendientes = null;
 	}
 	
+	public void cargaLista (){
+		Destino aux = new Destino("Mar del Plata",15);
+		listaDestino.add(aux);
+		aux.setCiudad("Tandil");
+		listaDestino.add(aux);
+	}
 	
 	/**
 	 * Recorre las listas de viajes pendientes y ocupados.
@@ -530,4 +536,18 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 			System.out.println(nodoResponsable.getDni());
 		}					 
 	}	
-}
+public ArrayList<String> getListaDestino (){
+	ArrayList<String> aux = null;
+	ListIterator <Destino> iterador = listaDestino.listIterator();
+	Destino nodoDestino=iterador.next();
+		aux.add(nodoDestino.getCiudad());
+	return aux;
+		}
+
+
+
+
+
+
+
+} //LLAVE CIERRA CLASE

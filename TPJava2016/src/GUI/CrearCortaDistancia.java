@@ -21,33 +21,17 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Component;
 
-public class CrearViajeCorto extends JFrame {
+public class CrearCortaDistancia extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrearViajeCorto frame = new CrearViajeCorto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public CrearViajeCorto() {
+	public CrearCortaDistancia() {
 		setMaximumSize(new Dimension(600, 400));
 		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearViajeCorto.class.getResource("/ico/365-200.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearCortaDistancia.class.getResource("/ico/365-200.png")));
 		setTitle("Viaje de Corta Distancia");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -89,13 +73,13 @@ public class CrearViajeCorto extends JFrame {
 		
 		JButton button = new JButton("Crear Viaje");
 		button.setAlignmentX(Component.CENTER_ALIGNMENT);
-		button.setIcon(new ImageIcon(CrearViajeCorto.class.getResource("/ico/ok.png")));
+		button.setIcon(new ImageIcon(CrearCortaDistancia.class.getResource("/ico/ok.png")));
 		button.setBounds(157, 274, 121, 30);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Cancelar");
 		button_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		button_1.setIcon(new ImageIcon(CrearViajeCorto.class.getResource("/ico/Cancela.png")));
+		button_1.setIcon(new ImageIcon(CrearCortaDistancia.class.getResource("/ico/Cancela.png")));
 		button_1.setBounds(365, 274, 121, 30);
 		contentPane.add(button_1);
 	}
