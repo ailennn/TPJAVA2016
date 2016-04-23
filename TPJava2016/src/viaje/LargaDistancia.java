@@ -1,13 +1,13 @@
 package viaje;
 
-import misc.Destino;
+import misc.*;
 import misc.Responsable;
 import transporte.Transporte;
 import java.util.*;
 
 public class LargaDistancia extends Viaje{
 
-	public LargaDistancia(String nombre, estadoViaje estado, int kmsRecorridos, Transporte transporte,
+	public LargaDistancia(String nombre, String estado, int kmsRecorridos, Transporte transporte,
 			 Destino destino, int cantPasajeros, LinkedList<Responsable> listaResponsable) {
 		super(nombre, estado, kmsRecorridos, transporte, destino, cantPasajeros,listaResponsable);
 		this.listaResponsable = listaResponsable;

@@ -3,11 +3,9 @@ package transporte;
 public class SemiCama extends Colectivo{
 
 	private static final int CANTIDAD_PASAJEROS = 40;
-	private int ocupado;
 
-	public SemiCama(String patente, double velocidad, int ocupado) {
+	public SemiCama(String patente, double velocidad) {
 		super(patente, velocidad);
-		this.ocupado = ocupado;
 	}
 
 	/*GETTERS & SETTERS*/
@@ -15,19 +13,12 @@ public class SemiCama extends Colectivo{
 		return CANTIDAD_PASAJEROS;
 	}
 
-	public int getOcupado() {
-		return ocupado;
-	}
-
-	public void setOcupado(int ocupado) {
-		this.ocupado = ocupado;
-	}
 	
 	public double getCosto(){
 		return 0;
 	}
 	
 	public double getPrecioKm() {
-		return ocupado*getPrecio();
+		return getOcupado()*getPrecio();
 	}
 }
