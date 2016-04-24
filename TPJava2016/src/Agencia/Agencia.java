@@ -46,7 +46,7 @@ public class Agencia {
 	 * Destinos, transportes y viajes creados para agregar a la lista de viajes
 	 * pendientes, y asi probar la simulacion. Despues hay que borrarlos
 	 */
-	Destino d1= new Destino("Los Toldos",600);
+	/*Destino d1= new Destino("Los Toldos",600);
 	Destino d2= new Destino("Balcarce",60);
 	Transporte t1= new Auto("AAA000", 100);
 	Transporte t2= new Combi("AAA001", 90);
@@ -56,13 +56,17 @@ public class Agencia {
 	Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,null);
 	Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,null);
 	
+	
 	public void setListaViajesPendientes(){
 		if(this.listaViajesPendientes==null)
 			this.listaViajesPendientes=new LinkedList<Viaje>();
+		v1.setKmsRecorridos(0);
+		v2.setKmsRecorridos(0);
+		v3.setKmsRecorridos(0);
 		this.listaViajesPendientes.add(v1);
 		this.listaViajesPendientes.add(v2);
 		this.listaViajesPendientes.add(v3);
-	}
+	}*/
 	
 	public LinkedList<Viaje> getListaViajesPendientes() {
 		return listaViajesPendientes;
@@ -486,7 +490,9 @@ public class Agencia {
 	 * pausar la simulación, detiene todos los viajes de la lista
 	 */
 	public void detenerViajePendiente(Viaje v,long timeStamp){
-		System.out.println("HOla");
+		if(v.getKmsRecorridos()==v.getDestino().getKilometros()){
+			finalizarViaje(v);
+		}
 	}
 	
 	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
