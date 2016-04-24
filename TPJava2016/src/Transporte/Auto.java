@@ -5,12 +5,6 @@ public class Auto extends Transporte{
 	private static final double PRECIO_KM = 12;
 	
 
-	//La capacidad, no deberia heredarla de transporte, deberia ser la cantidad_pasajeros
-
-	public void setCapacidad() {
-		this.capacidad = 4;
-	}
-
 	public Auto(String patente, double velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
@@ -22,6 +16,14 @@ public class Auto extends Transporte{
 	
 	public double getCosto(){
 		return PRECIO_BASE;
+	}
+	
+	public int getCapacidad() {
+		return capacidad;
+	}
+	
+	public void setCapacidad() {
+		this.capacidad = 4;
 	}
 
 }

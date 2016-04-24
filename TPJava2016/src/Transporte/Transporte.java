@@ -16,15 +16,12 @@ public abstract class Transporte {
 	}
 	
 	public int getCapacidad() {
-		return capacidad;
+		return 0;
 	}
 
 	public void setCapacidad() {
 		this.capacidad = 0;
 	}
-
-
-
 
 	public int getOcupado() {
 		return ocupado;

@@ -17,6 +17,10 @@ public class Cama extends Colectivo{
 	public void setCapacidad() {
 		this.capacidad = 32;
 	}
+	
+	public int getCapacidad() {
+		return capacidad;
+	}
 
 	public int getOcupadoComun() {
 		return ocupadoComun;

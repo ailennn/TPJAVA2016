@@ -17,6 +17,10 @@ public class Combi extends Transporte{
 		this.capacidad = 16;
 	}
 	
+	public int getCapacidad() {
+		return capacidad;
+	}
+	
 	public double getPrecioKm() {
 		return PRECIO_KM*getOcupado();
 	}

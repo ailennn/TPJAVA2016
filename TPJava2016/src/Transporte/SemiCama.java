@@ -12,7 +12,10 @@ public class SemiCama extends Colectivo{
 	public void setCapacidad() {
 		this.capacidad = 40;
 	}
-
+	
+	public int getCapacidad() {
+		return capacidad;
+	}
 	
 	public double getCosto(){
 		return 0;

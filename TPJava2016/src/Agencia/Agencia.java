@@ -43,9 +43,9 @@ public class Agencia {
 	}
 	
 	/**
-	 * Recorre las listas de viajes pendientes y ocupados.
+	 * Recorre las listas de viajes pendientes y terminados.
 	 * Si el transporte no está en ninguna de las listas, esta disponible
-	 * para hacer lo que se necesite.
+	 * para hacer modificarlo o eliminarlo.
 	 * @param patente
 	 * @return
 	 */
@@ -81,9 +81,9 @@ public class Agencia {
 	}
 	
 	/**
-	 * Recorre las listas de viajes pendientes y ocupados.
+	 * Recorre las listas de viajes pendientes y terminados.
 	 * Si el responsable no está en ninguna de las listas, esta disponible
-	 * para hacer lo que se necesite.
+	 * para modificarlo o eliminarlo.
 	 * @param patente
 	 * @return
 	 */
@@ -128,6 +128,54 @@ public class Agencia {
 				}
 			}
 		}
+		return esta;
+	}
+	
+	/**
+	 * Metodo que verifica que el transporte no esta en viaje (pendiente o en curso)
+	 * @param patente
+	 * @return
+	 */
+	public boolean estaEnViajeTransporte(String patente){
+		boolean esta=false;
+		Viaje nodoViaje=null;
+		/**
+		 * Verifica que el transporte no este en la lista de viajes pendientes
+		 */
+		if(listaViajesPendientes!=null){
+			ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+			while(iterador2.hasNext()&&!esta){
+				nodoViaje=iterador2.next();
+				if(nodoViaje.getTransporte().getPatente().equals(patente))
+					esta=true;
+			}
+		}
+		return esta;
+	}
+	
+	/**
+	 * Metodo que verifica que el responsable no esta en viaje (pendiente o en curso)
+	 * @param dni
+	 * @return
+	 */
+	public boolean estaEnViajeResponsable(long dni){
+		boolean esta=false;
+		Viaje nodoViaje=null;
+			if(listaViajesPendientes!=null){
+				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
+				while(iterador2.hasNext()&&!esta){
+					nodoViaje=iterador2.next();
+					if(nodoViaje instanceof LargaDistancia){
+						Responsable r=null;
+						ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
+						while(itr2.hasNext()&&!esta){
+							r=itr2.next();
+							if(r.getDni()==dni)
+								esta=true;
+						}
+					}
+				}
+			}
 		return esta;
 	}
 	
@@ -262,11 +310,17 @@ public class Agencia {
 	 * else if(transporte instanceof Cama) llamar al metodo de larga distancia y de cama
 	 * else llamar al metodo larga distancia y de los demas transportes.
 	 */
+	/**
+	 * Crea un viaje de corta distancia
+	 * @param d
+	 * @param cantPasajeros
+	 * @param t
+	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
 		/**
 		 * Si el tranporte no esta ocupado, lo puedo usar
 		 */
-		if(!estaOcupadoTransporte(t.getPatente())){
+		if(!estaEnViajeTransporte(t.getPatente())){
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -289,11 +343,18 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Crea un viaje de larga distancia, cuyo transporte es Combi o Colectivo Semi Cama
+	 * @param d
+	 * @param cantPasajeros
+	 * @param t
+	 * @param lista
+	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
 		/**
 		 * Si el tranporte no esta ocupado, lo puedo usar
 		 */
-		if(!estaOcupadoTransporte(t.getPatente())){
+		if(!estaEnViajeTransporte(t.getPatente())){
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -316,12 +377,20 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Crea un viaje de larga distancia, cuyo transporte es un Colectivo Cama
+	 * @param d
+	 * @param cantPasajeros
+	 * @param ocupadoCama
+	 * @param t
+	 * @param lista
+	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
 		
 			/**
 			 * Si el tranporte no esta ocupado, lo puedo usar
 			 */
-			if(!estaOcupadoTransporte(t.getPatente())){
+			if(!estaEnViajeTransporte(t.getPatente())){
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
@@ -346,7 +415,23 @@ public class Agencia {
 		
 	}
 	
-	public void finalizarViaje(){
+	/**
+	 * Finaliza un viaje, lo elimina de la lista de viajes pendientes y lo agrega a
+	 * la lista de viajes terminados, liberando los recursos transporte y responsable
+	 * en caso que lo haya, para poder usarlo en otro viaje
+	 * @param v
+	 */
+	
+	public void finalizarViaje(Viaje v){
+		if(v.getKmsRecorridos()==v.getDestino().getKilometros()){
+			this.listaViajesPendientes.remove(v);
+			v.setEstado(estadoViaje.FINALIZADO);
+			if(this.listaViajesTerminados==null) // si no tiene elementos
+			{
+				this.listaViajesTerminados= new LinkedList<Viaje>(); 
+			}
+			listaViajesTerminados.add(v);
+		}
 		
 	}
 	
