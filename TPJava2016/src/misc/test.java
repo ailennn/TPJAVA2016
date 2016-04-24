@@ -36,23 +36,23 @@ public class test {
 		
 		Agencia obA = new Agencia(); 
 		
-		obA.altaAuto("AAA000", 100.1);
-		obA.altaCombi("AAA001", 90.5);
-		obA.altaSemiCama("AAA002", 95.6);
-		obA.altaCama("AAA003", 88.3);
+		obA.altaAuto("AAA000", 100);
+		obA.altaCombi("AAA001", 90);
+		obA.altaSemiCama("AAA002", 95);
+		obA.altaCama("AAA003", 88);
 		obA.altaResponsable("Flor", 35797200, 500.5);
 		obA.altaResponsable("Giu", 33333333, 555.2);
 		obA.altaResponsable("Ailen", 34444444, 580.7);
 		obA.altaResponsable("Jeje", 22222222, 450.5);
 		obA.altaResponsable("Jaja", 30303030, 4100.4);
 		
-		Transporte t1= new Auto("AAA000", 100.1);
+		Transporte t1= new Auto("AAA000", 100);
 		t1.setCapacidad();
-		Transporte t2= new Combi("AAA001", 90.5);
+		Transporte t2= new Combi("AAA001", 90);
 		t2.setCapacidad();
-		Transporte t3= new SemiCama("AAA002",88.3);
+		Transporte t3= new SemiCama("AAA002",88);
 		t3.setCapacidad();
-		Transporte t4= new Cama("AAA003",88.3);
+		Transporte t4= new Cama("AAA003",88);
 		Responsable r1= new Responsable("Flor", 35797200, 500.5);
 		Responsable r2= new Responsable("Giu", 33333333, 555.2);
 		Responsable r3= new Responsable("Ailen", 34444444, 580.7);
@@ -146,7 +146,7 @@ public class test {
 		}					 
 	}
 	
-	public void modificaTransporte(String patente, String patModif, double velModif,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
+	public void modificaTransporte(String patente, String patModif, int velModif,LinkedList<Transporte> listaTransporte,LinkedList<Viaje> listaViajesTerminados,LinkedList<Viaje> listaViajesPendientes){
 		if(!estaOcupadoTransporte(patente,listaViajesTerminados,listaViajesPendientes)){
 
 			boolean encontro=false;

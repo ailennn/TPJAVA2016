@@ -3,13 +3,13 @@ package transporte;
 public abstract class Transporte {
 	
 	private String patente;
-	private double velocidad;
+	private int velocidad;
 	private int ocupado;
 	protected int capacidad;
 	
 	
 
-	public Transporte(String patente, double velocidad) {
+	public Transporte(String patente, int velocidad) {
 		super();
 		this.patente = patente;
 		this.velocidad = velocidad;
@@ -41,10 +41,10 @@ public abstract class Transporte {
 		this.patente = patente;
 	}
 
-	public double getVelocidad() {
+	public int getVelocidad() {
 		return velocidad;
 	}
-	public void setVelocidad(double velocidad) {
+	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
 

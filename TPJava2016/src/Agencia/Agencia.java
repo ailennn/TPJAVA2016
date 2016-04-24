@@ -42,6 +42,32 @@ public class Agencia {
 		listaDestino.add(aux);
 	}
 	
+	/*
+	 * Destinos, transportes y viajes creados para agregar a la lista de viajes
+	 * pendientes, y asi probar la simulacion. Despues hay que borrarlos
+	 */
+	Destino d1= new Destino("Los Toldos",600);
+	Destino d2= new Destino("Balcarce",60);
+	Transporte t1= new Auto("AAA000", 100);
+	Transporte t2= new Combi("AAA001", 90);
+	Transporte t3= new SemiCama("AAA002",88);
+	Transporte t4= new Cama("AAA003",88);
+	Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
+	Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,null);
+	Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,null);
+	
+	public void setListaViajesPendientes(){
+		if(this.listaViajesPendientes==null)
+			this.listaViajesPendientes=new LinkedList<Viaje>();
+		this.listaViajesPendientes.add(v1);
+		this.listaViajesPendientes.add(v2);
+		this.listaViajesPendientes.add(v3);
+	}
+	
+	public LinkedList<Viaje> getListaViajesPendientes() {
+		return listaViajesPendientes;
+	}
+
 	/**
 	 * Recorre las listas de viajes pendientes y terminados.
 	 * Si el transporte no está en ninguna de las listas, esta disponible
@@ -179,7 +205,7 @@ public class Agencia {
 		return esta;
 	}
 	
-	public void altaAuto(String pat, double veloc){
+	public void altaAuto(String pat, int veloc){
 		Auto nuevo = new Auto (pat,veloc);
 		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
@@ -187,7 +213,7 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaCombi(String pat, double veloc){
+	public void altaCombi(String pat, int veloc){
 		Combi nuevo = new Combi (pat, veloc);
 		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
@@ -195,7 +221,7 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaSemiCama (String pat, double veloc){
+	public void altaSemiCama (String pat, int veloc){
 		SemiCama nuevo = new SemiCama (pat, veloc);
 		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
@@ -203,7 +229,7 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
-	public void altaCama (String pat, double veloc){
+	public void altaCama (String pat, int veloc){
 		Cama nuevo = new Cama (pat, veloc);
 		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
@@ -215,7 +241,7 @@ public class Agencia {
 	 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
 	 * se puede modificar de la lista de transportes
 	 */
-	public void modificaTransporte(String patente, String patModif, double velModif){
+	public void modificaTransporte(String patente, String patModif, int velModif){
 		if(!estaOcupadoTransporte(patente)){
 
 			boolean encontro=false;
@@ -438,15 +464,29 @@ public class Agencia {
 	/**
 	 * iniciar la simulación, inicia todos los viajes de la lista
 	 */
-	public void iniciarViajePendiente(){
-		
+	public void iniciarViajePendiente(Viaje v,long timeStamp){
+		int i=0;
+		for(v.getKmsRecorridos();v.getKmsRecorridos()<v.getDestino().getKilometros();v.setKmsRecorridos(i*(v.getTransporte().getVelocidad()))){
+			i++;
+			delaySegundos();
+			v.setEstado(estadoViaje.EN_CURSO);
+			System.out.println("Nombre Viaje: "+v.getNombre()+" KMs totales: "+v.getDestino().getKilometros()+" Cant. Pasajeros: "+v.getCantPasajeros()+
+					" Transporte: "+v.getTransporte().getPatente()+ /*" Valor: "+v.Costo()+*/" KMs recorridos: "+v.getKmsRecorridos()+
+					" Porcentaje: "+v.getKmsRecorridos()*100/v.getDestino().getKilometros()+" Estado: "+v.getEstado());
+		}
+	}
+	
+	private static void delaySegundos(){
+		try{
+			Thread.sleep(1000);
+		}catch(InterruptedException e){}
 	}
 	
 	/**
 	 * pausar la simulación, detiene todos los viajes de la lista
 	 */
-	public void detenerViajePendiente(){
-		
+	public void detenerViajePendiente(Viaje v,long timeStamp){
+		System.out.println("HOla");
 	}
 	
 	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){

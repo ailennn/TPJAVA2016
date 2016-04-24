@@ -2,7 +2,7 @@ package transporte;
 
 public class SemiCama extends Colectivo{
 
-	public SemiCama(String patente, double velocidad) {
+	public SemiCama(String patente, int velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}

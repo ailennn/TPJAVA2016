@@ -6,7 +6,7 @@ public class Cama extends Colectivo{
 	private static final double ADICIONAL_CAMA = 100;
 	private int ocupadoComun;
 	
-	public Cama(String patente, double velocidad) {
+	public Cama(String patente, int velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}

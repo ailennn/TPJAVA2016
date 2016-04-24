@@ -5,7 +5,7 @@ public class Auto extends Transporte{
 	private static final double PRECIO_KM = 12;
 	
 
-	public Auto(String patente, double velocidad) {
+	public Auto(String patente, int velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}

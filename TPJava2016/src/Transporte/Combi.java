@@ -8,7 +8,7 @@ public class Combi extends Transporte{
 
 
 	
-	public Combi(String patente, double velocidad) {
+	public Combi(String patente, int velocidad) {
 		super(patente, velocidad);
 		// TODO Auto-generated constructor stub
 	}
