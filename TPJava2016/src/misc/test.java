@@ -47,8 +47,11 @@ public class test {
 		obA.altaResponsable("Jaja", 30303030, 4100.4);
 		
 		Transporte t1= new Auto("AAA000", 100.1);
+		t1.setCapacidad();
 		Transporte t2= new Combi("AAA001", 90.5);
+		t2.setCapacidad();
 		Transporte t3= new SemiCama("AAA002",88.3);
+		t3.setCapacidad();
 		Transporte t4= new Cama("AAA003",88.3);
 		Responsable r1= new Responsable("Flor", 35797200, 500.5);
 		Responsable r2= new Responsable("Giu", 33333333, 555.2);
@@ -118,9 +121,9 @@ public class test {
 		
 		recorreListaDestino(listaDestino);*/
 		crearViaje(d2, 2, t1,listaViajesPendientes, listaViajesTerminados, listaDestino);
-		//crearViaje(d1, 5, t2, listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
-		//crearViaje(d2, 22,20, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados, listaDestino);
-		//crearViaje(d1, 3,0, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
+		crearViaje(d1, 5, t2, listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
+		crearViaje(d2, 22,20, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados, listaDestino);
+		crearViaje(d1, 3,0, t4,listaResponsable,listaViajesPendientes,listaViajesTerminados,listaDestino);
 		
 		/*finalizarViaje(v1,listaViajesPendientes,listaViajesTerminados);
 		finalizarViaje(v2,listaViajesPendientes,listaViajesTerminados);
