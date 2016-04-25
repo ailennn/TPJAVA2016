@@ -650,8 +650,8 @@ public class Agencia {
 				ListIterator <Responsable> itera= listaAux2.listIterator();
 				while(itera.hasNext()) {
 					resp=itera.next();
-					escribir.write(resp.getNombre()+"\t \t");
 					escribir.write(resp.getDni()+"\t \t");
+					escribir.write(resp.getNombre()+"\t \t");
 					escribir.write(resp.getSueldoFijo()+"\n");
 				}
 				escribir.close();
