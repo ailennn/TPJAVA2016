@@ -59,17 +59,6 @@ public class test {
 		Responsable r4= new Responsable("Jeje", 22222222, 450.5);
 		Responsable r5= new Responsable("Jaja", 30303030, 4100.4);
 		
-		/*listaTransporte.add(t1);
-		listaTransporte.add(t2);
-		listaTransporte.add(t3);
-		listaTransporte.add(t4);
-		
-		listaResponsable.add(r1);
-		listaResponsable.add(r2);
-		listaResponsable.add(r3);
-		listaResponsable.add(r4);
-		listaResponsable.add(r5);*/
-		
 		Destino d1= new Destino("Los Toldos",600);
 		Destino d2= new Destino("Balcarce",60);
 		
@@ -80,20 +69,20 @@ public class test {
 		listaResponsable3.add(r1);
 		
 		
-		/*Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
+		Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
 		Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,listaResponsable2);
-		Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,listaResponsable3);*/
+		Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,listaResponsable3);
 		
-		/*listaViajesPendientes.add(v2);
-		listaViajesPendientes.add(v1);
-		
-		listaViajesPendientes.add(v3);*/
-		listaViajesPendientes=null;
-		listaViajesTerminados=null;
-		
-		/*v1.setKmsRecorridos(v1.getDestino().getKilometros());
+		v1.setKmsRecorridos(v1.getDestino().getKilometros());
 		v2.setKmsRecorridos(v2.getDestino().getKilometros());
-		v3.setKmsRecorridos(v3.getDestino().getKilometros());*/
+		v3.setKmsRecorridos(v3.getDestino().getKilometros());
+		
+		listaViajesTerminados.add(v2);
+		listaViajesTerminados.add(v1);
+		
+		listaViajesTerminados.add(v3);
+		listaViajesPendientes=null;
+		//listaViajesTerminados=null;
 		
 		listaDestino.add(d1);
 		listaDestino.add(d2);
