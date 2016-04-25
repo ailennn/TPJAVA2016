@@ -492,6 +492,10 @@ public class Agencia {
 	 * pausar la simulación, detiene todos los viajes de la lista
 	 */
 	public void detenerViajePendiente(Viaje v,long timeStamp){
+		v.setEstado(estadoViaje.PENDIENTE);
+		System.out.println("Nombre Viaje: "+v.getNombre()+" KMs totales: "+v.getDestino().getKilometros()+" Cant. Pasajeros: "+v.getCantPasajeros()+
+				" Transporte: "+v.getTransporte().getPatente()+ /*" Valor: "+v.Costo()+*/" KMs recorridos: "+v.getKmsRecorridos()+
+				" Porcentaje: "+v.getKmsRecorridos()*100/v.getDestino().getKilometros()+" Estado: "+v.getEstado());
 		if(v.getKmsRecorridos()==v.getDestino().getKilometros()){
 			finalizarViaje(v);
 		}
