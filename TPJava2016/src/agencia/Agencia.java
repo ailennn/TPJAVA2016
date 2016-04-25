@@ -425,7 +425,7 @@ public class Agencia {
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
 					if(t instanceof Cama && cantPasajeros<=t.getCapacidad()){
-						if(ocupadoCama<=26){
+						if(ocupadoCama<=26 && ocupadoCama<=cantPasajeros){
 							d.setContador();
 							t.setOcupado(ocupadoCama);
 							t.setOcupadoComun(cantPasajeros-ocupadoCama);
@@ -475,6 +475,10 @@ public class Agencia {
 			System.out.println("Nombre Viaje: "+v.getNombre()+" KMs totales: "+v.getDestino().getKilometros()+" Cant. Pasajeros: "+v.getCantPasajeros()+
 					" Transporte: "+v.getTransporte().getPatente()+ /*" Valor: "+v.Costo()+*/" KMs recorridos: "+v.getKmsRecorridos()+
 					" Porcentaje: "+v.getKmsRecorridos()*100/v.getDestino().getKilometros()+" Estado: "+v.getEstado());
+		}
+		if(v.getKmsRecorridos()>v.getDestino().getKilometros()){
+			v.setKmsRecorridos(v.getDestino().getKilometros());
+			finalizarViaje(v);
 		}
 	}
 	
