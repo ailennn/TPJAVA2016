@@ -346,11 +346,11 @@ public class Agencia {
 	 * @param cantPasajeros
 	 * @param t
 	 */
+	/*
+	 * La lista que se elige el transporte, ya van a estar solo los transportes
+	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte)
+	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
-		/**
-		 * Si el tranporte no esta ocupado, lo puedo usar
-		 */
-		if(!estaEnViajeTransporte(t.getPatente())){
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -370,7 +370,7 @@ public class Agencia {
 					listaViajesPendientes.add(v); 
 				}
 			}
-		}
+		
 	}
 	
 	/**
@@ -380,11 +380,12 @@ public class Agencia {
 	 * @param t
 	 * @param lista
 	 */
+	/*
+	 * La lista que se elige el transporte, ya van a estar solo los transportes
+	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte) y lo
+	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
+	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
-		/**
-		 * Si el tranporte no esta ocupado, lo puedo usar
-		 */
-		if(!estaEnViajeTransporte(t.getPatente())){
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -404,7 +405,6 @@ public class Agencia {
 					listaViajesPendientes.add(v);
 				}
 			}
-		}
 	}
 	
 	/**
@@ -415,12 +415,12 @@ public class Agencia {
 	 * @param t
 	 * @param lista
 	 */
+	/*
+	 * La lista que se elige el transporte, ya van a estar solo los transportes
+	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte) y lo
+	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
+	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
-		
-			/**
-			 * Si el tranporte no esta ocupado, lo puedo usar
-			 */
-			if(!estaEnViajeTransporte(t.getPatente())){
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
@@ -441,8 +441,6 @@ public class Agencia {
 							listaViajesPendientes.add(v);
 						}
 					}
-			}
-		
 	}
 	
 	/**
