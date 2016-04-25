@@ -425,7 +425,7 @@ public class Agencia {
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
 					if(t instanceof Cama && cantPasajeros<=t.getCapacidad()){
-						if(ocupadoCama<=26){
+						if(ocupadoCama<=26 && ocupadoCama<=cantPasajeros){
 							d.setContador();
 							t.setOcupado(ocupadoCama);
 							t.setOcupadoComun(cantPasajeros-ocupadoCama);
