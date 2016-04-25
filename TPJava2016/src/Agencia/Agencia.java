@@ -476,6 +476,10 @@ public class Agencia {
 					" Transporte: "+v.getTransporte().getPatente()+ /*" Valor: "+v.Costo()+*/" KMs recorridos: "+v.getKmsRecorridos()+
 					" Porcentaje: "+v.getKmsRecorridos()*100/v.getDestino().getKilometros()+" Estado: "+v.getEstado());
 		}
+		if(v.getKmsRecorridos()>v.getDestino().getKilometros()){
+			v.setKmsRecorridos(v.getDestino().getKilometros());
+			finalizarViaje(v);
+		}
 	}
 	
 	private static void delaySegundos(){

@@ -42,12 +42,12 @@ public class Simulacion implements Runnable {
 	}
 	
 	/*
-	public static void detener(Viaje v, Agencia agencia, long initialTime) {
+	public static void detener(Viaje v, Agencia agencia, long finalTime) {
 		// TODO Auto-generated method stub
 		//agencia.setListaViajesPendientes();
 		ListIterator<Viaje> iterador=agencia.getListaViajesPendientes().listIterator();
 		// Tiempo inicial de referencia
-		long finalTime = System.currentTimeMillis();
+		finalTime = System.currentTimeMillis();
 		
 		while(iterador.hasNext()){
 			v=iterador.next();
@@ -55,7 +55,7 @@ public class Simulacion implements Runnable {
 			try {
 				new Thread(proceso).wait();
 				pausa=true;
-				agencia.detenerViajePendiente(v,initialTime);
+				agencia.detenerViajePendiente(v,finalTime);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
