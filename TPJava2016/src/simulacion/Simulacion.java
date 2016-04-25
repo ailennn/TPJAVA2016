@@ -16,6 +16,13 @@ public class Simulacion implements Runnable {
 		this.initialTime = initialTime;
 	}
 	
+	/**
+	 * Crea un Thread por cada viaje que este en la lista de viajes pendientes
+	 * y lo inicia, llamando al metodo run
+	 * @param v
+	 * @param agencia
+	 * @param initialTime
+	 */
 	public static void inicio(Viaje v, Agencia agencia, long initialTime) {
 		// TODO Auto-generated method stub
 		//agencia.setListaViajesPendientes();
@@ -36,6 +43,9 @@ public class Simulacion implements Runnable {
 
 	}
 
+	/**
+	 * Cuando se inicia el Thread, llama al metodo iniciarViajePendiente(Viaje v,long initialTime)
+	 */
 	@Override
 	public void run() {
 		this.agencia.iniciarViajePendiente(this.viaje,this.initialTime);

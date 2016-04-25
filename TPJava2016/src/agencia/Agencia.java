@@ -209,6 +209,11 @@ public class Agencia {
 		return esta;
 	}
 	
+	/**
+	 * Metodo para crear un auto
+	 * @param pat
+	 * @param veloc
+	 */
 	public void altaAuto(String pat, int veloc){
 		Auto nuevo = new Auto (pat,veloc);
 		nuevo.setCapacidad();
@@ -217,6 +222,11 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
+	/**
+	 * Metodo para crear una combi
+	 * @param pat
+	 * @param veloc
+	 */
 	public void altaCombi(String pat, int veloc){
 		Combi nuevo = new Combi (pat, veloc);
 		nuevo.setCapacidad();
@@ -225,6 +235,11 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
+	/**
+	 * Metodo para crear un coche semi cama
+	 * @param pat
+	 * @param veloc
+	 */
 	public void altaSemiCama (String pat, int veloc){
 		SemiCama nuevo = new SemiCama (pat, veloc);
 		nuevo.setCapacidad();
@@ -233,6 +248,11 @@ public class Agencia {
 		listaTransporte.add(nuevo);
 	}
 	
+	/**
+	 * Metodo para crear un coche cama
+	 * @param pat
+	 * @param veloc
+	 */
 	public void altaCama (String pat, int veloc){
 		Cama nuevo = new Cama (pat, veloc);
 		nuevo.setCapacidad();
@@ -282,7 +302,12 @@ public class Agencia {
 			}
 		}
 	}
-	
+	/**
+	 * Metodo para crear un responsable
+	 * @param nomb
+	 * @param DNI
+	 * @param sueldo
+	 */
 	public void altaResponsable (String nomb, long DNI, double sueldo){
 		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
 		if(this.listaResponsable==null) // si no tiene elementos
@@ -684,7 +709,4 @@ public ArrayList<String> getListaDestino (){
 
 
 
-
-
-
-} //LLAVE CIERRA CLASE
+} 
