@@ -19,7 +19,7 @@ import misc.*;
 import org.junit.Test; 
 
 /**
- * Clase utilizada para probar el funcionamiento de todos los metodos por consola (sin interfaz grafica)  
+ * Clase utilizada para probar el funcionamiento de todos los metodos por consola (sin interfaz grafica).  
  */
 
 public class test {
