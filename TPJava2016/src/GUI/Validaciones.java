@@ -1,7 +1,7 @@
 package GUI;
 
 /**
- * Clase que contiene las validaciones necesarias para todos los input 
+ * Clase que contiene las validaciones necesarias para todos los input.
  */
 
 public class Validaciones {
