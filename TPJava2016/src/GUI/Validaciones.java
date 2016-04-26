@@ -6,6 +6,16 @@ package GUI;
 
 public class Validaciones {
 
+	public static boolean sonNumerosNegativos(String cadena) {
+        cadena = cadena.trim();
+        try {
+            Integer.parseUnsignedInt(cadena);
+	    return true;} 
+        catch (NumberFormatException nfe) {
+	            return false;
+	        }
+    }
+	
 	public static boolean sonNumeros(String cadena) {
         cadena = cadena.trim();
         try {
