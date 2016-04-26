@@ -1,5 +1,10 @@
 package transporte;
 
+/**
+ * Clase derivada de colectivo, que representa los coches cama
+ * @author Usuario
+ *
+ */
 public class Cama extends Colectivo{
 
 	//COSTO ADICIONAL POR ELEGIR CAMA

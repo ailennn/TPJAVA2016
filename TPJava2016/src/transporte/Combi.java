@@ -1,5 +1,10 @@
 package transporte;
 
+/**
+ * Clase derivada de transporte, que representa las combis
+ * @author Usuario
+ *
+ */
 public class Combi extends Transporte{
 
 	private static final double PRECIO_BASE = 60;

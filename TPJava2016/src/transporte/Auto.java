@@ -1,4 +1,10 @@
 package transporte;
+
+/**
+ * Clase derivada de transporte, que representa los autos
+ * @author Usuario
+ *
+ */
 public class Auto extends Transporte{
 
 	private static final double PRECIO_BASE = 40;

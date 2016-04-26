@@ -545,6 +545,10 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Ordena la lista por dni de responsables
+	 * @param listaAux
+	 */
 	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
 		Collections.sort(listaAux, new Comparator<Responsable>()
         {
@@ -563,8 +567,7 @@ public class Agencia {
 	}
 	
 	/**
-	 * En la listaAux, se reusó la clase responsable, en donde se almacena los 
-	 * kilometros totales recorridos por ese responsable en el atributo sueldoFijo
+	 * Ordena la lista por kilometros recorridos, de mayor a menor
 	 * @param listaAux
 	 */
 	public void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){

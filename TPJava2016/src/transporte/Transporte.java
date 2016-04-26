@@ -1,5 +1,11 @@
 package transporte;
 
+/**
+ * Clase abstracta que representa los distintos transportes
+ * Contiene los atributos generales
+ * @author Usuario
+ *
+ */
 public abstract class Transporte {
 	
 	private String patente;
