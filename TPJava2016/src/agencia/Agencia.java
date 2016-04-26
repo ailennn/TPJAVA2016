@@ -9,6 +9,9 @@ import java.io.Writer;
 import java.lang.Exception;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
+import GUI.Validaciones;
 import misc.*;
 import transporte.*;
 import viaje.*;
@@ -210,19 +213,42 @@ public class Agencia {
 	}
 	
 	/**
+	 * Crea la lista de transportes en caso de que sea null
+	 */
+	public void setListaTransporte(Transporte nuevo) throws Excepcion{
+		if(this.listaTransporte==null) // si no tiene elementos
+			this.listaTransporte= new LinkedList<Transporte>();
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Transporte existente");
+		else{
+			nuevo.setCapacidad();
+			listaTransporte.add(nuevo);
+		}
+	}
+	
+	public boolean validarPatenteVelocidad(String pat, int veloc){
+		if(!Validaciones.esNumero(Integer.toString(veloc)) || Validaciones.esNumeroNegativo(Integer.toString(veloc))){
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de velocidad");
+			return false;
+		}
+		/*else
+			if(Validaciones."lo de la patente"(pat)){
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente");
+				return false;
+			}*/
+			else
+				return true;
+	}
+	
+	/**
 	 * Metodo para crear un auto
 	 * @param pat
 	 * @param veloc
 	 */
 	public void altaAuto(String pat, int veloc) throws Excepcion{
-		Auto nuevo = new Auto (pat,veloc);
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>();
-		if(listaTransporte.contains(nuevo))
-			throw new Excepcion("Auto existente");
-		else{
-			nuevo.setCapacidad();
-			listaTransporte.add(nuevo);
+		if(validarPatenteVelocidad(pat,veloc)){
+			Auto nuevo = new Auto (pat,veloc);
+			setListaTransporte(nuevo);
 		}
 	}
 	
@@ -232,14 +258,9 @@ public class Agencia {
 	 * @param veloc
 	 */
 	public void altaCombi(String pat, int veloc) throws Excepcion{
-		Combi nuevo = new Combi (pat, veloc);
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		if(listaTransporte.contains(nuevo))
-			throw new Excepcion("Combi existente");
-		else{
-			nuevo.setCapacidad();
-			listaTransporte.add(nuevo);
+		if(validarPatenteVelocidad(pat,veloc)){
+			Combi nuevo = new Combi (pat, veloc);
+			setListaTransporte(nuevo);
 		}
 	}
 	
@@ -249,14 +270,9 @@ public class Agencia {
 	 * @param veloc
 	 */
 	public void altaSemiCama (String pat, int veloc) throws Excepcion{
-		SemiCama nuevo = new SemiCama (pat, veloc);
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		if(listaTransporte.contains(nuevo))
-			throw new Excepcion("Colectivo semi cama existente");
-		else{
-			nuevo.setCapacidad();
-			listaTransporte.add(nuevo);
+		if(validarPatenteVelocidad(pat,veloc)){
+			SemiCama nuevo = new SemiCama (pat, veloc);
+			setListaTransporte(nuevo);
 		}
 	}
 	
@@ -266,14 +282,9 @@ public class Agencia {
 	 * @param veloc
 	 */
 	public void altaCama (String pat, int veloc) throws Excepcion{
-		Cama nuevo = new Cama (pat, veloc);
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		if(listaTransporte.contains(nuevo))
-			throw new Excepcion("Colectivo cama existente");
-		else{
-			nuevo.setCapacidad();
-			listaTransporte.add(nuevo);
+		if(validarPatenteVelocidad(pat,veloc)){
+			Cama nuevo = new Cama (pat, veloc);
+			setListaTransporte(nuevo);
 		}
 	}
 
@@ -290,10 +301,12 @@ public class Agencia {
 			while(iterador4.hasNext() && !encontro){
 				nodoTransporte=iterador4.next();
 				if(nodoTransporte.getPatente().equals(patente)){
-					nodoTransporte.setPatente(patModif);
-					nodoTransporte.setVelocidad(velModif);
-					iterador4.set(nodoTransporte);
-					encontro=true;
+					if(validarPatenteVelocidad(patModif,velModif)){
+						nodoTransporte.setPatente(patModif);
+						nodoTransporte.setVelocidad(velModif);
+						iterador4.set(nodoTransporte);
+						encontro=true;
+					}
 				}
 			}
 		}
@@ -318,6 +331,25 @@ public class Agencia {
 			}
 		}
 	}
+	
+	public boolean validarDatosResponsable(String nomb, long DNI, double sueldo){
+		if(!Validaciones.sonLetras(nomb)){
+				JOptionPane.showMessageDialog(null, "Error en el ingreso del nombre");
+				return false;
+		}
+			if(Validaciones.esReal(Long.toString(DNI)) || Validaciones.sonLetras(Long.toString(DNI)) || Validaciones.esNumeroNegativo(Long.toString(DNI))){
+				JOptionPane.showMessageDialog(null, "Error en el ingreso del dni");
+				return false;
+			}
+			else
+				if(Validaciones.sonLetras(Double.toString(sueldo)) || Validaciones.esNumeroNegativo(Double.toString(sueldo))){
+					JOptionPane.showMessageDialog(null, "Error en el ingreso del sueldo");
+					return false;
+				}
+				else
+					return true;
+	}
+	
 	/**
 	 * Metodo para crear un responsable
 	 * @param nomb
@@ -325,13 +357,15 @@ public class Agencia {
 	 * @param sueldo
 	 */
 	public void altaResponsable (String nomb, long DNI, double sueldo) throws Excepcion{
-		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
-		if(this.listaResponsable==null) // si no tiene elementos
-			this.listaResponsable= new LinkedList<Responsable>(); 
-		if(listaTransporte.contains(nuevo))
-			throw new Excepcion("Responsable existente");
-		else
-			listaResponsable.add(nuevo);
+		if(validarDatosResponsable(nomb, DNI, sueldo)){
+			Responsable nuevo = new Responsable (nomb, DNI, sueldo);
+			if(this.listaResponsable==null) // si no tiene elementos
+				this.listaResponsable= new LinkedList<Responsable>(); 
+			if(listaTransporte.contains(nuevo))
+				throw new Excepcion("Responsable existente");
+			else
+				listaResponsable.add(nuevo);
+		}
 	}
 	
 	/**
@@ -347,11 +381,13 @@ public class Agencia {
 			while(iterador4.hasNext() && !encontro){
 				nodoResponsable=iterador4.next();
 				if(nodoResponsable.getDni()== dni){
-					nodoResponsable.setDni(dniModif);
-					nodoResponsable.setSueldoFijo(sueldoModif);
-					nodoResponsable.setNombre(nombreModif);
-					iterador4.set(nodoResponsable);
-					encontro=true;
+					if(validarDatosResponsable(nombreModif, dniModif, sueldoModif)){
+						nodoResponsable.setDni(dniModif);
+						nodoResponsable.setSueldoFijo(sueldoModif);
+						nodoResponsable.setNombre(nombreModif);
+						iterador4.set(nodoResponsable);
+						encontro=true;
+					}
 				}
 			}
 		}
@@ -377,6 +413,14 @@ public class Agencia {
 		}
 	}
 	
+	public void setListaViajesPendientes(Viaje v){
+		v.setNombre();
+		if(this.listaViajesPendientes==null) // si no tiene elementos
+		{
+			this.listaViajesPendientes= new LinkedList<Viaje>(); 
+		}
+		listaViajesPendientes.add(v); 
+	}
 	
 	/*
 	 * El método crearViaje esta sobrecargado, dependiendo los parametros que se les pase
@@ -395,6 +439,7 @@ public class Agencia {
 	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -406,15 +451,10 @@ public class Agencia {
 					d.setContador();
 					t.setOcupado(cantPasajeros);
 					Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
-					v.setNombre();
-					if(this.listaViajesPendientes==null) // si no tiene elementos
-					{
-						this.listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v); 
+					setListaViajesPendientes(v);
 				}
 			}
-		
+		}
 	}
 	
 	/**
@@ -430,6 +470,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -441,14 +482,10 @@ public class Agencia {
 					d.setContador();
 					t.setOcupado(cantPasajeros);
 					Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
-					v.setNombre();
-					if(this.listaViajesPendientes==null) // si no tiene elementos
-					{
-						this.listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v);
+					setListaViajesPendientes(v);
 				}
 			}
+		}
 	}
 	
 	/**
@@ -465,6 +502,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
@@ -477,14 +515,10 @@ public class Agencia {
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
 							Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
-							v.setNombre();
-							if(this.listaViajesPendientes==null) // si no tiene elementos
-							{
-								this.listaViajesPendientes= new LinkedList<Viaje>(); 
-							}
-							listaViajesPendientes.add(v);
+							setListaViajesPendientes(v);
 						}
 					}
+		}
 	}
 	
 	/**
@@ -549,7 +583,7 @@ public class Agencia {
 	 * Ordena la lista por dni de responsables
 	 * @param listaAux
 	 */
-	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
+	private void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
 		Collections.sort(listaAux, new Comparator<Responsable>()
         {
             public int compare(Responsable r1, Responsable r2){   
@@ -570,7 +604,7 @@ public class Agencia {
 	 * Ordena la lista por kilometros recorridos, de mayor a menor
 	 * @param listaAux
 	 */
-	public void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
+	private void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
 		Collections.sort(listaAux, new Comparator<Responsable>()
         {
             public int compare(Responsable r1, Responsable r2){   
@@ -593,7 +627,7 @@ public class Agencia {
 	 * Genera archivo de texto
 	 */
 	
-	public void ranking(){
+	public void ranking() throws Exception{
 		Viaje v=null;
 		int suma=0;
 		/**
@@ -658,7 +692,7 @@ public class Agencia {
 				try {
 					arctxt.createNewFile();
 				} catch (Exception e) {
-					
+					throw new Exception("No se puede crear el archivo");
 				}
 			}	
 			
@@ -677,7 +711,7 @@ public class Agencia {
 					escribir.write(resp.getSueldoFijo()+"\n");
 				}
 				escribir.close();
-				} catch (Exception e) {}
+				} catch (Exception e) {throw new Exception("No se puede escribir el archivo");}
 		}
 	}
 	

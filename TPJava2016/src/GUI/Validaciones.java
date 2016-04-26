@@ -6,7 +6,7 @@ package GUI;
 
 public class Validaciones {
 
-	public static boolean sonNumerosNegativos(String cadena) {
+	public static boolean esNumeroNegativo(String cadena) {
         cadena = cadena.trim();
         try {
             Integer.parseUnsignedInt(cadena);
@@ -16,7 +16,7 @@ public class Validaciones {
 	        }
     }
 	
-	public static boolean sonNumeros(String cadena) {
+	public static boolean esNumero(String cadena) {
         cadena = cadena.trim();
         try {
             Integer.parseInt(cadena);
@@ -37,7 +37,7 @@ public class Validaciones {
     }
 
     
-    public static boolean sonReales(String cadena) {
+    public static boolean esReal(String cadena) {
         cadena = cadena.trim();
         try {
             Float.parseFloat(cadena);

@@ -54,10 +54,6 @@ public abstract class Transporte {
 		this.velocidad = velocidad;
 	}
 
-	public int getOcupadoComun() {
-		return 0;
-	}
-
 	public void setOcupadoComun(int ocupadoComun) {}
 	
 	public double getPrecioKM(){ return 0;}

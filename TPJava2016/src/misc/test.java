@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import javax.swing.JOptionPane;
+
 import transporte.*;
 import agencia.Agencia;
 import viaje.*;
@@ -102,7 +104,7 @@ public class test {
 		if(sonNumerosNegativos("-1"))
 			System.out.println("bien");
 		else
-			System.out.println("Error numero negativo");
+			JOptionPane.showMessageDialog(null, "Error, no ingrese numeros negativos");
 			
 		
 		
@@ -312,8 +314,6 @@ public void recorreListaViajesPendientes(LinkedList<Viaje> listaViajesPendientes
 			System.out.println(nodoViaje.getDestino().getCiudad());
 			System.out.println("ocupado");
 			System.out.println(nodoViaje.getTransporte().getOcupado());
-			System.out.println("ocupado comun");
-			System.out.println(nodoViaje.getTransporte().getOcupadoComun());
 		}	
 	}
 	else
