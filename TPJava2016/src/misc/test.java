@@ -36,7 +36,7 @@ public class test {
 		
 		Agencia obA = new Agencia(); 
 		
-		obA.altaAuto("AAA000", 100);
+		/*obA.altaAuto("AAA000", 100);
 		obA.altaCombi("AAA001", 90);
 		obA.altaSemiCama("AAA002", 95);
 		obA.altaCama("AAA003", 88);
@@ -44,7 +44,7 @@ public class test {
 		obA.altaResponsable("Giu", 33333333, 555.2);
 		obA.altaResponsable("Ailen", 34444444, 580.7);
 		obA.altaResponsable("Jeje", 22222222, 450.5);
-		obA.altaResponsable("Jaja", 30303030, 4100.4);
+		obA.altaResponsable("Jaja", 30303030, 4100.4);*/
 		
 		Transporte t1= new Auto("AAA000", 100);
 		t1.setCapacidad();
