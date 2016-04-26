@@ -4,7 +4,7 @@ import misc.*;
 import transporte.Transporte;
 
 public class CortaDistancia extends Viaje{
-	private static final double COSTO_BASE = 300;
+	private static final double COSTO_BASE = 30;
 	
 
 

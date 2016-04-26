@@ -1,8 +1,8 @@
 package transporte;
 public class Auto extends Transporte{
 
-	private static final double PRECIO_BASE = 800;
-	private static final double PRECIO_KM = 12;
+	private static final double PRECIO_BASE = 40;
+	private static final double PRECIO_KM = 2;
 	
 
 	public Auto(String patente, int velocidad) {

@@ -2,8 +2,8 @@ package transporte;
 
 public class Combi extends Transporte{
 
-	private static final double PRECIO_BASE = 1000;
-	private static final double PRECIO_KM = 25;
+	private static final double PRECIO_BASE = 60;
+	private static final double PRECIO_KM = 3;
 	
 
 
