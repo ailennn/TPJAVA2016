@@ -35,12 +35,12 @@ public class Agencia {
 		listaViajesPendientes = null;
 	}
 	
-	public void cargaLista (){
+/*	public void cargaLista (){
 		Destino aux = new Destino("Mar del Plata",15);
 		listaDestino.add(aux);
 		aux.setCiudad("Tandil");
 		listaDestino.add(aux);
-	}
+	}*/
 	
 	/*
 	 * Destinos, transportes y viajes creados para agregar a la lista de viajes
@@ -716,7 +716,12 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 			nodoResponsable=iterador.next();
 			System.out.println(nodoResponsable.getDni());
 		}					 
-	}	
+	}
+
+/**
+ * Recorre la lista de destinos, pasa el nombre de ciudad para mostrarla por pantalla
+ * @return
+ */
 public ArrayList<String> getListaDestino (){
 	ArrayList<String> aux = null;
 	ListIterator <Destino> iterador = listaDestino.listIterator();
