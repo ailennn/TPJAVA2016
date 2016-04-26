@@ -214,12 +214,16 @@ public class Agencia {
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaAuto(String pat, int veloc){
+	public void altaAuto(String pat, int veloc) throws Excepcion{
 		Auto nuevo = new Auto (pat,veloc);
-		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
+			this.listaTransporte= new LinkedList<Transporte>();
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Auto existente");
+		else{
+			nuevo.setCapacidad();
+			listaTransporte.add(nuevo);
+		}
 	}
 	
 	/**
@@ -227,12 +231,16 @@ public class Agencia {
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaCombi(String pat, int veloc){
+	public void altaCombi(String pat, int veloc) throws Excepcion{
 		Combi nuevo = new Combi (pat, veloc);
-		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Combi existente");
+		else{
+			nuevo.setCapacidad();
+			listaTransporte.add(nuevo);
+		}
 	}
 	
 	/**
@@ -240,12 +248,16 @@ public class Agencia {
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaSemiCama (String pat, int veloc){
+	public void altaSemiCama (String pat, int veloc) throws Excepcion{
 		SemiCama nuevo = new SemiCama (pat, veloc);
-		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Colectivo semi cama existente");
+		else{
+			nuevo.setCapacidad();
+			listaTransporte.add(nuevo);
+		}
 	}
 	
 	/**
@@ -253,12 +265,16 @@ public class Agencia {
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaCama (String pat, int veloc){
+	public void altaCama (String pat, int veloc) throws Excepcion{
 		Cama nuevo = new Cama (pat, veloc);
-		nuevo.setCapacidad();
 		if(this.listaTransporte==null) // si no tiene elementos
 			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Colectivo cama existente");
+		else{
+			nuevo.setCapacidad();
+			listaTransporte.add(nuevo);
+		}
 	}
 
 	/**
@@ -308,11 +324,14 @@ public class Agencia {
 	 * @param DNI
 	 * @param sueldo
 	 */
-	public void altaResponsable (String nomb, long DNI, double sueldo){
+	public void altaResponsable (String nomb, long DNI, double sueldo) throws Excepcion{
 		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
 		if(this.listaResponsable==null) // si no tiene elementos
 			this.listaResponsable= new LinkedList<Responsable>(); 
-		listaResponsable.add(nuevo);
+		if(listaTransporte.contains(nuevo))
+			throw new Excepcion("Responsable existente");
+		else
+			listaResponsable.add(nuevo);
 	}
 	
 	/**
