@@ -5,6 +5,10 @@ package control;
  */
 
 public class Validaciones {
+	
+	public static boolean formatoPatente(String cadena){
+		return true;
+	}
 
 	public static boolean esNumeroMayorCero(String cadena) {
         cadena = cadena.trim();

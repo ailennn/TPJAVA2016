@@ -178,11 +178,11 @@ public class Agencia {
 			JOptionPane.showMessageDialog(null, "Error en el ingreso de velocidad");
 			return false;
 		}
-		/*else
-			if(Validaciones."lo de la patente"(pat)){
+		else
+			if(Validaciones.formatoPatente(pat)){
 				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente");
 				return false;
-			}*/
+			}
 			else
 				return true;
 	}
@@ -413,10 +413,14 @@ public class Agencia {
 					Viaje v= new CortaDistancia(t,d,cantPasajeros);
 					setListaViajesPendientes(v);
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 	}
 	
 	/**
@@ -446,10 +450,14 @@ public class Agencia {
 					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 					setListaViajesPendientes(v);
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de  la cantidad de pasajeros");
 	}
 	
 	/**
@@ -481,10 +489,14 @@ public class Agencia {
 							Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 							setListaViajesPendientes(v);
 						}
+						else
+							JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de asientos tipo cama");
 					}
+					else
+						JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte o la cantidad de pasajeros");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 	}
 	
 	/**
