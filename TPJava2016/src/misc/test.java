@@ -56,9 +56,13 @@ public class test {
 		listaResponsable3.add(r1);
 		
 		
-		Viaje v1=new CortaDistancia("hola",t1,d2, 2);
-		Viaje v2=new LargaDistancia("hola2",t2,d1, 5,listaResponsable2);
-		Viaje v3=new LargaDistancia("hola3",t4,d1, 8,listaResponsable3);
+		Viaje v1=new CortaDistancia(t1,d2, 2);
+		Viaje v2=new LargaDistancia(t2,d1, 5,listaResponsable2);
+		Viaje v3=new LargaDistancia(t4,d1, 8,listaResponsable3);
+		
+		v1.setNombre();
+		v2.setNombre();
+		v3.setNombre();
 		
 		v1.setKmsRecorridos(v1.getDestino().getKilometros());
 		v2.setKmsRecorridos(v2.getDestino().getKilometros());

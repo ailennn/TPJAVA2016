@@ -13,8 +13,8 @@ public class CortaDistancia extends Viaje{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CortaDistancia(String nombre, Transporte transporte, Destino destino, int cantPasajeros) {
-		super(nombre, transporte, destino,cantPasajeros);
+	public CortaDistancia(Transporte transporte, Destino destino, int cantPasajeros) {
+		super(transporte, destino,cantPasajeros);
 
 		// TODO Auto-generated constructor stub
 	}

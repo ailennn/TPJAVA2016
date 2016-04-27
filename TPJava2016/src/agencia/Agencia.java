@@ -410,7 +410,7 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v= new CortaDistancia("",t,d,cantPasajeros);
+					Viaje v= new CortaDistancia(t,d,cantPasajeros);
 					setListaViajesPendientes(v);
 				}
 			}
@@ -443,7 +443,7 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
+					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 					setListaViajesPendientes(v);
 				}
 			}
@@ -478,7 +478,7 @@ public class Agencia {
 							/**
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
-							Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
+							Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 							setListaViajesPendientes(v);
 						}
 					}

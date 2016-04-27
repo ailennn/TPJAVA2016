@@ -29,9 +29,8 @@ public abstract class Viaje {
 	 * @param destino
 	 * @param cantPasajeros
 	 */
-	public Viaje(String nombre, Transporte transporte, Destino destino, int cantPasajeros){
+	public Viaje(Transporte transporte, Destino destino, int cantPasajeros){
 		super();
-		this.nombre = nombre;
 		this.transporte = transporte;
 		this.destino = destino;
 		this.cantPasajeros = cantPasajeros;
