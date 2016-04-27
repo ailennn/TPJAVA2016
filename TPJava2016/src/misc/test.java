@@ -1,11 +1,8 @@
 package misc;
 import java.io.*;
 import java.lang.Exception;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -15,7 +12,6 @@ import javax.swing.JOptionPane;
 import transporte.*;
 import agencia.Agencia;
 import viaje.*;
-import viaje.Viaje.estadoViaje;
 import misc.*;
 
 import org.junit.Test; 
@@ -60,9 +56,9 @@ public class test {
 		listaResponsable3.add(r1);
 		
 		
-		Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
-		Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,listaResponsable2);
-		Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,listaResponsable3);
+		Viaje v1=new CortaDistancia("hola",t1,d2, 2);
+		Viaje v2=new LargaDistancia("hola2",t2,d1, 5,listaResponsable2);
+		Viaje v3=new LargaDistancia("hola3",t4,d1, 8,listaResponsable3);
 		
 		v1.setKmsRecorridos(v1.getDestino().getKilometros());
 		v2.setKmsRecorridos(v2.getDestino().getKilometros());
@@ -101,7 +97,7 @@ public class test {
 		recorreListaDestino(listaDestino);*/
 		
 		//ranking(listaViajesTerminados);
-		if(sonNumerosNegativos("-1"))
+		if(esNumeroMayorCero("-1"))
 			System.out.println("bien");
 		else
 			JOptionPane.showMessageDialog(null, "Error, no ingrese numeros negativos");
@@ -114,7 +110,7 @@ public class test {
 	
  // ********************************************************************************************************************************************/
 	
-	public static boolean sonNumerosNegativos(String cadena) {
+	public static boolean esNumeroMayorCero(String cadena) {
         cadena = cadena.trim();
         try {
             Integer.parseUnsignedInt(cadena);

@@ -6,7 +6,7 @@ package GUI;
 
 public class Validaciones {
 
-	public static boolean esNumeroNegativo(String cadena) {
+	public static boolean esNumeroMayorCero(String cadena) {
         cadena = cadena.trim();
         try {
             Integer.parseUnsignedInt(cadena);

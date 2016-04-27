@@ -28,8 +28,6 @@ public class Agencia {
 	private LinkedList<Viaje> listaViajesTerminados;
 	private LinkedList<Viaje> listaViajesPendientes;
 	
-	
-	
 	public Agencia() {
 		listaTransporte = null;
 		listaDestino = null;
@@ -37,39 +35,6 @@ public class Agencia {
 		listaViajesTerminados = null;
 		listaViajesPendientes = null;
 	}
-	
-/*	public void cargaLista (){
-		Destino aux = new Destino("Mar del Plata",15);
-		listaDestino.add(aux);
-		aux.setCiudad("Tandil");
-		listaDestino.add(aux);
-	}*/
-	
-	/*
-	 * Destinos, transportes y viajes creados para agregar a la lista de viajes
-	 * pendientes, y asi probar la simulacion. Despues hay que borrarlos
-	 */
-	/*Destino d1= new Destino("Los Toldos",600);
-	Destino d2= new Destino("Balcarce",60);
-	Transporte t1= new Auto("AAA000", 100);
-	Transporte t2= new Combi("AAA001", 90);
-	Transporte t3= new SemiCama("AAA002",88);
-	Transporte t4= new Cama("AAA003",88);
-	Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
-	Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,null);
-	Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,null);
-	
-	
-	public void setListaViajesPendientes(){
-		if(this.listaViajesPendientes==null)
-			this.listaViajesPendientes=new LinkedList<Viaje>();
-		v1.setKmsRecorridos(0);
-		v2.setKmsRecorridos(0);
-		v3.setKmsRecorridos(0);
-		this.listaViajesPendientes.add(v1);
-		this.listaViajesPendientes.add(v2);
-		this.listaViajesPendientes.add(v3);
-	}*/
 	
 	public LinkedList<Viaje> getListaViajesPendientes() {
 		return listaViajesPendientes;
@@ -226,8 +191,14 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Validar la patente y la velocidad promedio de un transporte
+	 * @param pat
+	 * @param veloc
+	 * @return
+	 */
 	public boolean validarPatenteVelocidad(String pat, int veloc){
-		if(!Validaciones.esNumero(Integer.toString(veloc)) || Validaciones.esNumeroNegativo(Integer.toString(veloc))){
+		if(!Validaciones.esNumero(Integer.toString(veloc)) || !Validaciones.esNumeroMayorCero(Integer.toString(veloc))){
 			JOptionPane.showMessageDialog(null, "Error en el ingreso de velocidad");
 			return false;
 		}
@@ -311,6 +282,7 @@ public class Agencia {
 			}
 		}
 	}
+	
 	/**
 	 * Si el transporte que se quiere eliminar no estaba en ninguna lista de viajes, 
 	 * se puede eliminar de la lista de transportes
@@ -332,17 +304,24 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Validar los datos de un responsable, que se pasan por parametro
+	 * @param nomb
+	 * @param DNI
+	 * @param sueldo
+	 * @return
+	 */
 	public boolean validarDatosResponsable(String nomb, long DNI, double sueldo){
 		if(!Validaciones.sonLetras(nomb)){
 				JOptionPane.showMessageDialog(null, "Error en el ingreso del nombre");
 				return false;
 		}
-			if(Validaciones.esReal(Long.toString(DNI)) || Validaciones.sonLetras(Long.toString(DNI)) || Validaciones.esNumeroNegativo(Long.toString(DNI))){
+			if(Validaciones.esReal(Long.toString(DNI)) || Validaciones.sonLetras(Long.toString(DNI)) || !Validaciones.esNumeroMayorCero(Long.toString(DNI))){
 				JOptionPane.showMessageDialog(null, "Error en el ingreso del dni");
 				return false;
 			}
 			else
-				if(Validaciones.sonLetras(Double.toString(sueldo)) || Validaciones.esNumeroNegativo(Double.toString(sueldo))){
+				if(Validaciones.sonLetras(Double.toString(sueldo)) || !Validaciones.esNumeroMayorCero(Double.toString(sueldo))){
 					JOptionPane.showMessageDialog(null, "Error en el ingreso del sueldo");
 					return false;
 				}
@@ -365,7 +344,7 @@ public class Agencia {
 				throw new Excepcion("Responsable existente");
 			else
 				listaResponsable.add(nuevo);
-		}
+		}			
 	}
 	
 	/**
@@ -413,6 +392,11 @@ public class Agencia {
 		}
 	}
 	
+	/**
+	 * Settea el nombre del viaje, si la lista de viajes pendientes es nula la crea
+	 * y agrega el viaje a la lista
+	 * @param v
+	 */
 	public void setListaViajesPendientes(Viaje v){
 		v.setNombre();
 		if(this.listaViajesPendientes==null) // si no tiene elementos
@@ -439,7 +423,7 @@ public class Agencia {
 	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
-		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
+		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -450,11 +434,13 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
+					Viaje v= new CortaDistancia("",t,d,cantPasajeros);
 					setListaViajesPendientes(v);
 				}
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
 	}
 	
 	/**
@@ -470,7 +456,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
-		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
+		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -481,11 +467,13 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+					Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
 					setListaViajesPendientes(v);
 				}
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
 	}
 	
 	/**
@@ -502,7 +490,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
-		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroNegativo(Integer.toString(cantPasajeros))){
+		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
@@ -514,11 +502,13 @@ public class Agencia {
 							/**
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
-							Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+							Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
 							setListaViajesPendientes(v);
 						}
 					}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
 	}
 	
 	/**
