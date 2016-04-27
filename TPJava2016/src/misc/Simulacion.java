@@ -1,4 +1,4 @@
-package simulacion;
+package misc;
 
 import java.util.*;
 import agencia.Agencia;
