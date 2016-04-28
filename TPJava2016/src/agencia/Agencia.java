@@ -666,9 +666,7 @@ public class Agencia {
 	 * Genera archivo de texto
 	 */
 	
-	public void recaudacion(){
-		
-	}
+	
 
 	
 	/**
@@ -689,7 +687,7 @@ public class Agencia {
 	 * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
 	 * @param listaResponsable
 	 */
-public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
+	public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
  		
 		Responsable nodoResponsable= null;
 		ListIterator <Responsable> iterador= listaResponsable.listIterator();
@@ -698,15 +696,12 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 			System.out.println(nodoResponsable.getDni());
 		}					 
 	}	
-public ArrayList<String> getListaDestino (){
-	ArrayList<String> aux = null;
-	ListIterator <Destino> iterador = listaDestino.listIterator();
-	Destino nodoDestino=iterador.next();
-		aux.add(nodoDestino.getCiudad());
-	return aux;
-		}
-
-
-
+	public ArrayList<String> getListaDestino (){
+		ArrayList<String> aux = null;
+		ListIterator <Destino> iterador = listaDestino.listIterator();
+		Destino nodoDestino=iterador.next();
+			aux.add(nodoDestino.getCiudad());
+		return aux;
+	}
 
 } 
