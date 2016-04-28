@@ -79,7 +79,7 @@ public class test {
 		listaDestino.add(d2);
 		
 		Agencia a=new Agencia();
-		
+		/*
 		a.altaAuto("AAA000", 100);
 		a.altaCombi("AAA001", 80);
 		a.modificaTransporte("AAA000", "AAB000", 90);
@@ -89,10 +89,10 @@ public class test {
 		a.crearViaje(d1, 2, t1);
 		System.out.println("lista: ");
 		a.recorreListaViaje(listaViajesPendientes);
-			
+		
 /* ******************************************************************************************************************************************/ 
 
-	
+		recaudacion(listaViajesTerminados);
 		/*if(esNumeroMayorCero("-1"))
 			System.out.println("bien");
 		else
@@ -116,6 +116,35 @@ public class test {
 	        }
     }
 	
-	
+	public void recaudacion(LinkedList<Viaje>listaViajesTerminados) throws Exception{
+		Viaje v=null;
+		int suma=0;
+		LinkedList<Viaje>listaTerminados=listaViajesTerminados;
+		ListIterator<Viaje>iterador=listaTerminados.listIterator();
+		while(iterador.hasNext()){
+			v=iterador.next();	
+			suma+=v.Costo();
+		}
+		System.out.println(v.Costo());
+		File arctxt=new File("src//archivos//recaudacion.txt"); 
+		Writer escribir;
+		if(!arctxt.exists()){
+			try {
+				arctxt.createNewFile();
+			} catch (Exception e) {	
+				throw new Exception("No se puede crear el archivo");
+			}
+		}	
+		
+		try {
+			escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arctxt), "UTF-8"));
 
+			escribir.write("Recaudacion Total: \t \t");
+			escribir.write(suma+"\n");
+			escribir.close();
+			} catch (Exception e) {
+				throw new Exception("No se puede escribir el archivo");
+			}
+		}	
+	
 }

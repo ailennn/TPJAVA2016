@@ -1,4 +1,4 @@
-package misc;
+package reportes;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,13 +8,15 @@ import java.io.Writer;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import misc.Responsable;
 import agencia.Agencia;
+import transporte.Transporte;
 import viaje.LargaDistancia;
 import viaje.Viaje;
 
-public class Reportes {
+public class Ranking {
 	
-	public Reportes() {
+	public Ranking() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -84,7 +86,7 @@ public class Reportes {
 			
 			agencia.OrdenarPorKilometrosRecorridos(listaAux2);
 			
-			File arctxt=new File("src//archivos//ranking.txt"); 
+			File arctxt=new File("src//archivos//Ranking.txt"); 
 			Writer escribir;
 			if(!arctxt.exists()){
 				try {
@@ -112,17 +114,4 @@ public class Reportes {
 				} catch (Exception e) {throw new Exception("No se puede escribir el archivo");}
 		}
 	}
-	
-	/**
-	 * Recaudación de los viajes realizados por la empresa, 
-	 * permitiendo ver la información total o bien 
-	 * visualizarla por cada transporte y/o cada destino.
-	 * Genera archivo de texto
-	 */
-	
-	public void recaudacion(){
-		
-	}
-
-
 }
