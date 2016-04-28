@@ -1,4 +1,4 @@
-package simulacion;
+package misc;
 
 import java.util.*;
 import agencia.Agencia;
@@ -25,7 +25,6 @@ public class Simulacion implements Runnable {
 	 */
 	public static void inicio(Viaje v, Agencia agencia, long initialTime) {
 		// TODO Auto-generated method stub
-		//agencia.setListaViajesPendientes();
 		ListIterator<Viaje> iterador=agencia.getListaViajesPendientes().listIterator();
 		// Tiempo inicial de referencia
 		initialTime = System.currentTimeMillis();
@@ -51,10 +50,9 @@ public class Simulacion implements Runnable {
 		this.agencia.iniciarViajePendiente(this.viaje,this.initialTime);
 	}
 	
-	/*
+	
 	public static void detener(Viaje v, Agencia agencia, long finalTime) {
 		// TODO Auto-generated method stub
-		//agencia.setListaViajesPendientes();
 		ListIterator<Viaje> iterador=agencia.getListaViajesPendientes().listIterator();
 		// Tiempo inicial de referencia
 		finalTime = System.currentTimeMillis();
@@ -71,6 +69,6 @@ public class Simulacion implements Runnable {
 				e.printStackTrace();
 			}
 		}
-	}*/
+	}
 
 }

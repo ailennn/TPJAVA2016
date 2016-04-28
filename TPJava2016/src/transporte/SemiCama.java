@@ -1,5 +1,10 @@
 package transporte;
 
+/**
+ * Clase derivada de colectivo, que representa los coches semi cama
+ * @author Usuario
+ *
+ */
 public class SemiCama extends Colectivo{
 
 	public SemiCama(String patente, int velocidad) {

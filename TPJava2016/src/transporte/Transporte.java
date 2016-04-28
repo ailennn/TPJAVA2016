@@ -1,5 +1,11 @@
 package transporte;
 
+/**
+ * Clase abstracta que representa los distintos transportes
+ * Contiene los atributos generales
+ * @author Usuario
+ *
+ */
 public abstract class Transporte {
 	
 	private String patente;
@@ -46,10 +52,6 @@ public abstract class Transporte {
 	}
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
-	}
-
-	public int getOcupadoComun() {
-		return 0;
 	}
 
 	public void setOcupadoComun(int ocupadoComun) {}

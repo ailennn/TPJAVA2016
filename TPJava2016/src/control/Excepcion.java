@@ -1,4 +1,4 @@
-package misc;
+package control;
 
 public class Excepcion extends Exception {
     public Excepcion(String msg) {

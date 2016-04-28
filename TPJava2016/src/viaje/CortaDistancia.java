@@ -4,7 +4,7 @@ import misc.*;
 import transporte.Transporte;
 
 public class CortaDistancia extends Viaje{
-	private static final double COSTO_BASE = 300;
+	private static final double COSTO_BASE = 30;
 	
 
 
@@ -13,9 +13,8 @@ public class CortaDistancia extends Viaje{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CortaDistancia(String nombre, Transporte transporte, Destino destino, int cantPasajeros,
-			estadoViaje estado) {
-		super(nombre, transporte, destino,cantPasajeros,estado);
+	public CortaDistancia(Transporte transporte, Destino destino, int cantPasajeros) {
+		super(transporte, destino,cantPasajeros);
 
 		// TODO Auto-generated constructor stub
 	}

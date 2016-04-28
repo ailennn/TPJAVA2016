@@ -20,20 +20,26 @@ public abstract class Viaje {
 	private estadoViaje estado;
 	protected LinkedList<Responsable> listaResponsable=null;
 	
-	
-	public Viaje(String nombre, Transporte transporte, Destino destino, int cantPasajeros,
-			estadoViaje estado){
+	/**
+	 * Siempre que se crea un viaje, se crea con estado PENDIENTE. 
+	 * Al iniciarlo y detenerlo (simulacion) se pasa a estado EN_CURSO y PENDIENTE
+	 * segun corresponda. Cuando finaliza el viaje, se pasa a estado FINALIZADO
+	 * @param nombre
+	 * @param transporte
+	 * @param destino
+	 * @param cantPasajeros
+	 */
+	public Viaje(Transporte transporte, Destino destino, int cantPasajeros){
 		super();
-		this.nombre = nombre;
 		this.transporte = transporte;
 		this.destino = destino;
 		this.cantPasajeros = cantPasajeros;
-		this.estado = estado;
+		this.estado=estadoViaje.PENDIENTE;
 	}
 
 	public Viaje() {
 		nombre=null;
-		estado=null;
+		estado=estadoViaje.PENDIENTE;
 		transporte=null;
 		destino=null;
 		kmsRecorridos=0;
