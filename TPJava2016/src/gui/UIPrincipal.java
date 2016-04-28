@@ -186,9 +186,9 @@ public class UIPrincipal extends javax.swing.JFrame{
 		Reportes.addTab("Recaudación", iconRecaudacion, reporteRecaudacion, null);
 		reporteRecaudacion.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
+		JPanel reporteRanking = new JPanel();
 		ImageIcon iconRanking = new ImageIcon(UIPrincipal.class.getResource("/ico/rankingIco.png"));
-		Reportes.addTab("Ranking", iconRanking, panel_1, null);
+		Reportes.addTab("Ranking", iconRanking, reporteRanking, null);
 		
 		/**
 		 * CODIGO TAB ADMINISTRAR
@@ -686,8 +686,6 @@ public class UIPrincipal extends javax.swing.JFrame{
 						e1.printStackTrace();
 					}	
 				}
-				
-				
 			}
 		});
 		
@@ -764,12 +762,18 @@ public class UIPrincipal extends javax.swing.JFrame{
 		lblCantidadDePasajeros.setBounds(112, 208, 146, 14);
 		cortaDistancia.add(lblCantidadDePasajeros);
 		
+		
 		JComboBox<String> cbVehiculoCortaDistancia = new JComboBox<String>();
+		cbVehiculoCortaDistancia.setModel(new DefaultComboBoxModel(new String[] {"Auto", "Combi", "Semi Cama"}));
 		cbVehiculoCortaDistancia.setBounds(280, 143, 134, 20);
+		//cbVehiculoCortaDistancia.setModel(modelLargaDistancia);
 		cortaDistancia.add(cbVehiculoCortaDistancia);
 		
-		JComboBox<String> cbDestinoCortaDistancia = new JComboBox<String>();
+		
+		//ARMAR DEFAULT LIST MODEL PARA DESTINOS DE CORTA modelCortaDistancia
+		JComboBox<String> cbDestinoCortaDistancia = new JComboBox<String>(/*modelCortaDistancia*/);
 		cbDestinoCortaDistancia.setBounds(280, 78, 134, 20);
+		//cbDestinoCortaDistancia.setModel(modelCortaDistancia);
 		cortaDistancia.add(cbDestinoCortaDistancia);
 		
 		JLabel lblSeleccioneUnVehculo = new JLabel("Seleccione un Veh\u00EDculo");
@@ -784,14 +788,26 @@ public class UIPrincipal extends javax.swing.JFrame{
 		lblValorDelViaje.setBounds(112, 278, 146, 14);
 		cortaDistancia.add(lblValorDelViaje);
 		
-		JTextPane tpValorViajeCortaDistancia = new JTextPane();
-		tpValorViajeCortaDistancia.setBounds(280, 278, 134, 20);
-		cortaDistancia.add(tpValorViajeCortaDistancia);
-		
 		JButton btnCrearViaje = new JButton("Crear");
+		btnCrearViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta==JOptionPane.YES_OPTION){
+					if (cbDestinoCortaDistancia.getSelectedIndex()!= -1){
+						String destino = (String) cbDestinoCortaDistancia.getSelectedItem();
+						
+					}
+				}
+			}
+		});JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
 		btnCrearViaje.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		btnCrearViaje.setBounds(239, 393, 120, 30);
 		cortaDistancia.add(btnCrearViaje);
+		
+		JLabel precioCortaDistancia = new JLabel("$$$$");
+		precioCortaDistancia.setBounds(280, 278, 46, 14);
+		//precioCortaDistancia.setText(text);
+		cortaDistancia.add(precioCortaDistancia);
 		
 		/**
 		 * CODIGO TAB LARGA DISTANCIA
