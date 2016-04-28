@@ -35,9 +35,12 @@ import javax.swing.border.SoftBevelBorder;
 
 import agencia.Agencia;
 import misc.Responsable;
+import misc.Simulacion;
 import misc.test;
 import transporte.Auto;
 import transporte.Transporte;
+import viaje.Viaje;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class UIPrincipal extends javax.swing.JFrame{
@@ -146,11 +149,25 @@ public class UIPrincipal extends javax.swing.JFrame{
 		inicio.add(lblViajesFinalizados);
 		
 		JButton btnIniciar = new JButton("Iniciar");
+		btnIniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Viaje v=null;
+				long initialTime=System.currentTimeMillis();
+				Simulacion.inicio(v, Agen, initialTime);
+			}
+		});
 		btnIniciar.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		btnIniciar.setBounds(182, 479, 120, 30);
 		inicio.add(btnIniciar);
 		
 		JButton btnDetener = new JButton("Detener");
+		btnDetener.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Viaje v=null;
+				long finalTime=System.currentTimeMillis();
+				Simulacion.detener(v, Agen, finalTime);
+			}
+		});
 		btnDetener.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
 		btnDetener.setBounds(338, 479, 120, 30);
 		inicio.add(btnDetener);

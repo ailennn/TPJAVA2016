@@ -185,11 +185,11 @@ public class Agencia {
 			return false;
 		}
 		else
-			if(Validaciones.formatoPatente(pat)){
+			/*if(Validaciones.formatoPatente(pat)){
 				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente");
 				return false;
 			}
-			else
+			else*/
 				return true;
 	}
 	
@@ -405,7 +405,7 @@ public class Agencia {
 	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
-		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -442,7 +442,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
-		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 			/**
 			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
 			 */
@@ -480,7 +480,7 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
-		if(!Validaciones.esNumero(Integer.toString(cantPasajeros)) && !Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){
 				/**
 				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
 				 */
@@ -632,6 +632,20 @@ public void recorreListaResponsable(LinkedList<Responsable> listaResponsable) {
 			System.out.println(nodoResponsable.getDni());
 		}					 
 	}
+
+/**
+ * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
+ * @param listaTransporte
+ */
+public void recorreListaViaje(LinkedList<Viaje> listaViajesPendietes) {
+		
+	Viaje nodoViaje= null;
+	ListIterator <Viaje> iterador= listaViajesPendientes.listIterator();
+	while(iterador.hasNext()){
+		nodoViaje=iterador.next();
+		System.out.println(nodoViaje.getNombre());
+	}					 
+}
 
 /**
  * Recorre la lista de responsables, pasa el objeto para usar como DLM en un Jlist
