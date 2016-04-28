@@ -1,10 +1,5 @@
 package agencia;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -13,7 +8,7 @@ import java.util.ListIterator;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-import GUI.Validaciones;
+import control.Validaciones;
 import misc.Destino;
 import misc.Responsable;
 import transporte.Auto;
@@ -52,7 +47,8 @@ public class Agencia {
 	}
 
 	/**
-	 * Recorre las listas de viajes pendientes y terminados.
+	 * Si el transporte no esta en la lista de viajes pendientes
+	 * Recorre las listas de viajes terminados.
 	 * Si el transporte no está en ninguna de las listas, esta disponible
 	 * para hacer modificarlo o eliminarlo.
 	 * @param patente
@@ -60,37 +56,28 @@ public class Agencia {
 	 */
 	public boolean estaOcupadoTransporte(String patente){
 		boolean esta=false;
-		Viaje nodoViaje=null;
-		/**
-		 * Verifica que el transporte no este en la lista de viajes terminados
-		 */
-		if(listaViajesTerminados!=null){
-			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-			while(iterador.hasNext()&&!esta){
-				nodoViaje=iterador.next();
-				if(nodoViaje.getTransporte().getPatente().equals(patente))
-					esta=true;
-			}
-		}
-		/**
-		 * Verifica que el transporte no este en la lista de viajes pendiente si no estaba
-		 * en la lista anterior
-		 */
-		if(!esta){
-			if(listaViajesPendientes!=null){
-				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-				while(iterador2.hasNext()&&!esta){
-					nodoViaje=iterador2.next();
+		if(!estaEnViajeTransporte(patente)){
+			Viaje nodoViaje=null;
+			/**
+			 * Verifica que el transporte no este en la lista de viajes terminados
+			 */
+			if(listaViajesTerminados!=null){
+				ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+				while(iterador.hasNext()&&!esta){
+					nodoViaje=iterador.next();
 					if(nodoViaje.getTransporte().getPatente().equals(patente))
 						esta=true;
 				}
 			}
 		}
+		else
+			esta=true;
 		return esta;
 	}
 	
 	/**
-	 * Recorre las listas de viajes pendientes y terminados.
+	 * Si el responsable no esta en la lista de viajes pendientes
+	 * recorre las listas de viajes terminados.
 	 * Si el responsable no está en ninguna de las listas, esta disponible
 	 * para modificarlo o eliminarlo.
 	 * @param patente
@@ -98,38 +85,20 @@ public class Agencia {
 	 */
 	public boolean estaOcupadoResponsable(long dni){
 		boolean esta=false;
-		Viaje nodoViaje=null;
-		/**
-		 * Verifica que el responsable no este en la lista de viajes terminados
-		 */
-		if(listaViajesTerminados!=null){
-			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-			while(iterador.hasNext()&&!esta){
-				nodoViaje=iterador.next();
-				if(nodoViaje instanceof LargaDistancia){
-					Responsable r=null;
-					ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
-					while(itr.hasNext()&&!esta){
-						r=itr.next();
-						if(r.getDni()==dni)
-							esta=true;
-					}
-				}
-			}
-		}
-		/**
-		 * Verifica que el responsable no este en la lista de viajes pendiente si no estaba en la lista anterior
-		 */
-		if(!esta){
-			if(listaViajesPendientes!=null){
-				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-				while(iterador2.hasNext()&&!esta){
-					nodoViaje=iterador2.next();
+		if(!estaEnViajeResponsable(dni)){
+			Viaje nodoViaje=null;
+			/**
+			 * Verifica que el responsable no este en la lista de viajes terminados
+			 */
+			if(listaViajesTerminados!=null){
+				ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+				while(iterador.hasNext()&&!esta){
+					nodoViaje=iterador.next();
 					if(nodoViaje instanceof LargaDistancia){
 						Responsable r=null;
-						ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
-						while(itr2.hasNext()&&!esta){
-							r=itr2.next();
+						ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
+						while(itr.hasNext()&&!esta){
+							r=itr.next();
 							if(r.getDni()==dni)
 								esta=true;
 						}
@@ -137,6 +106,8 @@ public class Agencia {
 				}
 			}
 		}
+		else
+			esta=true;
 		return esta;
 	}
 	
@@ -213,11 +184,11 @@ public class Agencia {
 			JOptionPane.showMessageDialog(null, "Error en el ingreso de velocidad");
 			return false;
 		}
-		/*else
-			if(Validaciones."lo de la patente"(pat)){
+		else
+			if(Validaciones.formatoPatente(pat)){
 				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente");
 				return false;
-			}*/
+			}
 			else
 				return true;
 	}
@@ -445,13 +416,17 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v= new CortaDistancia("",t,d,cantPasajeros);
+					Viaje v= new CortaDistancia(t,d,cantPasajeros);
 					setListaViajesPendientes(v);
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 	}
 	
 	/**
@@ -478,13 +453,17 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
+					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 					setListaViajesPendientes(v);
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 			}
+			else
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de  la cantidad de pasajeros");
 	}
 	
 	/**
@@ -513,13 +492,17 @@ public class Agencia {
 							/**
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
-							Viaje v=new LargaDistancia("",t,d,cantPasajeros,lista);
+							Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 							setListaViajesPendientes(v);
 						}
+						else
+							JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de asientos tipo cama");
 					}
+					else
+						JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte o la cantidad de pasajeros");
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error en el ingreso de datos");
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros");
 	}
 	
 	/**
@@ -584,7 +567,7 @@ public class Agencia {
 	 * Ordena la lista por dni de responsables
 	 * @param listaAux
 	 */
-	private void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
+	public void OrdenarPorResponsables(LinkedList<Responsable> listaAux){
 		Collections.sort(listaAux, new Comparator<Responsable>()
         {
             public int compare(Responsable r1, Responsable r2){   
@@ -605,7 +588,7 @@ public class Agencia {
 	 * Ordena la lista por kilometros recorridos, de mayor a menor
 	 * @param listaAux
 	 */
-	private void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
+	public void OrdenarPorKilometrosRecorridos(LinkedList<Responsable> listaAux){
 		Collections.sort(listaAux, new Comparator<Responsable>()
         {
             public int compare(Responsable r1, Responsable r2){   
@@ -621,112 +604,6 @@ public class Agencia {
         }
  	);
 	}
-	
-	/**
-	 * Ranking de responsables a bordo ordenado de mayor a menor por 
-	 * cantidad de kilómetros recorridos en los viajes terminados.
-	 * Genera archivo de texto
-	 */
-	
-	public void ranking() throws Exception{
-		Viaje v=null;
-		int suma=0;
-		/**
-		 * La lista auxiliar se usa para almacenar cada responsable(sin que esten repetidos)
-		 * con la cantidad total de kms recorridos, que se suman en la variable suma
-		 */
-		LinkedList<Responsable> listaAux=null;
-		LinkedList<Responsable>listaAux2=null;
-		LinkedList<Viaje>listaTerminados=listaViajesTerminados;
-		ListIterator<Viaje>iterador=listaTerminados.listIterator();
-		while(iterador.hasNext()){
-			v=iterador.next();
-			if(v instanceof LargaDistancia){
-				ListIterator<Responsable>itr=v.getListaResponsable().listIterator();
-				Responsable r=null;
-				while(itr.hasNext()){
-					r=itr.next();
-					if(listaAux==null)
-						listaAux=new LinkedList<Responsable>();
-					r.setSueldoFijo(v.getDestino().getKilometros());
-					listaAux.add(r);
-				}
-			}	
-		}
-		OrdenarPorResponsables(listaAux);
-
-		ListIterator<Responsable>itr2=listaAux.listIterator();
-		Responsable re=null;
-		if(itr2.hasNext()){
-			re=itr2.next();
-			long dni=re.getDni();
-			while(itr2.hasNext()){
-				if(re.getDni()==dni){
-					suma+=re.getSueldoFijo();
-					if(!itr2.hasNext() || itr2.next().getDni()!=dni){
-						if(listaAux2==null)
-							listaAux2=new LinkedList<Responsable>();
-						/**
-						 * En el atributo sueldoFijo de Responsable se almacena la cantidad
-						 * total de kilometros recorridos por ese Responsable
-						 */
-						re.setSueldoFijo(suma);
-						listaAux2.add(re);
-					}
-					re=itr2.next();
-				}
-				else{
-					dni=re.getDni();
-					suma=0;
-				}
-			}
-			if(listaAux2==null)
-				listaAux2=new LinkedList<Responsable>();
-			re.setSueldoFijo(suma+re.getSueldoFijo());
-			listaAux2.add(re);
-			
-			OrdenarPorKilometrosRecorridos(listaAux2);
-			
-			File arctxt=new File("src//archivos//ranking.txt"); 
-			Writer escribir;
-			if(!arctxt.exists()){
-				try {
-					arctxt.createNewFile();
-				} catch (Exception e) {
-					throw new Exception("No se puede crear el archivo");
-				}
-			}	
-			
-			try {
-				escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arctxt), "UTF-8"));
-	
-				escribir.write("DNI \t \t");
-				escribir.write("Nombre \t \t");
-				escribir.write("Kilometros recorridos\n");
-				Responsable resp=null;
-				ListIterator <Responsable> itera= listaAux2.listIterator();
-				while(itera.hasNext()) {
-					resp=itera.next();
-					escribir.write(resp.getDni()+"\t \t");
-					escribir.write(resp.getNombre()+"\t \t");
-					escribir.write(resp.getSueldoFijo()+"\n");
-				}
-				escribir.close();
-				} catch (Exception e) {throw new Exception("No se puede escribir el archivo");}
-		}
-	}
-	
-	/**
-	 * Recaudación de los viajes realizados por la empresa, 
-	 * permitiendo ver la información total o bien 
-	 * visualizarla por cada transporte y/o cada destino.
-	 * Genera archivo de texto
-	 */
-	
-	public void recaudacion(){
-		
-	}
-
 	
 	/**
 	 * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
