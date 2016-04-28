@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -36,6 +36,7 @@ import javax.swing.border.SoftBevelBorder;
 import agencia.Agencia;
 import misc.Responsable;
 import misc.test;
+import transporte.Auto;
 import transporte.Transporte;
 import javax.swing.DefaultComboBoxModel;
 
@@ -75,9 +76,11 @@ public class UIPrincipal extends javax.swing.JFrame{
 	}
 	/**
 	 * Create the application.
+	 * @throws Exception 
 	 */
-	public UIPrincipal(Agencia Agen) {
+	public UIPrincipal(Agencia Agen) throws Exception {
 		A=Agen;
+		
 		frmAgenciaDeViajes = new JFrame();
 		frmAgenciaDeViajes.setPreferredSize(new Dimension(600, 600));
 		frmAgenciaDeViajes.setIconImage(Toolkit.getDefaultToolkit().getImage(UIPrincipal.class.getResource("/ico/365-200.png")));
@@ -240,39 +243,43 @@ public class UIPrincipal extends javax.swing.JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
 				if (btnPregunta == JOptionPane.YES_OPTION){
-					String pat = tfAltaPatente.getText();
-					int vel = Integer.parseInt(tfAltaVelocidad.getText());
-					String tipo = cbAltaTipoTransporte.getSelectedItem().toString();
-					if (tipo=="Auto"){
-						try {
-							A.altaAuto(pat, vel);
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}	
-					}
-					else
-						if (tipo=="Combi"){
+					if(!tfAltaPatente.getText().isEmpty() && !tfAltaVelocidad.getText().isEmpty()){
+						String pat = tfAltaPatente.getText();
+						int vel = Integer.parseInt(tfAltaVelocidad.getText());
+						String tipo = cbAltaTipoTransporte.getSelectedItem().toString();
+						if (tipo=="Auto"){
 							try {
-								A.altaCombi(pat, vel);
+								A.altaAuto(pat, vel);
 							} catch (Exception e1) {
 								e1.printStackTrace();
-							}
+							}	
 						}
 						else
-							if (tipo=="Semi Cama"){
+							if (tipo=="Combi"){
 								try {
-									A.altaSemiCama(pat, vel);
+									A.altaCombi(pat, vel);
 								} catch (Exception e1) {
 									e1.printStackTrace();
 								}
-							} else
-								try {
-									A.altaCama(pat, vel);
-								} catch (Exception e1) {
-									e1.printStackTrace();
-								}
-				}
 							}
+							else
+								if (tipo=="Semi Cama"){
+									try {
+										A.altaSemiCama(pat, vel);
+									} catch (Exception e1) {
+										e1.printStackTrace();
+									}
+								} else
+									try {
+										A.altaCama(pat, vel);
+									} catch (Exception e1) {
+										e1.printStackTrace();
+									}
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
+				}
+			}
 		});
 		
 		
@@ -342,12 +349,16 @@ public class UIPrincipal extends javax.swing.JFrame{
 			public void actionPerformed (ActionEvent e){
 				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
 				if (btnPregunta == JOptionPane.YES_OPTION){
-					String pat = tfModifPatente.getText();
-					int vel = Integer.parseInt(tfModifVelocidad.getText());
-					Transporte aux = null;
-					aux=jlistModifTransporte.getSelectedValue();
-					String buscaPat = aux.getPatente();
-					A.modificaTransporte(buscaPat, pat, vel);
+					if(!tfModifPatente.getText().isEmpty() && !tfModifVelocidad.getText().isEmpty()){
+						String pat = tfModifPatente.getText();
+						int vel = Integer.parseInt(tfModifVelocidad.getText());
+						Transporte aux = null;
+						aux=jlistModifTransporte.getSelectedValue();
+						String buscaPat = aux.getPatente();
+						A.modificaTransporte(buscaPat, pat, vel);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
 				}
 			}
 		});
@@ -378,6 +389,19 @@ public class UIPrincipal extends javax.swing.JFrame{
 		vehiculoBaja.add(lblEnEstaSeccin_2);
 		
 		JButton btnEliminarTransporte = new JButton("Eliminar");
+		btnEliminarTransporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					String patente=jlistBajaTransporte.getSelectedValue().toString();
+					try {
+						A.bajaTransporte(patente);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}	
+				}
+			}
+		});
 		btnEliminarTransporte.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
 		btnEliminarTransporte.setBounds(210, 386, 120, 30);
 		vehiculoBaja.add(btnEliminarTransporte);
@@ -476,6 +500,25 @@ public class UIPrincipal extends javax.swing.JFrame{
 		responsableAlta.add(tfAltaSueldo);
 		
 		JButton btnAgregarResponsable = new JButton("Agregar");
+		btnAgregarResponsable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					if(!tfAltaNombre.getText().isEmpty() && !tfAltaDNI.getText().isEmpty() && !tfAltaSueldo.getText().isEmpty()){
+						String nom = tfAltaNombre.getText();
+						long dni = Long.parseLong(tfAltaDNI.getText());
+						Double sueldo= Double.parseDouble(tfAltaSueldo.getText());
+						try{
+							A.altaResponsable(nom, dni, sueldo);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}	
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
+				}
+			}
+		});
 		btnAgregarResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		btnAgregarResponsable.setBounds(220, 420, 120, 30);
 		responsableAlta.add(btnAgregarResponsable);
@@ -556,6 +599,10 @@ public class UIPrincipal extends javax.swing.JFrame{
 		 */
 		
 		JButton btnModificarResponsable = new JButton("Modificar");
+		btnModificarResponsable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnModificarResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		btnModificarResponsable.setBounds(208, 404, 120, 30);
 		panel.add(btnModificarResponsable);
@@ -564,13 +611,17 @@ public class UIPrincipal extends javax.swing.JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int btnPregunta = JOptionPane.YES_NO_OPTION;
 				if (btnPregunta == JOptionPane.YES_OPTION){
-					String nombre = tfModifNombre.getText();
-					long DNI=Long.parseLong(tfModifDNI.getText());
-					double Sueldo = Double.parseDouble(tfModifSueldo.getText());
-					Responsable aux = null;
-					aux=jlistModifResponsable.getSelectedValue();
-					long dniModif=aux.getDni();
-					A.modificaResponsable(dniModif, DNI, Sueldo, nombre);
+					if(!tfModifNombre.getText().isEmpty() && !tfModifDNI.getText().isEmpty() && !tfModifSueldo.getText().isEmpty()){
+						String nombre = tfModifNombre.getText();
+						long DNI=Long.parseLong(tfModifDNI.getText());
+						double Sueldo = Double.parseDouble(tfModifSueldo.getText());
+						Responsable aux = null;
+						aux=jlistModifResponsable.getSelectedValue();
+						long dniModif=aux.getDni();
+						A.modificaResponsable(dniModif, DNI, Sueldo, nombre);
+					}
+					else
+						JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
 				}
 			}			
 		});
@@ -609,6 +660,17 @@ public class UIPrincipal extends javax.swing.JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				
 				//ELIMINAR RESPONSABLE SELECCIONADO EN LISTA
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					Long dni=Long.parseLong(jlistBajaResponsable.getSelectedValue().toString());
+					try {
+						A.bajaResponsable(dni);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}	
+				}
+				
+				
 			}
 		});
 		
