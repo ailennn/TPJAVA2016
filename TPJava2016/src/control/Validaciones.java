@@ -6,8 +6,19 @@ package control;
 
 public class Validaciones {
 	
-	public static boolean formatoPatente(String cadena){
-		return true;
+	public static boolean formatoPatenteOk(String cadena){
+		boolean formato = false; 
+        int i = 0;
+        if(cadena.length()==6){
+        	if(Character.isLetter(cadena.charAt(0)))
+        		if(Character.isLetter(cadena.charAt(1)))
+        			if(Character.isLetter(cadena.charAt(2)))
+        				if(Character.isDigit(cadena.charAt(3)))
+        					if(Character.isDigit(cadena.charAt(4)))
+        						if(Character.isDigit(cadena.charAt(5)))
+        							formato=true;
+        }
+        return (formato);
 	}
 
 	public static boolean esNumeroMayorCero(String cadena) {

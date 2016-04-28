@@ -192,11 +192,11 @@ public class Agencia {
 	 		return false; 
 	 	} 
 	 	else 
-			/*if(Validaciones.formatoPatente(pat)){ 
+			if(Validaciones.formatoPatenteOk(pat)){ 
 				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente"); 
 	 			return false; 
 	 		} 
-	 		else*/ 
+	 		else
 	 			return true; 
 	 } 
 
