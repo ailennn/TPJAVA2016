@@ -7,13 +7,19 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
@@ -28,51 +34,50 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import agencia.Agencia;
+import misc.Responsable;
+import misc.test;
+import transporte.Transporte;
+import javax.swing.DefaultComboBoxModel;
 
-public class UIPrincipal {
+public class UIPrincipal extends javax.swing.JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frmAgenciaDeViajes;
-	private JTextField tfVelocidad;
+	private JTextField tfAltaVelocidad;
 	private JTextField tfModifPatente;
 	private JTextField tfModifVelocidad;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField tfConsultaTransporte;
+	private JTextField tfAltaNombre;
+	private JTextField tfAltaDNI;
+	private JTextField tfAltaSueldo;
+	private JTextField tfModifSueldo;
+	private JTextField tfModifDNI;
+	private JTextField tfConsultaResponsable;
 	
 	private Agencia A;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIPrincipal window = new UIPrincipal();
-					window.frmAgenciaDeViajes.setVisible(true);
+					Agencia Agen= new Agencia();
+					UIPrincipal frame = new UIPrincipal(Agen);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
 	/**
 	 * Create the application.
 	 */
-	public UIPrincipal() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	public UIPrincipal(Agencia Agen) {
+		A=Agen;
 		frmAgenciaDeViajes = new JFrame();
 		frmAgenciaDeViajes.setPreferredSize(new Dimension(600, 600));
 		frmAgenciaDeViajes.setIconImage(Toolkit.getDefaultToolkit().getImage(UIPrincipal.class.getResource("/ico/365-200.png")));
@@ -91,6 +96,10 @@ public class UIPrincipal {
 		panelGeneral.setBounds(0, 0, 594, 571);
 		frmAgenciaDeViajes.getContentPane().add(panelGeneral);
 		
+		/**
+		 * CODIGO TAB INICIO 
+		 */
+		
 		JPanel inicio = new JPanel();
 		inicio.setPreferredSize(new Dimension(598, 598));
 		inicio.setMinimumSize(new Dimension(598, 598));
@@ -99,15 +108,15 @@ public class UIPrincipal {
 		panelGeneral.addTab("Inicio", iconInicio, inicio, null);
 		inicio.setLayout(null);
 		
-		JList<String> listaPendientes = new JList<String>();
-		listaPendientes.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("ToolBar.shadow")));
-		listaPendientes.setBounds(10, 67, 140, 358);
-		inicio.add(listaPendientes);
+		JList<String> jlistPendientes = new JList<String>();
+		jlistPendientes.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("ToolBar.shadow")));
+		jlistPendientes.setBounds(10, 67, 140, 358);
+		inicio.add(jlistPendientes);
 		
-		JList<String> listaFinalizados = new JList<String>();
-		listaFinalizados.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("ToolBar.shadow")));
-		listaFinalizados.setBounds(439, 67, 140, 358);
-		inicio.add(listaFinalizados);
+		JList<String> jlistFinalizados = new JList<String>();
+		jlistFinalizados.setBorder(new MatteBorder(1, 1, 1, 1, (Color) UIManager.getColor("ToolBar.shadow")));
+		jlistFinalizados.setBounds(439, 67, 140, 358);
+		inicio.add(jlistFinalizados);
 		
 		JTextPane tpInformacion = new JTextPane();
 		tpInformacion.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -143,9 +152,10 @@ public class UIPrincipal {
 		btnDetener.setBounds(338, 479, 120, 30);
 		inicio.add(btnDetener);
 		
-		JTabbedPane adminVehiculo = new JTabbedPane(JTabbedPane.TOP);
-		ImageIcon iconAdmin = new ImageIcon (UIPrincipal.class.getResource("/ico/administrarIco.png"));
-		panelGeneral.addTab("Administrar", iconAdmin, adminVehiculo, null);
+		/**
+		 * CODIGO TAB REPORTES
+		 */
+		
 			
 		JTabbedPane Reportes = new JTabbedPane(JTabbedPane.TOP);
 		ImageIcon iconReporte = new ImageIcon (UIPrincipal.class.getResource("/ico/reporteIco.png"));
@@ -160,9 +170,21 @@ public class UIPrincipal {
 		ImageIcon iconRanking = new ImageIcon(UIPrincipal.class.getResource("/ico/rankingIco.png"));
 		Reportes.addTab("Ranking", iconRanking, panel_1, null);
 		
+		/**
+		 * CODIGO TAB ADMINISTRAR
+		 */
+		
+		JTabbedPane adminVehiculo = new JTabbedPane(JTabbedPane.TOP);
+		ImageIcon iconAdmin = new ImageIcon (UIPrincipal.class.getResource("/ico/administrarIco.png"));
+		panelGeneral.addTab("Administrar", iconAdmin, adminVehiculo, null);
+		
+		/**
+		 * CODIGO TAB ADMINISTRAR TRANSPORTE
+		 */
+		
 		JTabbedPane adminVehic = new JTabbedPane(JTabbedPane.TOP);
 		ImageIcon iconVehiculo = new ImageIcon (UIPrincipal.class.getResource("/ico/transporteIco.png"));
-		adminVehiculo.addTab("Vehículo", iconVehiculo, adminVehic, null);
+		adminVehiculo.addTab("Transporte", iconVehiculo, adminVehic, null);
 		
 		JPanel vehiculoAlta = new JPanel();
 		ImageIcon iconAltaVehic = new ImageIcon (UIPrincipal.class.getResource("/ico/altaIco.png"));
@@ -192,27 +214,76 @@ public class UIPrincipal {
 		lblVelocidad.setBounds(112, 210, 102, 14);
 		vehiculoAlta.add(lblVelocidad);
 		
-		JTextField tfPatente = new JTextField();
-		tfPatente.setBounds(new Rectangle(0, 0, 165, 20));
-		tfPatente.setBounds(260, 70, 165, 20);
-		vehiculoAlta.add(tfPatente);
-		tfPatente.setColumns(10);
+		JTextField tfAltaPatente = new JTextField();
+		tfAltaPatente.setBounds(new Rectangle(0, 0, 165, 20));
+		tfAltaPatente.setBounds(260, 70, 165, 20);
+		vehiculoAlta.add(tfAltaPatente);
+		tfAltaPatente.setColumns(10);
 		
-		tfVelocidad = new JTextField();
-		tfVelocidad.setBounds(new Rectangle(0, 0, 165, 20));
-		tfVelocidad.setBounds(260, 210, 165, 20);
-		vehiculoAlta.add(tfVelocidad);
-		tfVelocidad.setColumns(10);
+		tfAltaVelocidad = new JTextField();
+		tfAltaVelocidad.setBounds(new Rectangle(0, 0, 165, 20));
+		tfAltaVelocidad.setBounds(260, 210, 165, 20);
+		vehiculoAlta.add(tfAltaVelocidad);
+		tfAltaVelocidad.setColumns(10);
+				
+		JComboBox<String> cbAltaTipoTransporte = new JComboBox<String>();
+		cbAltaTipoTransporte.setBounds(260, 137, 165, 20);
+		cbAltaTipoTransporte.setModel(new DefaultComboBoxModel<String>(new String[] {"Auto", "Combi", "Semi Cama", "Cama"}));
+		vehiculoAlta.add(cbAltaTipoTransporte);
 		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAgregar.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
-		btnAgregar.setBounds(220, 420, 120, 30);
-		vehiculoAlta.add(btnAgregar);
+		/**
+		 * CODIGO TAB ALTA TRANSPORTE 
+		 */
 		
-		JComboBox<String> cbTipoVehiculo = new JComboBox<String>();
-		cbTipoVehiculo.setBounds(260, 137, 165, 20);
-		vehiculoAlta.add(cbTipoVehiculo);
+		JButton btnAgregarTransporte = new JButton("Agregar");
+		btnAgregarTransporte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					String pat = tfAltaPatente.getText();
+					int vel = Integer.parseInt(tfAltaVelocidad.getText());
+					String tipo = cbAltaTipoTransporte.getSelectedItem().toString();
+					if (tipo=="Auto"){
+						try {
+							A.altaAuto(pat, vel);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}	
+					}
+					else
+						if (tipo=="Combi"){
+							try {
+								A.altaCombi(pat, vel);
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+						else
+							if (tipo=="Semi Cama"){
+								try {
+									A.altaSemiCama(pat, vel);
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+							} else
+								try {
+									A.altaCama(pat, vel);
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+				}
+							}
+		});
+		
+		
+		btnAgregarTransporte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAgregarTransporte.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
+		btnAgregarTransporte.setBounds(220, 420, 120, 30);
+		vehiculoAlta.add(btnAgregarTransporte);
+		
+		/**
+		 * CODIGO TAB MODIFICAR TRANSPORTE
+		 */
 		
 		JPanel vehiculoModif = new JPanel();
 		ImageIcon iconModifVehic = new ImageIcon (UIPrincipal.class.getResource("/ico/modificarIco.png"));
@@ -224,10 +295,16 @@ public class UIPrincipal {
 		lblEnEstaSeccin_1.setBounds(10, 11, 329, 14);
 		vehiculoModif.add(lblEnEstaSeccin_1);
 		
-		JList<String> listaVehiculosDispo = new JList<String>();
-		listaVehiculosDispo.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listaVehiculosDispo.setBounds(46, 101, 150, 200);
-		vehiculoModif.add(listaVehiculosDispo);
+		/**	
+		 * Se contruye un JList a partir de la Default List Model obtenida del metodo getListaTransporte de Agencia
+		 */
+		
+		DefaultListModel<Transporte> model = new DefaultListModel<Transporte>();
+		model=A.getListaTransporte();
+		JList<Transporte> jlistModifTransporte = new JList<Transporte>(model);
+		jlistModifTransporte.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		jlistModifTransporte.setBounds(46, 101, 150, 200);
+		vehiculoModif.add(jlistModifTransporte);
 		
 		JLabel lblVehculosDisponibles = new JLabel("Veh\u00EDculos disponibles");
 		lblVehculosDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
@@ -246,42 +323,48 @@ public class UIPrincipal {
 		vehiculoModif.add(tfModifPatente);
 		tfModifPatente.setColumns(10);
 		
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblTipo.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblTipo.setBounds(264, 191, 92, 14);
-		vehiculoModif.add(lblTipo);
-		
-		JSpinner sModifTipo = new JSpinner();
-		sModifTipo.setModel(new SpinnerListModel(new String[] {"Auto", "Combi", "Semi Cama", "Cama"}));
-		sModifTipo.setBounds(374, 191, 125, 20);
-		vehiculoModif.add(sModifTipo);
-		
 		tfModifVelocidad = new JTextField();
-		tfModifVelocidad.setBounds(374, 281, 123, 20);
+		tfModifVelocidad.setBounds(374, 191, 123, 20);
 		vehiculoModif.add(tfModifVelocidad);
 		tfModifVelocidad.setColumns(10);
 		
 		JLabel lblVelocidad_1 = new JLabel("Velocidad");
 		lblVelocidad_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblVelocidad_1.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblVelocidad_1.setBounds(264, 284, 92, 14);
+		lblVelocidad_1.setBounds(264, 194, 92, 14);
 		vehiculoModif.add(lblVelocidad_1);
 		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
-		btnModificar.setBounds(208, 404, 120, 30);
-		vehiculoModif.add(btnModificar);
+		JButton btnModificarTransporte = new JButton("Modificar");
+		btnModificarTransporte.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
+		btnModificarTransporte.setBounds(208, 404, 120, 30);
+		vehiculoModif.add(btnModificarTransporte);
+		btnModificarTransporte.addActionListener(new ActionListener(){
+			public void actionPerformed (ActionEvent e){
+				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					String pat = tfModifPatente.getText();
+					int vel = Integer.parseInt(tfModifVelocidad.getText());
+					Transporte aux = null;
+					aux=jlistModifTransporte.getSelectedValue();
+					String buscaPat = aux.getPatente();
+					A.modificaTransporte(buscaPat, pat, vel);
+				}
+			}
+		});
+		
+		/**
+		 * CODIGO TAB BAJA TRANSPORTE
+		 */
 		
 		JPanel vehiculoBaja = new JPanel();
 		ImageIcon iconBajaVehic = new ImageIcon (UIPrincipal.class.getResource("/ico/bajaIco.png"));
 		adminVehic.addTab("Baja", iconBajaVehic, vehiculoBaja, null);
 		vehiculoBaja.setLayout(null);
 		
-		JList<String> list_2 = new JList<String>();
-		list_2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		list_2.setBounds(46, 85, 150, 200);
-		vehiculoBaja.add(list_2);
+		JList<String> jlistBajaTransporte = new JList<String>();
+		jlistBajaTransporte.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		jlistBajaTransporte.setBounds(46, 85, 150, 200);
+		vehiculoBaja.add(jlistBajaTransporte);
 		
 		JLabel label = new JLabel("Veh\u00EDculos disponibles");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -294,10 +377,14 @@ public class UIPrincipal {
 		lblEnEstaSeccin_2.setBounds(10, 11, 329, 14);
 		vehiculoBaja.add(lblEnEstaSeccin_2);
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
-		btnEliminar.setBounds(210, 386, 120, 30);
-		vehiculoBaja.add(btnEliminar);
+		JButton btnEliminarTransporte = new JButton("Eliminar");
+		btnEliminarTransporte.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
+		btnEliminarTransporte.setBounds(210, 386, 120, 30);
+		vehiculoBaja.add(btnEliminarTransporte);
+		
+		/**
+		 * CODIGO TAB CONSULTA TRANSPORTE
+		 */
 		
 		JPanel vehiculoConsulta = new JPanel();
 		ImageIcon iconConsultaVehic = new ImageIcon (UIPrincipal.class.getResource("/ico/consultaIco.png"));
@@ -309,30 +396,38 @@ public class UIPrincipal {
 		lblEnEstaSeccin_3.setBounds(10, 11, 444, 14);
 		vehiculoConsulta.add(lblEnEstaSeccin_3);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(208, 51, 127, 20);
-		vehiculoConsulta.add(textField_3);
-		textField_3.setColumns(10);
+		tfConsultaTransporte = new JTextField();
+		tfConsultaTransporte.setBounds(238, 52, 127, 20);
+		vehiculoConsulta.add(tfConsultaTransporte);
+		tfConsultaTransporte.setColumns(10);
 		
 		JLabel lblPatente_2 = new JLabel("Patente");
 		lblPatente_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblPatente_2.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblPatente_2.setBounds(112, 54, 86, 14);
+		lblPatente_2.setBounds(142, 55, 86, 14);
 		vehiculoConsulta.add(lblPatente_2);
 		
-		JButton btnConsultar = new JButton("Consultar");
-		btnConsultar.setBounds(208, 97, 127, 23);
-		btnConsultar.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/consultaIco.png")));
-		vehiculoConsulta.add(btnConsultar);
+		JButton btnConsultaTransporte = new JButton("Consultar");
+		btnConsultaTransporte.setBounds(238, 98, 127, 23);
+		btnConsultaTransporte.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/consultaIco.png")));
+		vehiculoConsulta.add(btnConsultaTransporte);
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textPane_1.setBounds(130, 162, 313, 218);
-		vehiculoConsulta.add(textPane_1);
+		JTextPane tpConsultaTransporte = new JTextPane();
+		tpConsultaTransporte.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tpConsultaTransporte.setBounds(130, 162, 313, 218);
+		vehiculoConsulta.add(tpConsultaTransporte);
+		
+		/**
+		 * CODIGO TAB ADMINISTRAR RESPONSABLE
+		 */
 		
 		JTabbedPane adminResponsable = new JTabbedPane(JTabbedPane.TOP);
 		ImageIcon iconResponsable = new ImageIcon (UIPrincipal.class.getResource("/ico/responsableIco.png"));
 		adminVehiculo.addTab("Responsable", iconResponsable, adminResponsable, null);
+		
+		/**
+		 * CODIGO TAB ALTA RESPONSABLE
+		 */
 		
 		JPanel responsableAlta = new JPanel();
 		ImageIcon iconAltaResp = new ImageIcon (UIPrincipal.class.getResource("/ico/altaIco.png"));
@@ -362,28 +457,32 @@ public class UIPrincipal {
 		lblSueldoFijo.setBounds(112, 210, 122, 14);
 		responsableAlta.add(lblSueldoFijo);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(new Rectangle(0, 0, 165, 20));
-		textField_4.setBounds(260, 70, 165, 20);
-		responsableAlta.add(textField_4);
-		textField_4.setColumns(10);
+		tfAltaNombre = new JTextField();
+		tfAltaNombre.setBounds(new Rectangle(0, 0, 165, 20));
+		tfAltaNombre.setBounds(260, 70, 165, 20);
+		responsableAlta.add(tfAltaNombre);
+		tfAltaNombre.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(new Rectangle(0, 0, 165, 20));
-		textField_5.setColumns(10);
-		textField_5.setBounds(260, 140, 165, 20);
-		responsableAlta.add(textField_5);
+		tfAltaDNI = new JTextField();
+		tfAltaDNI.setBounds(new Rectangle(0, 0, 165, 20));
+		tfAltaDNI.setColumns(10);
+		tfAltaDNI.setBounds(260, 140, 165, 20);
+		responsableAlta.add(tfAltaDNI);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(new Rectangle(0, 0, 165, 20));
-		textField_6.setColumns(10);
-		textField_6.setBounds(260, 210, 165, 20);
-		responsableAlta.add(textField_6);
+		tfAltaSueldo = new JTextField();
+		tfAltaSueldo.setBounds(new Rectangle(0, 0, 165, 20));
+		tfAltaSueldo.setColumns(10);
+		tfAltaSueldo.setBounds(260, 210, 165, 20);
+		responsableAlta.add(tfAltaSueldo);
 		
-		JButton button = new JButton("Agregar");
-		button.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
-		button.setBounds(220, 420, 120, 30);
-		responsableAlta.add(button);
+		JButton btnAgregarResponsable = new JButton("Agregar");
+		btnAgregarResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
+		btnAgregarResponsable.setBounds(220, 420, 120, 30);
+		responsableAlta.add(btnAgregarResponsable);
+		
+		/**
+		 * CODIGO TAB MODIFICAR RESPONSABLE
+		 */
 		
 		JPanel responsableModif = new JPanel();
 		ImageIcon iconModifResp = new ImageIcon (UIPrincipal.class.getResource("/ico/modificarIco.png"));
@@ -400,54 +499,85 @@ public class UIPrincipal {
 		label_1.setBounds(10, 11, 346, 14);
 		panel.add(label_1);
 		
-		JList<String> modifResponsable = new JList<String>();
-		modifResponsable.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		modifResponsable.setBounds(46, 101, 150, 200);
-		panel.add(modifResponsable);
+		
+		/**	
+		 * Se contruye un JList a partir de la Default List Model obtenida del metodo getListaResponsable de Agencia
+		 */
+		
+		DefaultListModel<Responsable> modelResp = new DefaultListModel<Responsable>();
+		modelResp=A.getListaResponsable();
+		JList<Responsable> jlistModifResponsable = new JList<Responsable>(modelResp);
+		
+		jlistModifResponsable.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		jlistModifResponsable.setBounds(10, 101, 244, 200);
+		panel.add(jlistModifResponsable);
 		
 		JLabel lblResponsablesDisponibles = new JLabel("Responsables disponibles");
 		lblResponsablesDisponibles.setHorizontalAlignment(SwingConstants.CENTER);
 		lblResponsablesDisponibles.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblResponsablesDisponibles.setBounds(46, 74, 150, 14);
+		lblResponsablesDisponibles.setBounds(10, 76, 150, 14);
 		panel.add(lblResponsablesDisponibles);
 		
 		JLabel lblNombreCompleto = new JLabel("Nombre completo");
 		lblNombreCompleto.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNombreCompleto.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblNombreCompleto.setBounds(231, 104, 125, 14);
+		lblNombreCompleto.setBounds(264, 104, 125, 14);
 		panel.add(lblNombreCompleto);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(374, 101, 125, 20);
-		panel.add(textField_7);
+		JTextField tfModifNombre = new JTextField();
+		tfModifNombre.setColumns(10);
+		tfModifNombre.setBounds(407, 101, 125, 20);
+		panel.add(tfModifNombre);
 		
 		JLabel lblDni_1 = new JLabel("DNI");
 		lblDni_1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblDni_1.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblDni_1.setBounds(264, 191, 92, 14);
+		lblDni_1.setBounds(297, 191, 92, 14);
 		panel.add(lblDni_1);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(374, 281, 123, 20);
-		panel.add(textField_8);
+		tfModifSueldo = new JTextField();
+		tfModifSueldo.setColumns(10);
+		tfModifSueldo.setBounds(407, 281, 123, 20);
+		panel.add(tfModifSueldo);
 		
 		JLabel lblSueldo = new JLabel("Sueldo");
 		lblSueldo.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblSueldo.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblSueldo.setBounds(264, 281, 92, 14);
+		lblSueldo.setBounds(297, 281, 92, 14);
 		panel.add(lblSueldo);
 		
-		JButton button_1 = new JButton("Modificar");
-		button_1.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
-		button_1.setBounds(208, 404, 120, 30);
-		panel.add(button_1);
+		tfModifDNI = new JTextField();
+		tfModifDNI.setColumns(10);
+		tfModifDNI.setBounds(407, 191, 125, 20);
+		panel.add(tfModifDNI);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(374, 191, 125, 20);
-		panel.add(textField_9);
+		/**
+		 * Al clickear el boton Modificar, se toman los valores ingresados y modifica al Responsable
+		 */
+		
+		JButton btnModificarResponsable = new JButton("Modificar");
+		btnModificarResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
+		btnModificarResponsable.setBounds(208, 404, 120, 30);
+		panel.add(btnModificarResponsable);
+		btnModificarTransporte.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int btnPregunta = JOptionPane.YES_NO_OPTION;
+				if (btnPregunta == JOptionPane.YES_OPTION){
+					String nombre = tfModifNombre.getText();
+					long DNI=Long.parseLong(tfModifDNI.getText());
+					double Sueldo = Double.parseDouble(tfModifSueldo.getText());
+					Responsable aux = null;
+					aux=jlistModifResponsable.getSelectedValue();
+					long dniModif=aux.getDni();
+					A.modificaResponsable(dniModif, DNI, Sueldo, nombre);
+				}
+			}			
+		});
+		
+		/**
+		 * CODIGO TAB BAJA RESPONSABLE
+		 */
 		
 		JPanel responsableBaja = new JPanel();
 		ImageIcon iconBajaResp = new ImageIcon (UIPrincipal.class.getResource("/ico/bajaIco.png"));
@@ -465,15 +595,26 @@ public class UIPrincipal {
 		lblResponsablesDisponibles_1.setBounds(46, 58, 150, 14);
 		responsableBaja.add(lblResponsablesDisponibles_1);
 		
-		JList list_4 = new JList();
-		list_4.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		list_4.setBounds(46, 85, 150, 200);
-		responsableBaja.add(list_4);
+		JList<String> jlistBajaResponsable = new JList<String>();
+		jlistBajaResponsable.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		jlistBajaResponsable.setBounds(46, 85, 150, 200);
+		responsableBaja.add(jlistBajaResponsable);
 		
-		JButton button_2 = new JButton("Eliminar");
-		button_2.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
-		button_2.setBounds(210, 386, 120, 30);
-		responsableBaja.add(button_2);
+		JButton btnEliminarResponsable = new JButton("Eliminar");
+		btnEliminarResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/Cancela.png")));
+		btnEliminarResponsable.setBounds(210, 386, 120, 30);
+		responsableBaja.add(btnEliminarResponsable);
+		btnEliminarResponsable.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//ELIMINAR RESPONSABLE SELECCIONADO EN LISTA
+			}
+		});
+		
+		/**
+		 * CODIGO TAB CONSULTA RESPONSABLE
+		 */
 		
 		JPanel responsableConsulta = new JPanel();
 		ImageIcon iconConsultaResp = new ImageIcon (UIPrincipal.class.getResource("/ico/consultaIco.png"));
@@ -485,10 +626,10 @@ public class UIPrincipal {
 		label_2.setBounds(10, 11, 444, 14);
 		responsableConsulta.add(label_2);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(208, 51, 127, 20);
-		responsableConsulta.add(textField_10);
+		tfConsultaResponsable = new JTextField();
+		tfConsultaResponsable.setColumns(10);
+		tfConsultaResponsable.setBounds(208, 51, 127, 20);
+		responsableConsulta.add(tfConsultaResponsable);
 		
 		JLabel lblDni_2 = new JLabel("DNI");
 		lblDni_2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -496,19 +637,27 @@ public class UIPrincipal {
 		lblDni_2.setBounds(112, 54, 86, 14);
 		responsableConsulta.add(lblDni_2);
 		
-		JButton button_3 = new JButton("Consultar");
-		button_3.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/consultaIco.png")));
-		button_3.setBounds(208, 97, 127, 23);
-		responsableConsulta.add(button_3);
+		JButton btnConsultaResponsable = new JButton("Consultar");
+		btnConsultaResponsable.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/consultaIco.png")));
+		btnConsultaResponsable.setBounds(208, 97, 127, 23);
+		responsableConsulta.add(btnConsultaResponsable);
 		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		textPane_2.setBounds(130, 162, 313, 218);
-		responsableConsulta.add(textPane_2);
+		JTextPane tpConsultaResponsable = new JTextPane();
+		tpConsultaResponsable.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		tpConsultaResponsable.setBounds(130, 162, 313, 218);
+		responsableConsulta.add(tpConsultaResponsable);
+		
+		/**
+		 * CODIGO TAB CREAR VIAJE
+		 */
 		
 		JTabbedPane adminCrearViaje = new JTabbedPane(JTabbedPane.TOP);
 		ImageIcon iconCrearViaje = new ImageIcon (UIPrincipal.class.getResource("/ico/crearViajeIco.png"));
 		adminVehiculo.addTab("Crear Viaje", iconCrearViaje, adminCrearViaje, null);
+		
+		/**
+		 * CODIGO TAB CORTA DISTANCIA
+		 */
 		
 		JPanel cortaDistancia = new JPanel();
 		ImageIcon iconCortaDistancia = new ImageIcon (UIPrincipal.class.getResource("/ico/cortaDistanciaIcon.png"));
@@ -526,9 +675,9 @@ public class UIPrincipal {
 		lblSeleccioneUnDestino.setBounds(112, 78, 146, 14);
 		cortaDistancia.add(lblSeleccioneUnDestino);
 		
-		JSpinner spinner_2 = new JSpinner();
-		spinner_2.setBounds(280, 208, 134, 20);
-		cortaDistancia.add(spinner_2);
+		JSpinner sCantPasajCortaDistancia = new JSpinner();
+		sCantPasajCortaDistancia.setBounds(280, 208, 134, 20);
+		cortaDistancia.add(sCantPasajCortaDistancia);
 		
 		JLabel lblCantidadDePasajeros = new JLabel("Cantidad de pasajeros");
 		lblCantidadDePasajeros.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -536,13 +685,13 @@ public class UIPrincipal {
 		lblCantidadDePasajeros.setBounds(112, 208, 146, 14);
 		cortaDistancia.add(lblCantidadDePasajeros);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(280, 143, 134, 20);
-		cortaDistancia.add(comboBox);
+		JComboBox<String> cbVehiculoCortaDistancia = new JComboBox<String>();
+		cbVehiculoCortaDistancia.setBounds(280, 143, 134, 20);
+		cortaDistancia.add(cbVehiculoCortaDistancia);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(280, 78, 134, 20);
-		cortaDistancia.add(comboBox_1);
+		JComboBox<String> cbDestinoCortaDistancia = new JComboBox<String>();
+		cbDestinoCortaDistancia.setBounds(280, 78, 134, 20);
+		cortaDistancia.add(cbDestinoCortaDistancia);
 		
 		JLabel lblSeleccioneUnVehculo = new JLabel("Seleccione un Veh\u00EDculo");
 		lblSeleccioneUnVehculo.setFont(new Font("Calibri", Font.PLAIN, 13));
@@ -556,14 +705,18 @@ public class UIPrincipal {
 		lblValorDelViaje.setBounds(112, 278, 146, 14);
 		cortaDistancia.add(lblValorDelViaje);
 		
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setBounds(280, 278, 134, 20);
-		cortaDistancia.add(textPane_3);
+		JTextPane tpValorViajeCortaDistancia = new JTextPane();
+		tpValorViajeCortaDistancia.setBounds(280, 278, 134, 20);
+		cortaDistancia.add(tpValorViajeCortaDistancia);
 		
-		JButton btnCrear = new JButton("Crear");
-		btnCrear.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
-		btnCrear.setBounds(239, 393, 120, 30);
-		cortaDistancia.add(btnCrear);
+		JButton btnCrearViaje = new JButton("Crear");
+		btnCrearViaje.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
+		btnCrearViaje.setBounds(239, 393, 120, 30);
+		cortaDistancia.add(btnCrearViaje);
+		
+		/**
+		 * CODIGO TAB LARGA DISTANCIA
+		 */
 		
 		JPanel largaDistancia = new JPanel();
 		ImageIcon iconLargaDistancia = new ImageIcon (UIPrincipal.class.getResource("/ico/largaDistanciaIco.png"));
@@ -581,9 +734,9 @@ public class UIPrincipal {
 		label_4.setBounds(112, 52, 146, 14);
 		largaDistancia.add(label_4);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(280, 52, 134, 20);
-		largaDistancia.add(comboBox_3);
+		JComboBox<String> cbDestinoLargaDistancia = new JComboBox<String>();
+		cbDestinoLargaDistancia.setBounds(280, 52, 134, 20);
+		largaDistancia.add(cbDestinoLargaDistancia);
 		
 		JLabel label_5 = new JLabel("Seleccione un Veh\u00EDculo");
 		label_5.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -591,9 +744,9 @@ public class UIPrincipal {
 		label_5.setBounds(112, 106, 146, 14);
 		largaDistancia.add(label_5);
 		
-		JComboBox comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(280, 106, 134, 20);
-		largaDistancia.add(comboBox_4);
+		JComboBox<String> cbVehiculoLargaDistancia = new JComboBox<String>();
+		cbVehiculoLargaDistancia.setBounds(280, 106, 134, 20);
+		largaDistancia.add(cbVehiculoLargaDistancia);
 		
 		JLabel label_6 = new JLabel("Cantidad de pasajeros");
 		label_6.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -606,38 +759,57 @@ public class UIPrincipal {
 		largaDistancia.add(spinner_1);
 		
 		JLabel label_7 = new JLabel("Valor del Viaje");
+		label_7.setBounds(new Rectangle(0, 268, 0, 0));
 		label_7.setHorizontalAlignment(SwingConstants.TRAILING);
 		label_7.setFont(new Font("Calibri", Font.PLAIN, 13));
 		label_7.setBounds(112, 322, 146, 14);
 		largaDistancia.add(label_7);
 		
 		JTextPane textPane_4 = new JTextPane();
+		textPane_4.setBounds(new Rectangle(0, 268, 0, 0));
 		textPane_4.setBounds(280, 322, 134, 20);
 		largaDistancia.add(textPane_4);
 		
-		JSpinner spinner_3 = new JSpinner();
-		spinner_3.setBounds(280, 214, 134, 20);
-		largaDistancia.add(spinner_3);
-		
 		JSpinner spinner_4 = new JSpinner();
-		spinner_4.setBounds(280, 268, 134, 20);
+		spinner_4.setBounds(280, 214, 134, 20);
 		largaDistancia.add(spinner_4);
-		
-		JLabel lblAsientosSemiCama = new JLabel("Asientos Semi Cama");
-		lblAsientosSemiCama.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAsientosSemiCama.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblAsientosSemiCama.setBounds(112, 214, 146, 14);
-		largaDistancia.add(lblAsientosSemiCama);
 		
 		JLabel lblAsientosCama = new JLabel("Asientos Cama");
 		lblAsientosCama.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAsientosCama.setFont(new Font("Calibri", Font.PLAIN, 13));
-		lblAsientosCama.setBounds(112, 268, 146, 14);
+		lblAsientosCama.setBounds(112, 214, 146, 14);
 		largaDistancia.add(lblAsientosCama);
 		
 		JButton button_4 = new JButton("Crear");
+		button_4.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		button_4.setBounds(239, 393, 120, 30);
 		largaDistancia.add(button_4);
 		
-	}
-}
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(280, 268, 134, 20);
+		largaDistancia.add(comboBox);
+		
+		JLabel lblResponsable = new JLabel("Responsable");
+		lblResponsable.setFont(new Font("Calibri", Font.PLAIN, 13));
+		lblResponsable.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblResponsable.setBounds(112, 271, 146, 14);
+		largaDistancia.add(lblResponsable);
+		
+		JButton btnAgregar_1 = new JButton("Agregar");
+		btnAgregar_1.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/altaIco.png")));
+		btnAgregar_1.setBounds(434, 267, 108, 23);
+		largaDistancia.add(btnAgregar_1);
+		
+		/**
+		 * PREGUNTA ANTES DE SALIR DEL SISTEMA
+		 */
+		
+        addWindowListener( new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				if(JOptionPane.showConfirmDialog(getContentPane(), "¿Desea salir del Sistema?", "Salir", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+					dispose();
+				}
+			}
+		});		
+	}//LLAVE CIERRA CONSTRUCTOR
+}//LLAVE CIERRA CLASE
