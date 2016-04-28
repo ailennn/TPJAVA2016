@@ -41,39 +41,14 @@ public class Agencia {
 		aux.setCiudad("Tandil");
 		listaDestino.add(aux);
 	}
-	
-	/*
-	 * Destinos, transportes y viajes creados para agregar a la lista de viajes
-	 * pendientes, y asi probar la simulacion. Despues hay que borrarlos
-	 */
-	/*Destino d1= new Destino("Los Toldos",600);
-	Destino d2= new Destino("Balcarce",60);
-	Transporte t1= new Auto("AAA000", 100);
-	Transporte t2= new Combi("AAA001", 90);
-	Transporte t3= new SemiCama("AAA002",88);
-	Transporte t4= new Cama("AAA003",88);
-	Viaje v1=new CortaDistancia("hola",t1,d2, 2,estadoViaje.PENDIENTE);
-	Viaje v2=new LargaDistancia("hola2",t2,d1, 5,estadoViaje.PENDIENTE,null);
-	Viaje v3=new LargaDistancia("hola3",t4,d1, 8,estadoViaje.PENDIENTE,null);
-	
-	
-	public void setListaViajesPendientes(){
-		if(this.listaViajesPendientes==null)
-			this.listaViajesPendientes=new LinkedList<Viaje>();
-		v1.setKmsRecorridos(0);
-		v2.setKmsRecorridos(0);
-		v3.setKmsRecorridos(0);
-		this.listaViajesPendientes.add(v1);
-		this.listaViajesPendientes.add(v2);
-		this.listaViajesPendientes.add(v3);
-	}*/
-	
+		
 	public LinkedList<Viaje> getListaViajesPendientes() {
 		return listaViajesPendientes;
 	}
 
 	/**
-	 * Recorre las listas de viajes pendientes y terminados.
+	 * Si el transporte no esta en la lista de viajes pendientes
+  	 * Recorre las listas de viajes terminados.
 	 * Si el transporte no está en ninguna de las listas, esta disponible
 	 * para hacer modificarlo o eliminarlo.
 	 * @param patente
@@ -81,37 +56,28 @@ public class Agencia {
 	 */
 	public boolean estaOcupadoTransporte(String patente){
 		boolean esta=false;
-		Viaje nodoViaje=null;
-		/**
-		 * Verifica que el transporte no este en la lista de viajes terminados
-		 */
-		if(listaViajesTerminados!=null){
-			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-			while(iterador.hasNext()&&!esta){
-				nodoViaje=iterador.next();
-				if(nodoViaje.getTransporte().getPatente().equals(patente))
-					esta=true;
-			}
-		}
-		/**
-		 * Verifica que el transporte no este en la lista de viajes pendiente si no estaba
-		 * en la lista anterior
-		 */
-		if(!esta){
-			if(listaViajesPendientes!=null){
-				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-				while(iterador2.hasNext()&&!esta){
-					nodoViaje=iterador2.next();
+		if(!estaEnViajeTransporte(patente)){
+			Viaje nodoViaje=null;
+			/**
+			 * Verifica que el transporte no este en la lista de viajes terminados
+			 */
+			if(listaViajesTerminados!=null){
+				ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+				while(iterador.hasNext()&&!esta){
+					nodoViaje=iterador.next();
 					if(nodoViaje.getTransporte().getPatente().equals(patente))
 						esta=true;
 				}
 			}
 		}
+		else
+			esta=true;
 		return esta;
 	}
 	
 	/**
-	 * Recorre las listas de viajes pendientes y terminados.
+	 * Si el responsable no esta en la lista de viajes pendientes
+ 	 * recorre las listas de viajes terminados.
 	 * Si el responsable no está en ninguna de las listas, esta disponible
 	 * para modificarlo o eliminarlo.
 	 * @param patente
@@ -119,38 +85,20 @@ public class Agencia {
 	 */
 	public boolean estaOcupadoResponsable(long dni){
 		boolean esta=false;
-		Viaje nodoViaje=null;
-		/**
-		 * Verifica que el responsable no este en la lista de viajes terminados
-		 */
-		if(listaViajesTerminados!=null){
-			ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
-			while(iterador.hasNext()&&!esta){
-				nodoViaje=iterador.next();
-				if(nodoViaje instanceof LargaDistancia){
-					Responsable r=null;
-					ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
-					while(itr.hasNext()&&!esta){
-						r=itr.next();
-						if(r.getDni()==dni)
-							esta=true;
-					}
-				}
-			}
-		}
-		/**
-		 * Verifica que el responsable no este en la lista de viajes pendiente si no estaba en la lista anterior
-		 */
-		if(!esta){
-			if(listaViajesPendientes!=null){
-				ListIterator <Viaje>iterador2=listaViajesPendientes.listIterator();
-				while(iterador2.hasNext()&&!esta){
-					nodoViaje=iterador2.next();
+		if(!estaEnViajeResponsable(dni)){
+			Viaje nodoViaje=null;
+			/**
+			 * Verifica que el responsable no este en la lista de viajes terminados
+			 */
+			if(listaViajesTerminados!=null){
+				ListIterator <Viaje>iterador=listaViajesTerminados.listIterator();
+				while(iterador.hasNext()&&!esta){
+					nodoViaje=iterador.next();
 					if(nodoViaje instanceof LargaDistancia){
 						Responsable r=null;
-						ListIterator<Responsable> itr2=nodoViaje.getListaResponsable().listIterator();
-						while(itr2.hasNext()&&!esta){
-							r=itr2.next();
+						ListIterator<Responsable> itr=nodoViaje.getListaResponsable().listIterator();
+						while(itr.hasNext()&&!esta){
+							r=itr.next();
 							if(r.getDni()==dni)
 								esta=true;
 						}
@@ -158,6 +106,8 @@ public class Agencia {
 				}
 			}
 		}
+		else
+			esta=true;
 		return esta;
 	}
 	
@@ -386,7 +336,7 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v= new CortaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE);
+					Viaje v= new CortaDistancia(t,d,cantPasajeros);
 					v.setNombre();
 					if(this.listaViajesPendientes==null) // si no tiene elementos
 					{
@@ -421,7 +371,7 @@ public class Agencia {
 					 */
 					d.setContador();
 					t.setOcupado(cantPasajeros);
-					Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 					v.setNombre();
 					if(this.listaViajesPendientes==null) // si no tiene elementos
 					{
@@ -457,7 +407,7 @@ public class Agencia {
 							/**
 							 * Crea el viaje y lo agrega a la lista de viajes pendientes
 							 */
-							Viaje v=new LargaDistancia("",t,d,cantPasajeros,estadoViaje.PENDIENTE,lista);
+							Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
 							v.setNombre();
 							if(this.listaViajesPendientes==null) // si no tiene elementos
 							{
