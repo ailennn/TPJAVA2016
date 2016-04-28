@@ -9,6 +9,10 @@ import java.io.Writer;
 import java.lang.Exception;
 import java.util.*;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
+import control.Validaciones;
 import misc.*;
 import transporte.*;
 import viaje.*;
@@ -24,6 +28,9 @@ public class Agencia {
 	private LinkedList<Responsable> listaResponsable;
 	private LinkedList<Viaje> listaViajesTerminados;
 	private LinkedList<Viaje> listaViajesPendientes;
+	private DefaultListModel<Responsable> aux; 
+	private DefaultListModel <Transporte> aux2; 
+
 	
 	
 	
@@ -159,57 +166,92 @@ public class Agencia {
 		return esta;
 	}
 	
+	/** 
+	 * Crea la lista de transportes en caso de que sea null 
+	 */ 
+	 public void setListaTransporte(Transporte nuevo) throws Exception{ 
+	 	if(this.listaTransporte==null) // si no tiene elementos 
+	 		this.listaTransporte= new LinkedList<Transporte>(); 
+	 	if(listaTransporte.contains(nuevo)) 
+	 		throw new Exception("Transporte existente"); 
+	 	else{ 
+	 		nuevo.setCapacidad(); 
+	 		listaTransporte.add(nuevo); 
+	 	} 
+	 } 
+	 	 
+	 /** 
+		* Validar la patente y la velocidad promedio de un transporte 
+	  * @param pat 
+	  * @param veloc 
+	  * @return 
+	  */ 
+	 public boolean validarPatenteVelocidad(String pat, int veloc){ 
+	 	if(!Validaciones.esNumero(Integer.toString(veloc)) || !Validaciones.esNumeroMayorCero(Integer.toString(veloc))){ 
+	 		JOptionPane.showMessageDialog(null, "Error en el ingreso de velocidad"); 
+	 		return false; 
+	 	} 
+	 	else 
+			/*if(Validaciones.formatoPatente(pat)){ 
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de la patente"); 
+	 			return false; 
+	 		} 
+	 		else*/ 
+	 			return true; 
+	 } 
+
+	
 	/**
 	 * Metodo para crear un auto
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaAuto(String pat, int veloc){
-		Auto nuevo = new Auto (pat,veloc);
-		nuevo.setCapacidad();
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
-	}
+	 public void altaAuto(String pat, int veloc) throws Exception{ 
+	 	if(validarPatenteVelocidad(pat,veloc)){ 
+	 		Auto nuevo = new Auto (pat,veloc); 
+	 		setListaTransporte(nuevo); 
+	 	} 
+	} 
+
 	
 	/**
 	 * Metodo para crear una combi
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaCombi(String pat, int veloc){
-		Combi nuevo = new Combi (pat, veloc);
-		nuevo.setCapacidad();
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
-	}
+	 public void altaCombi(String pat, int veloc) throws Exception{ 
+		if(validarPatenteVelocidad(pat,veloc)){ 
+		 	Combi nuevo = new Combi (pat, veloc); 
+		 	setListaTransporte(nuevo); 
+		 } 
+	} 
+
 	
 	/**
 	 * Metodo para crear un coche semi cama
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaSemiCama (String pat, int veloc){
-		SemiCama nuevo = new SemiCama (pat, veloc);
-		nuevo.setCapacidad();
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
-	}
+	 public void altaSemiCama (String pat, int veloc) throws Exception{ 
+		if(validarPatenteVelocidad(pat,veloc)){ 
+			SemiCama nuevo = new SemiCama (pat, veloc); 
+			setListaTransporte(nuevo); 
+		} 
+ 	} 
+
 	
 	/**
 	 * Metodo para crear un coche cama
 	 * @param pat
 	 * @param veloc
 	 */
-	public void altaCama (String pat, int veloc){
-		Cama nuevo = new Cama (pat, veloc);
-		nuevo.setCapacidad();
-		if(this.listaTransporte==null) // si no tiene elementos
-			this.listaTransporte= new LinkedList<Transporte>(); 
-		listaTransporte.add(nuevo);
-	}
+	 public void altaCama (String pat, int veloc) throws Exception{ 
+ 		if(validarPatenteVelocidad(pat,veloc)){ 
+			Cama nuevo = new Cama (pat, veloc); 
+			setListaTransporte(nuevo); 
+ 		} 
+	} 
+
 
 	/**
 	 * Si el transporte que se quiere modificar no estaba en ninguna lista de viajes,
@@ -223,15 +265,18 @@ public class Agencia {
 			ListIterator<Transporte> iterador4=listaTransporte.listIterator();
 			while(iterador4.hasNext() && !encontro){
 				nodoTransporte=iterador4.next();
-				if(nodoTransporte.getPatente().equals(patente)){
-					nodoTransporte.setPatente(patModif);
-					nodoTransporte.setVelocidad(velModif);
-					iterador4.set(nodoTransporte);
-					encontro=true;
+				if(nodoTransporte.getPatente().equals(patente)){ 
+					if(validarPatenteVelocidad(patModif,velModif)){ 
+						nodoTransporte.setPatente(patModif); 
+						nodoTransporte.setVelocidad(velModif); 
+						iterador4.set(nodoTransporte); 
+ 						encontro=true; 
+					} 
 				}
 			}
 		}
 	}
+	
 	/**
 	 * Si el transporte que se quiere eliminar no estaba en ninguna lista de viajes, 
 	 * se puede eliminar de la lista de transportes
@@ -252,18 +297,52 @@ public class Agencia {
 			}
 		}
 	}
+	
+	/** 
+	 * Validar los datos de un responsable, que se pasan por parametro 
+	 * @param nomb 
+	 * @param DNI 
+	 * @param sueldo 
+	 * @return 
+	 */ 
+	public boolean validarDatosResponsable(String nomb, long DNI, double sueldo){ 
+		if(!Validaciones.sonLetras(nomb)){ 
+			JOptionPane.showMessageDialog(null, "Error en el ingreso del nombre"); 
+			return false; 
+		} 
+		if(Validaciones.esReal(Long.toString(DNI)) || Validaciones.sonLetras(Long.toString(DNI)) || !Validaciones.esNumeroMayorCero(Long.toString(DNI))){ 
+			JOptionPane.showMessageDialog(null, "Error en el ingreso del dni"); 
+			return false; 
+		} 
+		else 
+			if(Validaciones.sonLetras(Double.toString(sueldo)) || !Validaciones.esNumeroMayorCero(Double.toString(sueldo))){ 
+				JOptionPane.showMessageDialog(null, "Error en el ingreso del sueldo"); 
+				return false; 
+			} 
+			else 
+				return true; 
+	} 
+
+	
+	
 	/**
 	 * Metodo para crear un responsable
 	 * @param nomb
 	 * @param DNI
 	 * @param sueldo
 	 */
-	public void altaResponsable (String nomb, long DNI, double sueldo){
-		Responsable nuevo = new Responsable (nomb, DNI, sueldo);
-		if(this.listaResponsable==null) // si no tiene elementos
-			this.listaResponsable= new LinkedList<Responsable>(); 
-		listaResponsable.add(nuevo);
-	}
+	public void altaResponsable (String nomb, long DNI, double sueldo) throws Exception{ 
+			if(validarDatosResponsable(nomb, DNI, sueldo)){ 
+				Responsable nuevo = new Responsable (nomb, DNI, sueldo); 
+				if(this.listaResponsable==null) // si no tiene elementos 
+					this.listaResponsable= new LinkedList<Responsable>();  
+				if(listaTransporte.contains(nuevo)) 
+					throw new Exception("Responsable existente"); 
+				else 
+					listaResponsable.add(nuevo); 
+			}			 
+	} 
+
 	
 	/**
 	 * Si el responsable que se quiere modificar no estaba en ninguna lista de viajes,
@@ -278,11 +357,13 @@ public class Agencia {
 			while(iterador4.hasNext() && !encontro){
 				nodoResponsable=iterador4.next();
 				if(nodoResponsable.getDni()== dni){
-					nodoResponsable.setDni(dniModif);
-					nodoResponsable.setSueldoFijo(sueldoModif);
-					nodoResponsable.setNombre(nombreModif);
-					iterador4.set(nodoResponsable);
-					encontro=true;
+					if(validarDatosResponsable(nombreModif, dniModif, sueldoModif)){ 
+						nodoResponsable.setDni(dniModif); 
+						nodoResponsable.setSueldoFijo(sueldoModif); 
+						nodoResponsable.setNombre(nombreModif); 
+						iterador4.set(nodoResponsable); 
+						encontro=true; 
+					}
 				}
 			}
 		}
@@ -308,6 +389,20 @@ public class Agencia {
 		}
 	}
 	
+	/** 
+	 * Settea el nombre del viaje, si la lista de viajes pendientes es nula la crea 
+	 * y agrega el viaje a la lista 
+	 * @param v 
+	 */ 
+	public void setListaViajesPendientes(Viaje v){ 
+		v.setNombre(); 
+		if(this.listaViajesPendientes==null) // si no tiene elementos 
+		{ 
+			this.listaViajesPendientes= new LinkedList<Viaje>();  
+		} 
+		listaViajesPendientes.add(v);  
+	} 
+
 	
 	/*
 	 * El método crearViaje esta sobrecargado, dependiendo los parametros que se les pase
@@ -326,27 +421,31 @@ public class Agencia {
 	 * que no esten en viaje (llamando al metodo estaEnViajeTransporte)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t){
-			/**
-			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad
-			 */
-			if((t instanceof Auto) || (t instanceof Combi) || (t instanceof SemiCama)){
-				if(cantPasajeros<=t.getCapacidad()){
-					/**
-					 * Crea el viaje y lo agrega a la lista de viajes pendientes
-					 */
-					d.setContador();
-					t.setOcupado(cantPasajeros);
-					Viaje v= new CortaDistancia(t,d,cantPasajeros);
-					v.setNombre();
-					if(this.listaViajesPendientes==null) // si no tiene elementos
-					{
-						this.listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v); 
-				}
-			}
-		
-	}
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){ 
+			/** 
+			 * Controla que el transporte no sea colectivo cama, y que la cantidad de pasajeros sea menor que la capacidad 
+			 */ 
+			if((t instanceof Auto) || (t instanceof Combi) || (t instanceof SemiCama)){ 
+				if(cantPasajeros<=t.getCapacidad()){ 
+					/** 
+					 * Crea el viaje y lo agrega a la lista de viajes pendientes 
+					 */ 
+					d.setContador(); 
+					t.setOcupado(cantPasajeros); 
+					Viaje v= new CortaDistancia(t,d,cantPasajeros); 
+					setListaViajesPendientes(v); 
+				} 
+				else 
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros"); 
+			} 
+			else 
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte"); 
+		} 
+		else 
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros"); 
+	} 
+
+
 	
 	/**
 	 * Crea un viaje de larga distancia, cuyo transporte es Combi o Colectivo Semi Cama
@@ -361,26 +460,30 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros, Transporte t,LinkedList<Responsable> lista){
-			/**
-			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad
-			 */
-			if((t instanceof Combi) || (t instanceof SemiCama)){
-				if(cantPasajeros<=t.getCapacidad()){
-					/**
-					 * Crea el viaje y lo agrega a la lista de viajes pendientes
-					 */
-					d.setContador();
-					t.setOcupado(cantPasajeros);
-					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
-					v.setNombre();
-					if(this.listaViajesPendientes==null) // si no tiene elementos
-					{
-						this.listaViajesPendientes= new LinkedList<Viaje>(); 
-					}
-					listaViajesPendientes.add(v);
-				}
-			}
-	}
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){ 
+			/** 
+			 * Controla que el transporte no sea auto, y que la cantidad de pasajeros sea menor que la capacidad 
+			 */ 
+			if((t instanceof Combi) || (t instanceof SemiCama)){ 
+				if(cantPasajeros<=t.getCapacidad()){ 
+					/** 
+					 * Crea el viaje y lo agrega a la lista de viajes pendientes 
+					 */ 
+					d.setContador(); 
+					t.setOcupado(cantPasajeros); 
+					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista); 
+					setListaViajesPendientes(v); 
+				} 
+				else 
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros"); 
+			} 
+			else 
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte"); 
+		} 
+		else 
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de  la cantidad de pasajeros"); 
+	} 
+
 	
 	/**
 	 * Crea un viaje de larga distancia, cuyo transporte es un Colectivo Cama
@@ -396,27 +499,31 @@ public class Agencia {
 	 * mismo para responsable (llamando al metodo estaEnViajeResponsable)
 	 */
 	public void crearViaje(Destino d, int cantPasajeros,int ocupadoCama, Transporte t,LinkedList<Responsable> lista){
-				/**
-				 * Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad
-				 */
-					if(t instanceof Cama && cantPasajeros<=t.getCapacidad()){
-						if(ocupadoCama<=26 && ocupadoCama<=cantPasajeros){
-							d.setContador();
-							t.setOcupado(ocupadoCama);
-							t.setOcupadoComun(cantPasajeros-ocupadoCama);
-							/**
-							 * Crea el viaje y lo agrega a la lista de viajes pendientes
-							 */
-							Viaje v=new LargaDistancia(t,d,cantPasajeros,lista);
-							v.setNombre();
-							if(this.listaViajesPendientes==null) // si no tiene elementos
-							{
-								this.listaViajesPendientes= new LinkedList<Viaje>(); 
-							}
-							listaViajesPendientes.add(v);
-						}
-					}
-	}
+		if(Validaciones.esNumero(Integer.toString(cantPasajeros)) && Validaciones.esNumeroMayorCero(Integer.toString(cantPasajeros))){ 
+			/** 
+			* Controla que el transporte sea cama, y que la cantidad de pasajeros sea menor que la capacidad 
+			*/ 
+			if(t instanceof Cama && cantPasajeros<=t.getCapacidad()){ 
+				if(ocupadoCama<=26 && ocupadoCama<=cantPasajeros){ 
+					d.setContador(); 
+					t.setOcupado(ocupadoCama); 
+					t.setOcupadoComun(cantPasajeros-ocupadoCama); 
+					/** 
+					 * Crea el viaje y lo agrega a la lista de viajes pendientes 
+					 */ 
+					Viaje v=new LargaDistancia(t,d,cantPasajeros,lista); 
+					setListaViajesPendientes(v); 
+				} 
+				else 
+					JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de asientos tipo cama"); 
+			} 
+			else 
+				JOptionPane.showMessageDialog(null, "Error en el ingreso de transporte o la cantidad de pasajeros"); 
+		} 
+		else 
+			JOptionPane.showMessageDialog(null, "Error en el ingreso de la cantidad de pasajeros"); 
+	} 
+
 	
 	/**
 	 * Finaliza un viaje, lo elimina de la lista de viajes pendientes y lo agrega a
@@ -516,110 +623,6 @@ public class Agencia {
 	}
 	
 	/**
-	 * Ranking de responsables a bordo ordenado de mayor a menor por 
-	 * cantidad de kilómetros recorridos en los viajes terminados.
-	 * Genera archivo de texto
-	 */
-	
-	public void ranking(){
-		Viaje v=null;
-		int suma=0;
-		/**
-		 * La lista auxiliar se usa para almacenar cada responsable(sin que esten repetidos)
-		 * con la cantidad total de kms recorridos, que se suman en la variable suma
-		 */
-		LinkedList<Responsable> listaAux=null;
-		LinkedList<Responsable>listaAux2=null;
-		LinkedList<Viaje>listaTerminados=listaViajesTerminados;
-		ListIterator<Viaje>iterador=listaTerminados.listIterator();
-		while(iterador.hasNext()){
-			v=iterador.next();
-			if(v instanceof LargaDistancia){
-				ListIterator<Responsable>itr=v.getListaResponsable().listIterator();
-				Responsable r=null;
-				while(itr.hasNext()){
-					r=itr.next();
-					if(listaAux==null)
-						listaAux=new LinkedList<Responsable>();
-					r.setSueldoFijo(v.getDestino().getKilometros());
-					listaAux.add(r);
-				}
-			}	
-		}
-		OrdenarPorResponsables(listaAux);
-
-		ListIterator<Responsable>itr2=listaAux.listIterator();
-		Responsable re=null;
-		if(itr2.hasNext()){
-			re=itr2.next();
-			long dni=re.getDni();
-			while(itr2.hasNext()){
-				if(re.getDni()==dni){
-					suma+=re.getSueldoFijo();
-					if(!itr2.hasNext() || itr2.next().getDni()!=dni){
-						if(listaAux2==null)
-							listaAux2=new LinkedList<Responsable>();
-						/**
-						 * En el atributo sueldoFijo de Responsable se almacena la cantidad
-						 * total de kilometros recorridos por ese Responsable
-						 */
-						re.setSueldoFijo(suma);
-						listaAux2.add(re);
-					}
-					re=itr2.next();
-				}
-				else{
-					dni=re.getDni();
-					suma=0;
-				}
-			}
-			if(listaAux2==null)
-				listaAux2=new LinkedList<Responsable>();
-			re.setSueldoFijo(suma+re.getSueldoFijo());
-			listaAux2.add(re);
-			
-			OrdenarPorKilometrosRecorridos(listaAux2);
-			
-			File arctxt=new File("src//archivos//ranking.txt"); 
-			Writer escribir;
-			if(!arctxt.exists()){
-				try {
-					arctxt.createNewFile();
-				} catch (Exception e) {
-					
-				}
-			}	
-			
-			try {
-				escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(arctxt), "UTF-8"));
-	
-				escribir.write("DNI \t \t");
-				escribir.write("Nombre \t \t");
-				escribir.write("Kilometros recorridos\n");
-				Responsable resp=null;
-				ListIterator <Responsable> itera= listaAux2.listIterator();
-				while(itera.hasNext()) {
-					resp=itera.next();
-					escribir.write(resp.getDni()+"\t \t");
-					escribir.write(resp.getNombre()+"\t \t");
-					escribir.write(resp.getSueldoFijo()+"\n");
-				}
-				escribir.close();
-				} catch (Exception e) {}
-		}
-	}
-	
-	/**
-	 * Recaudación de los viajes realizados por la empresa, 
-	 * permitiendo ver la información total o bien 
-	 * visualizarla por cada transporte y/o cada destino.
-	 * Genera archivo de texto
-	 */
-	
-	
-
-	
-	/**
 	 * Para recorrer la lista en la clase test, y ver si los métodos funcionan bien
 	 * @param listaTransporte
 	 */
@@ -646,6 +649,52 @@ public class Agencia {
 			System.out.println(nodoResponsable.getDni());
 		}					 
 	}	
+	
+	 /** Para recorrer la lista en la clase test, y ver si los métodos funcionan bien  
+	 * @param listaViajesPendientes  
+	  */  
+	 public void recorreListaViaje(LinkedList<Viaje> listaViajesPendietes) {  
+	 		  
+	 	Viaje nodoViaje= null;  
+	 	ListIterator <Viaje> iterador= listaViajesPendientes.listIterator();  
+	 	while(iterador.hasNext()){  
+	 		nodoViaje=iterador.next();  
+	 		System.out.println(nodoViaje.getNombre());  
+	 	}					   
+	 }  
+
+	
+	/** Recorre la lista de responsables, pasa el objeto para usar como DLM en un Jlist 
+	 * @return 
+	 */ 
+	public DefaultListModel<Responsable> getListaResponsable (){ 
+		aux = null; 
+		ListIterator <Responsable> iterador = listaResponsable.listIterator(); 
+		Responsable nodoResponsable=iterador.next(); 
+		while (iterador.hasNext()){ 
+	 		aux.addElement(nodoResponsable); 
+	 		nodoResponsable=iterador.next(); 
+	 	} 
+	 		 
+	 	return aux; 
+	 } 
+	
+	 /** 
+	  * Recorre la lista de transportes, pasa el objeto para usar como DLM en un Jlist 
+	  */ 
+	public DefaultListModel<Transporte> getListaTransporte () { 
+		aux2 = null; 
+		ListIterator <Transporte> iterador = listaTransporte.listIterator(); 
+	 	Transporte nodoTransporte = iterador.next(); 
+	 	while (iterador.hasNext()){ 
+	 		aux2.addElement(nodoTransporte); 
+			nodoTransporte=iterador.next(); 
+	 	}	 
+	 	return aux2; 
+	 } 
+
+	
+	
 	public ArrayList<String> getListaDestino (){
 		ArrayList<String> aux = null;
 		ListIterator <Destino> iterador = listaDestino.listIterator();
