@@ -78,7 +78,7 @@ public class UIPrincipal extends javax.swing.JFrame{
 	 * Create the application.
 	 * @throws Exception 
 	 */
-	public UIPrincipal(Agencia Agen) throws Exception {
+	public UIPrincipal(Agencia Agen){
 		A=Agen;
 		
 		frmAgenciaDeViajes = new JFrame();
