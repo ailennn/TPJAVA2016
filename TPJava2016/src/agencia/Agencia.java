@@ -30,6 +30,7 @@ public class Agencia {
 	private LinkedList<Viaje> listaViajesPendientes;
 	private DefaultListModel<Responsable> aux; 
 	private DefaultListModel <Transporte> aux2; 
+	private DefaultListModel <Destino> aux3;
 
 	
 	
@@ -694,13 +695,63 @@ public class Agencia {
 	 } 
 
 	
-	
-	public ArrayList<String> getListaDestino (){
-		ArrayList<String> aux = null;
-		ListIterator <Destino> iterador = listaDestino.listIterator();
-		Destino nodoDestino=iterador.next();
-			aux.add(nodoDestino.getCiudad());
+	public Destino devuelveDestino (String d){
+		Destino aux = null;
+		Destino nodoDestino=null;
+		ListIterator<Destino> iterador = listaDestino.listIterator();
+		while (iterador.hasNext()){
+			nodoDestino=iterador.next();
+			if (nodoDestino.getCiudad()==d){
+				aux=nodoDestino;
+			}
+		}
 		return aux;
 	}
+
+	
+	
+	public DefaultListModel<Destino> getListaDestino () { 
+		aux3 = null; 
+		ListIterator <Destino> iterador = listaDestino.listIterator(); 
+	 	Destino nodoDestino = iterador.next(); 
+	 	while (iterador.hasNext()){ 
+	 		aux3.addElement(nodoDestino);
+			nodoDestino=iterador.next(); 
+	 	}	 
+	 	return aux3; 
+	 }
+
+	
+	public Transporte devuelveTransporte (String t){
+		Transporte aux = null;
+		Transporte nodoTransporte=null;
+		ListIterator <Transporte> iterador = listaTransporte.listIterator();
+		while (iterador.hasNext()){
+			nodoTransporte=iterador.next();
+			if (t == "Auto" && nodoTransporte instanceof Auto){
+				if (estaEnViajeTransporte(nodoTransporte.getPatente())==false){
+						aux = nodoTransporte;
+					}	
+			}
+			else	//SI ES COMBI, CAMA, O SEMI CAMA
+				if (t=="Combi" && nodoTransporte instanceof Combi){
+					if (estaEnViajeTransporte(nodoTransporte.getPatente())==false){
+						aux = nodoTransporte;
+					}
+				}
+				else	//SI ES CAMA O SEMI CAMA
+					if (t=="Semi Cama" && nodoTransporte instanceof SemiCama){
+						if (estaEnViajeTransporte (nodoTransporte.getPatente())==false){
+							aux = nodoTransporte;
+						}
+					}
+					else 	//SI ES CAMA
+						if (estaEnViajeTransporte (nodoTransporte.getPatente())==false){
+							aux = nodoTransporte;
+						}
+		}
+	return aux;	
+	}
+	
 
 } 

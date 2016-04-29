@@ -34,6 +34,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
 
 import agencia.Agencia;
+import misc.Destino;
 import misc.Responsable;
 import misc.Simulacion;
 import misc.test;
@@ -62,6 +63,7 @@ public class UIPrincipal extends javax.swing.JFrame{
 	private JTextField tfConsultaResponsable;
 	
 	private Agencia A;
+	private JTextField tfCantPasajCortaDistancia;
 
 
 	public static void main(String[] args) {
@@ -752,23 +754,17 @@ public class UIPrincipal extends javax.swing.JFrame{
 		lblSeleccioneUnDestino.setBounds(112, 78, 146, 14);
 		cortaDistancia.add(lblSeleccioneUnDestino);
 		
-		JSpinner sCantPasajCortaDistancia = new JSpinner();
-		sCantPasajCortaDistancia.setBounds(280, 208, 134, 20);
-		cortaDistancia.add(sCantPasajCortaDistancia);
-		
 		JLabel lblCantidadDePasajeros = new JLabel("Cantidad de pasajeros");
 		lblCantidadDePasajeros.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblCantidadDePasajeros.setFont(new Font("Calibri", Font.PLAIN, 13));
 		lblCantidadDePasajeros.setBounds(112, 208, 146, 14);
 		cortaDistancia.add(lblCantidadDePasajeros);
 		
-		
 		JComboBox<String> cbVehiculoCortaDistancia = new JComboBox<String>();
 		cbVehiculoCortaDistancia.setModel(new DefaultComboBoxModel(new String[] {"Auto", "Combi", "Semi Cama"}));
 		cbVehiculoCortaDistancia.setBounds(280, 143, 134, 20);
 		//cbVehiculoCortaDistancia.setModel(modelLargaDistancia);
 		cortaDistancia.add(cbVehiculoCortaDistancia);
-		
 		
 		//ARMAR DEFAULT LIST MODEL PARA DESTINOS DE CORTA modelCortaDistancia
 		JComboBox<String> cbDestinoCortaDistancia = new JComboBox<String>(/*modelCortaDistancia*/);
@@ -793,13 +789,26 @@ public class UIPrincipal extends javax.swing.JFrame{
 			public void actionPerformed(ActionEvent e) {
 				int btnPregunta = JOptionPane.YES_NO_CANCEL_OPTION;
 				if (btnPregunta==JOptionPane.YES_OPTION){
-					if (cbDestinoCortaDistancia.getSelectedIndex()!= -1){
-						String destino = (String) cbDestinoCortaDistancia.getSelectedItem();
+					if (cbDestinoCortaDistancia.getSelectedIndex()!= -1 
+						&& Integer.parseInt(tfCantPasajCortaDistancia.getText())>0
+						&& cbVehiculoCortaDistancia.getSelectedIndex()!=-1){
 						
+						String destino = (String) cbDestinoCortaDistancia.getSelectedItem();
+						Destino d = A.devuelveDestino(destino);
+						int cantPasaj = Integer.parseInt(tfCantPasajCortaDistancia.getText());
+						String transporte = (String) cbVehiculoCortaDistancia.getSelectedItem();
+						Transporte t = A.devuelveTransporte(transporte);
+						A.crearViaje(d, cantPasaj, t);
+						}
+					else
+						{
+						JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
+						}
 					}
 				}
-			}
-		});JOptionPane.showMessageDialog(null, "No se pueden dejar campos vacios");
+		});
+		
+		
 		btnCrearViaje.setIcon(new ImageIcon(UIPrincipal.class.getResource("/ico/ok.png")));
 		btnCrearViaje.setBounds(239, 393, 120, 30);
 		cortaDistancia.add(btnCrearViaje);
@@ -808,6 +817,11 @@ public class UIPrincipal extends javax.swing.JFrame{
 		precioCortaDistancia.setBounds(280, 278, 46, 14);
 		//precioCortaDistancia.setText(text);
 		cortaDistancia.add(precioCortaDistancia);
+		
+		tfCantPasajCortaDistancia = new JTextField();
+		tfCantPasajCortaDistancia.setBounds(280, 205, 134, 20);
+		cortaDistancia.add(tfCantPasajCortaDistancia);
+		tfCantPasajCortaDistancia.setColumns(10);
 		
 		/**
 		 * CODIGO TAB LARGA DISTANCIA
